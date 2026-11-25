@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    :feature-home copy (CP-12 §7.9 / CP-11 §7.5 = design §17, verbatim; CP-00A §5.3 derived keys). CP-12a (SS-13):
+    header, status block, banner, states. CP-11 adds chart and tooltip copy; CP-12b adds the counter, doughnut, FAB
+    and S-02 Snackbar keys.
+    Shared keys used here but owned by :ui-core: s01_reading_empty, s01_age_*, trend_*, a11y_* (CP-06) and
+    s06_snackbar_saved („Connection saved”, CP-12 §7.8 — next to UiMessage, Moderator ruling SS-13).
+    Placeholders: {n} → %1$d; {x.x} → %1$s (formatted in code, one decimal).
+-->
+<resources>
+
+    <!-- C-S01-01 / -03 / -04 Top App Bar -->
+    <string name="s01_title">LightScout</string>
+    <string name="s01_action_statistics">Statistics</string>
+    <string name="s01_action_statistics_cd">Open statistics</string>
+    <string name="s01_action_settings">Settings</string>
+    <string name="s01_action_settings_cd">Open settings</string>
+    <string name="s01_action_support">Support</string>
+    <string name="s01_action_support_cd">Support LightScout</string>
+
+    <!-- DCR-43: optional support dialog, shown only after a tap on the heart -->
+    <string name="s01_support_title">Support LightScout</string>
+    <string name="s01_support_message">LightScout is a free app, made by one person who also lives with the daily rhythm of diabetes. If it makes your days a little easier, you can say thanks by buying me a coffee. It is completely optional, and the app stays exactly the same either way.</string>
+    <string name="s01_support_open">Donate</string>
+    <string name="s01_support_dismiss">Not now</string>
+    <string name="s01_support_open_failed">Could not open the page. Try again later.</string>
+    <string name="s01_support_url" translatable="false">https://buycoffee.to/kukuchta</string>
+
+    <!-- C-S01-08 range label -->
+    <string name="s01_range_urgent_low">Urgent low</string>
+    <string name="s01_range_low">Low</string>
+    <string name="s01_range_high">High</string>
+    <string name="s01_range_in_range">In range</string>
+    <string name="s01_unit_mgdl">mg/dL</string>
+    <string name="s01_delta">Delta %1$s mg/dL</string>
+    <string name="s01_delta_unknown">Delta — mg/dL</string>
+
+    <!-- C-S01-11 IOB, C-S01-12 next-reading indicator -->
+    <string name="s01_iob">IOB %1$s U</string>
+    <string name="s01_next_reading_overdue">Waiting for reading…</string>
+
+    <!-- C-S01-06 banner actions -->
+    <string name="s01_banner_action_turn_on">Turn on</string>
+    <string name="s01_banner_action_fix">Fix</string>
+    <string name="s01_banner_action_retry">Retry</string>
+    <string name="s01_banner_action_fix_connection">Fix connection</string>
+
+    <!-- §7.6 empty states -->
+    <string name="s01_state_first_use">Waiting for the first reading from Nightscout…</string>
+    <string name="s01_state_no_readings_24h">No readings in the last 24 hours</string>
+
+    <!-- C-S01-06 banner texts (§7.5) -->
+    <string name="s01_error_ns_not_responding">Nightscout is not responding</string>
+    <string name="s01_error_token_rejected">Nightscout rejected the access token</string>
+    <string name="s01_error_version_too_old">Nightscout version is too old (15.0.9 or newer needed)</string>
+    <string name="s01_error_token_permission_read">This token can\'t read data from Nightscout. Give it a role with read access.</string>
+    <string name="s01_error_token_permission_write">This token can\'t save, edit or delete entries. Give it a role with permission to create, update and delete entries.</string>
+    <string name="s01_error_not_nightscout">This address doesn\'t look like Nightscout.</string>
+    <string name="s01_error_data_loss">No new readings for %1$d min — Nightscout works, but nothing new arrived from the uploader</string>
+    <string name="s01_offline">No internet connection — showing data from %1$d min ago</string>
+    <string name="s01_permission_missing">Alarms may not ring — some phone settings are missing</string>
+    <string name="s01_alarms_off">Alarms are off</string>
+    <string name="s01_low_alarm_off">Low alarm is off</string>
+    <string name="s01_high_alarm_off">High alarm is off</string>
+    <string name="s01_low_high_alarms_off">Low and high alarms are off</string>
+
+    <!-- CP-11 chart, marker tooltip, and the host-owned Now chip. -->
+    <string name="s01_chart_empty">No readings in this period</string>
+    <string name="s01_chart_day_label" translatable="false">EEE d MMM</string>
+    <string name="s01_chart_hour_labels" translatable="false">00 … 23</string>
+    <string name="s01_chart_older_offline">Older data needs an internet connection</string>
+    <string name="s01_chart_older_error">Couldn\'t load older chart data</string>
+    <string name="s01_chart_a11y">Glucose chart, current %1$s, %2$s</string>
+    <string name="s01_tooltip_edit">Edit</string>
+    <string name="s01_now_chip">Now</string>
+    <string name="s01_now_chip_cd">Back to now</string>
+    <string name="s01_chart_type_bg_check">BG check</string>
+    <string name="s01_chart_type_carbs">Carbs</string>
+    <string name="s01_chart_type_bolus">Bolus</string>
+    <string name="s01_chart_type_site_change">Site change</string>
+    <string name="s01_chart_type_sensor_change">Sensor change</string>
+    <string name="s01_chart_type_pump_alert">Pump alert</string>
+    <string name="s01_tooltip_marker_row">%1$s%2$s, %3$s</string>
+
+    <!--
+        Reading group for TalkBack (§7.11; CP-00A §5.3 „Glucose {sgv} milligrams per decilitre, {trend}, {age}[, IOB
+        {iob} units]”; Q-86: the range word follows the value when a label is shown). The optional fragments are
+        appended in a fixed order: %2$s = range part (s01_status_a11y_range with an s01_range_* word, or empty),
+        %5$s = IOB part (s01_status_a11y_iob, or empty). {sgv} → %1$d, {trend} → %3$s, {age} → %4$s.
+    -->
+    <string name="s01_status_a11y">Glucose %1$d milligrams per decilitre%2$s, %3$s, %4$s%5$s%6$s</string>
+    <string name="s01_status_a11y_range">, %1$s</string>
+    <string name="s01_status_a11y_iob">, IOB %1$s units</string>
+
+    <!-- C-S01-16 / -17 consumable counters -->
+    <string name="s01_counter_site_title">Site age</string>
+    <string name="s01_counter_sensor_title">Sensor age</string>
+    <string name="s01_counter_value">%1$d d %2$d h</string>
+    <string name="s01_counter_change_soon">Change soon</string>
+    <string name="s01_counter_expired">Expired</string>
+    <string name="s01_counter_no_site_change">No records</string>
+    <string name="s01_counter_no_sensor_change">No records</string>
+    <string name="s01_counter_loading">Loading…</string>
+
+    <!-- C-S01-18 24-hour TIR doughnut -->
+    <string name="s01_doughnut_title">Last 24 h</string>
+    <string name="s01_doughnut_centre">%1$d %%</string>
+    <string name="s01_doughnut_legend">%1$d %% · %2$d %% · %3$d %% · %4$d %% · %5$d %%</string>
+    <string name="s01_doughnut_not_enough_data">Not enough data</string>
+    <string name="s01_doughnut_a11y">Last 24 hours: very low %1$d percent, low %2$d, in range %3$d, high %4$d, very high %5$d. Open statistics</string>
+    <string name="s01_doughnut_empty_a11y">Last 24 hours: Not enough data. Open statistics</string>
+    <string name="s01_chip_alarms_off">Alarms off</string>
+    <string name="s01_chip_low_off">Low off</string>
+    <string name="s01_chip_high_off">High off</string>
+    <string name="s01_chip_low_high_off">Low/High off</string>
+    <string name="s01_chip_readiness">Check settings</string>
+    <string name="s01_chip_version">Old version</string>
+    <string name="s01_chip_token">Token reject</string>
+    <string name="s01_chip_server">Server error</string>
+    <string name="s01_chip_token_permissions">Token perm.</string>
+    <string name="s01_chip_not_nightscout">Wrong server</string>
+    <string name="s01_chip_uploader">Uploader</string>
+    <string name="s01_chip_offline">Offline</string>
+    <string name="s01_chip_snoozed">Snoozed</string>
+    <string name="s01_snooze_title">Snoozed alarms</string>
+    <string name="s01_snooze_row">%1$s: until %2$s, %3$d min left</string>
+    <string name="s01_snooze_type_urgent_low">Urgent low</string>
+    <string name="s01_snooze_type_low">Low</string>
+    <string name="s01_snooze_type_high">High</string>
+    <string name="s01_snooze_type_no_data">No data</string>
+    <string name="s01_snooze_type_not_running">Monitoring stopped</string>
+    <string name="s01_counter_ok">OK</string>
+    <string name="s01_dock_bg">BG</string>
+    <string name="s01_counter_replace_soon">Replace soon</string>
+
+    <!-- C-S01-19 -->
+    <string name="s01_fab_add_entry">Add entry</string>
+    <string name="s01_snackbar_entry_saved">Entry saved</string>
+    <string name="s01_snackbar_entry_updated">Entry updated</string>
+    <string name="s01_snackbar_entry_deleted">Entry deleted</string>
+</resources>

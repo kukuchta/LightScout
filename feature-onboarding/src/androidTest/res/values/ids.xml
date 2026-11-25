@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Test-only view id of the NavHostFragment container in TestHostActivity (stable across restore). -->
+<resources>
+    <item name="test_nav_host" type="id" />
+</resources>

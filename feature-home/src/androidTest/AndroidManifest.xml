@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Test APK only (CP-12 §9 TST-06, CP-12a parts; compiled in SS-13, run on RD-2 API 33 over USB — CP-00 §10 CR-04,
+    D-048). The test Application stands in for the CP-15 composition root (IF-28 with fakes for IF-21 / IF-25 / IF-15);
+    the host activity stands in for MainActivity (IF-29 recording navigator, NavHostFragment with home_graph).
+    No network, no Nightscout (CP-00 §8).
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:name="app.lightscout.feature.home.TestHomeApplication"
+        android:theme="@style/Theme.LightScout">
+        <activity
+            android:name="app.lightscout.feature.home.TestHostActivity"
+            android:exported="false" />
+    </application>
+
+</manifest>

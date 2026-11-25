@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    S-08 bundled manufacturer guides (CP-14 §7.5 / §7.6, ST-08, CP-00A R-85; content task AQ-02).
+    STATUS: Xiaomi steps PO-approved (AQ-02 / D-053, with step 2 amended by D-106 / DCR-13 / DS:CR-18);
+    other manufacturer guides remain drafts pending PO sign-off. Mirror: docs/implementation/content/S-08-guides.md (keep both equal;
+    ResourcesTest checks the Xiaomi structure).
+
+    Format (R-85): per manufacturer option a string-array s08_steps_<option> and a parallel, non-translatable array
+    s08_steps_<option>_open of OemSettingId names (IF-56) or an empty item (text-only step). A step's „Open …” button is
+    shown only when SystemSettingsIntents.oem(id) resolves on the phone (VR-05 fallback: hidden).
+    Xiaomi: exactly the seven required steps of §7.6 (06 §9 AQ-02 + §11 F19), in that order.
+    Samsung, Huawei / Honor, OnePlus / OPPO / realme: drafts paraphrased from dontkillmyapp.com (R-85; G-14-10).
+    Google Pixel and Other have no arrays: they show s08_no_extra_steps.
+-->
+<resources>
+
+    <!-- „{setting name}” values of the C-S08-05 button „Open {setting name}” (G-14-10). -->
+    <string name="s08_setting_autostart">Autostart</string>
+    <string name="s08_setting_battery_saver">Battery saver</string>
+    <string name="s08_setting_app_details">app settings</string>
+
+    <!-- Xiaomi / Redmi / POCO (HyperOS, RD-1) — 1 Autostart · 2 Battery saver → No restrictions · 3 lock in recents ·
+         4 Show on lock screen · 5 Display pop-up windows while running in background · 6 Floating notifications ·
+         7 Lock screen notifications. -->
+    <string-array name="s08_steps_xiaomi">
+        <item>Open Settings → Apps → Manage apps → LightScout and turn on Autostart.</item>
+        <item>In LightScout\'s app settings, open Power (Zasilanie), then choose No restrictions under Battery saver.</item>
+        <item>Open recent apps, long-press the LightScout card and tap the lock icon.</item>
+        <item>In LightScout\'s app settings, tap Other permissions and allow Show on lock screen.</item>
+        <item>In Other permissions, also allow Display pop-up windows while running in background.</item>
+        <item>In LightScout\'s app settings, tap Notifications and turn on Floating notifications.</item>
+        <item>In Notifications, also turn on Lock screen notifications.</item>
+    </string-array>
+    <string-array name="s08_steps_xiaomi_open" translatable="false">
+        <item>XIAOMI_AUTOSTART</item>
+        <item>APP_DETAILS</item>
+        <item />
+        <item>APP_DETAILS</item>
+        <item>APP_DETAILS</item>
+        <item>APP_DETAILS</item>
+        <item>APP_DETAILS</item>
+    </string-array>
+
+    <!-- Samsung (One UI) — DRAFT from dontkillmyapp.com/samsung (paraphrased). -->
+    <string-array name="s08_steps_samsung">
+        <item>Open Settings → Apps → LightScout → Battery and choose Unrestricted.</item>
+        <item>Open Settings → Battery → Background usage limits and make sure LightScout is not in Sleeping apps or Deep sleeping apps.</item>
+        <item>In Background usage limits, turn off Put unused apps to sleep.</item>
+    </string-array>
+    <string-array name="s08_steps_samsung_open" translatable="false">
+        <item>APP_DETAILS</item>
+        <item />
+        <item />
+    </string-array>
+
+    <!-- Huawei / Honor (EMUI, MagicOS) — DRAFT from dontkillmyapp.com/huawei (paraphrased). -->
+    <string-array name="s08_steps_huawei">
+        <item>Open Settings → Battery → App launch, find LightScout and turn off Manage automatically.</item>
+        <item>In the window that opens, keep Auto-launch, Secondary launch and Run in background turned on.</item>
+        <item>Open recent apps and lock LightScout by swiping down on its card.</item>
+    </string-array>
+    <string-array name="s08_steps_huawei_open" translatable="false">
+        <item />
+        <item />
+        <item />
+    </string-array>
+
+    <!-- OnePlus / OPPO / realme (OxygenOS, ColorOS, realme UI) — DRAFT from dontkillmyapp.com/oneplus (paraphrased). -->
+    <string-array name="s08_steps_oneplus">
+        <item>Open Settings → Apps → LightScout → Battery usage and turn on Allow background activity.</item>
+        <item>In Battery usage, also turn on Allow auto launch.</item>
+        <item>Open recent apps, tap the menu on the LightScout card and choose Lock.</item>
+    </string-array>
+    <string-array name="s08_steps_oneplus_open" translatable="false">
+        <item>APP_DETAILS</item>
+        <item />
+        <item />
+    </string-array>
+
+</resources>

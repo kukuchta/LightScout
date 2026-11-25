@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Outlined segment of a MaterialButtonToggleGroup (entry type selector, statistics period selector). -->
+    <style name="Widget.LightScout.Segment" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="strokeColor">@color/segment_stroke</item>
+    </style>
+</resources>

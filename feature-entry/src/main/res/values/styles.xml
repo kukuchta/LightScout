@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Time pill: 36 dp visual inside a 48 dp touch target; checked = accent fill. -->
+    <style name="Widget.LightScout.Entry.Pill" parent="Widget.Material3.Button.TonalButton">
+        <item name="android:insetTop">6dp</item>
+        <item name="android:insetBottom">6dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="cornerRadius">24dp</item>
+        <item name="backgroundTint">@color/s02_pill_background</item>
+        <item name="android:textColor">@color/s02_pill_text</item>
+        <item name="strokeColor">@color/s02_pill_stroke</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Test APK only (CP-13 §9 TST-06 S-02; compiled in SS-15, run in the M2 batched device run on RD-2 API 33).
+    The test Application stands in for the CP-15 composition root (IF-28 with fakes for IF-23 / IF-21 / IF-15 and the
+    real IF-06); the host activity stands in for MainActivity (IF-29 recording navigator, NavHostFragment with
+    entry_graph). No network: the fake IF-23 never contacts any server (CP-00 §8).
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:name="app.lightscout.feature.entry.TestEntryApplication"
+        android:theme="@style/Theme.LightScout">
+        <activity
+            android:name="app.lightscout.feature.entry.TestHostActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+    </application>
+
+</manifest>

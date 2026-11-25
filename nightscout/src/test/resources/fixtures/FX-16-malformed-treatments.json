@@ -1,0 +1,9 @@
+{"status":200,"result":[
+ {"identifier":"fx16t-ok","eventType":"Carb Correction","carbs":10,"created_at":"2030-01-01T00:00:00.000Z"},
+ {"identifier":"fx16t-negative-carbs","eventType":"Carb Correction","carbs":-5,"created_at":"2030-01-01T00:10:00.000Z"},
+ {"identifier":"fx16t-no-time","eventType":"Carb Correction","carbs":10},
+ {"identifier":"fx16t-carbs-string","eventType":"Carb Correction","carbs":"ten","created_at":"2030-01-01T00:20:00.000Z"},
+ ["nested","array"],
+ null,
+ {"identifier":"fx16t-ok-2","eventType":"BG Check","glucose":90,"created_at":"2030-01-01T00:30:00.000Z"}
+]}

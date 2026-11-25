@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="s03_title">Statistics</string>
+    <string name="s03_period_yesterday">Yesterday</string>
+    <string name="s03_period_7_days">7 days</string>
+    <string name="s03_period_14_days">14 days</string>
+    <string name="s03_period_30_days">30 days</string>
+    <string name="s03_period_yesterday_short">Yday</string>
+    <string name="s03_period_7_days_short">7 d</string>
+    <string name="s03_period_14_days_short">14 d</string>
+    <string name="s03_period_30_days_short">30 d</string>
+    <string name="s03_period_formats" translatable="false">EEE d MMM / d MMM – d MMM</string>
+    <string name="s03_coverage_partial">Based on %1$d %% of expected readings — results may be inaccurate</string>
+    <string name="s03_offline_cache_line">Offline — based on readings saved on this phone</string>
+    <string name="s03_band_very_low">Very low</string>
+    <string name="s03_band_low">Low</string>
+    <string name="s03_band_in_range">In range</string>
+    <string name="s03_band_high">High</string>
+    <string name="s03_band_very_high">Very high</string>
+    <string name="s03_percent">%1$d %%</string>
+    <string name="s03_metric_mean">Mean glucose</string>
+    <string name="s03_metric_mean_value">%1$d mg/dL</string>
+    <string name="s03_metric_cv">CV</string>
+    <string name="s03_metric_gmi">GMI (est. HbA1c)</string>
+    <string name="s03_metric_gmi_value">%1$s %%</string>
+    <string name="s03_empty">No readings in this period</string>
+    <string name="s03_retry">Retry</string>
+    <string name="s03_error">Couldn\'t load statistics — Nightscout is not responding.</string>
+    <string name="s03_offline">Statistics need an internet connection.</string>
+</resources>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    LightScout Material 3 theme (CMP-30; CP-06 §7.2 = DESIGN §13.1; GIR-8, GIR-9, GIR-10).
+    - Parent Theme.Material3.DayNight.NoActionBar (TD-1); dark values come from values-night/colors.xml (M17).
+    - Dynamic colour is OFF: every colour role is a static resource from seed #3F5F90 (DS:D-069, D-070); the app
+      never applies dynamic colour.
+    - Text fields: Outlined, app-wide (DS:D-071, GIR-9).
+    - Shapes: M3 default scale, small 8 dp, medium 12 dp (cards), large 16 dp (FAB, sheets), buttons fully rounded
+      (DS:D-072).
+    - Surfaces (M3-37): app bar lifts by colour (surface to surfaceContainer), no shadow; Outlined cards on surface;
+      Filled cards surfaceContainerHighest; dialogs surfaceContainerHigh; no pure black surface.
+    - Edge-to-edge (GIR-6, M3-01): transparent system bars; activities call EdgeToEdgeInsets.enable().
+-->
+<resources>
+
+    <style name="Theme.LightScout" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Colour roles: fixed LightScout scheme (no dynamic colour). -->
+        <item name="colorPrimary">@color/md_theme_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_onPrimaryContainer</item>
+        <item name="colorPrimaryInverse">@color/md_theme_inversePrimary</item>
+        <item name="colorPrimaryFixed">@color/md_theme_primaryFixed</item>
+        <item name="colorPrimaryFixedDim">@color/md_theme_primaryFixedDim</item>
+        <item name="colorOnPrimaryFixed">@color/md_theme_onPrimaryFixed</item>
+        <item name="colorOnPrimaryFixedVariant">@color/md_theme_onPrimaryFixedVariant</item>
+        <item name="colorSecondary">@color/md_theme_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_onSecondaryContainer</item>
+        <item name="colorSecondaryFixed">@color/md_theme_secondaryFixed</item>
+        <item name="colorSecondaryFixedDim">@color/md_theme_secondaryFixedDim</item>
+        <item name="colorOnSecondaryFixed">@color/md_theme_onSecondaryFixed</item>
+        <item name="colorOnSecondaryFixedVariant">@color/md_theme_onSecondaryFixedVariant</item>
+        <item name="colorTertiary">@color/md_theme_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_theme_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_onTertiaryContainer</item>
+        <item name="colorTertiaryFixed">@color/md_theme_tertiaryFixed</item>
+        <item name="colorTertiaryFixedDim">@color/md_theme_tertiaryFixedDim</item>
+        <item name="colorOnTertiaryFixed">@color/md_theme_onTertiaryFixed</item>
+        <item name="colorOnTertiaryFixedVariant">@color/md_theme_onTertiaryFixedVariant</item>
+        <item name="colorError">@color/md_theme_error</item>
+        <item name="colorOnError">@color/md_theme_onError</item>
+        <item name="colorErrorContainer">@color/md_theme_errorContainer</item>
+        <item name="colorOnErrorContainer">@color/md_theme_onErrorContainer</item>
+        <item name="android:colorBackground">@color/md_theme_background</item>
+        <item name="colorOnBackground">@color/md_theme_onBackground</item>
+        <item name="colorSurface">@color/md_theme_surface</item>
+        <item name="colorOnSurface">@color/md_theme_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_onSurfaceVariant</item>
+        <item name="colorSurfaceInverse">@color/md_theme_inverseSurface</item>
+        <item name="colorOnSurfaceInverse">@color/md_theme_inverseOnSurface</item>
+        <item name="colorSurfaceBright">@color/md_theme_surfaceBright</item>
+        <item name="colorSurfaceDim">@color/md_theme_surfaceDim</item>
+        <item name="colorSurfaceContainerLowest">@color/md_theme_surfaceContainerLowest</item>
+        <item name="colorSurfaceContainerLow">@color/md_theme_surfaceContainerLow</item>
+        <item name="colorSurfaceContainer">@color/md_theme_surfaceContainer</item>
+        <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
+        <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
+        <item name="colorOutline">@color/md_theme_outline</item>
+        <item name="colorOutlineVariant">@color/md_theme_outlineVariant</item>
+
+        <!-- Extended colour "warning" (GIR-10). -->
+        <item name="warning">@color/md_theme_warning</item>
+        <item name="onWarning">@color/md_theme_onWarning</item>
+        <item name="warningContainer">@color/md_theme_warningContainer</item>
+        <item name="onWarningContainer">@color/md_theme_onWarningContainer</item>
+
+        <!-- Shapes: M3 default scale (DS:D-072). -->
+        <item name="shapeAppearanceCornerSmall">@style/ShapeAppearance.LightScout.Small</item>
+        <item name="shapeAppearanceCornerMedium">@style/ShapeAppearance.LightScout.Medium</item>
+        <item name="shapeAppearanceCornerLarge">@style/ShapeAppearance.LightScout.Large</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.LightScout.Small</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.LightScout.Medium</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.LightScout.Large</item>
+
+        <!-- Components (GIR-9, M3-37). -->
+        <item name="textInputStyle">@style/Widget.LightScout.TextInputLayout</item>
+        <item name="appBarLayoutStyle">@style/Widget.LightScout.AppBarLayout</item>
+        <item name="toolbarStyle">@style/Widget.LightScout.Toolbar</item>
+        <item name="materialCardViewStyle">@style/Widget.LightScout.CardView.Outlined</item>
+        <item name="materialButtonStyle">@style/Widget.LightScout.Button</item>
+        <item name="floatingActionButtonStyle">@style/Widget.LightScout.FloatingActionButton</item>
+        <item name="extendedFloatingActionButtonStyle">@style/Widget.LightScout.ExtendedFloatingActionButton</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.LightScout.BottomSheetDialog</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.LightScout.MaterialAlertDialog</item>
+
+        <!-- Edge-to-edge (GIR-6): transparent bars; contrast scrims are not forced over the content. -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:enforceNavigationBarContrast">false</item>
+        <item name="android:enforceStatusBarContrast">false</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+    </style>
+
+    <!--
+        Reviewed Glass Mono child theme (CP-00A R-90, R-95; assigned to MainActivity only). One definition for light and
+        dark: colour roles come from the glass_* tokens, which have a light set in values/glass_colors.xml and a dark set
+        in values-night/glass_colors.xml. Dynamic colour stays off. Roles not listed (tertiary, inverse, fixed) keep the
+        legacy values of the current mode.
+    -->
+    <style name="Theme.LightScout.Glass" parent="Theme.LightScout">
+        <item name="colorPrimary">@color/glass_accent</item>
+        <item name="colorOnPrimary">@color/glass_on_accent</item>
+        <item name="colorPrimaryContainer">@color/glass_chip_info_background</item>
+        <item name="colorOnPrimaryContainer">@color/glass_chip_info_text</item>
+        <item name="colorSecondary">@color/glass_text_muted</item>
+        <item name="colorOnSecondary">@color/glass_background</item>
+        <item name="colorSecondaryContainer">@color/glass_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/glass_on_secondary_container</item>
+        <item name="colorError">@color/glass_reading_urgent_low</item>
+        <item name="colorOnError">@color/glass_background</item>
+        <item name="colorErrorContainer">@color/glass_chip_warning_background</item>
+        <item name="colorOnErrorContainer">@color/glass_chip_warning_text</item>
+        <item name="android:colorBackground">@color/glass_background</item>
+        <item name="colorOnBackground">@color/glass_text</item>
+        <item name="colorSurface">@color/glass_background</item>
+        <item name="colorOnSurface">@color/glass_text</item>
+        <!-- TextViews without an explicit colour read android:textColorPrimary, which Material 3 sets to its own
+             lilac-tinted #E6E0E9 in dark; point it (and the secondary role) at the glass text tokens (D-149). -->
+        <item name="android:textColorPrimary">@color/glass_text</item>
+        <item name="android:textColorSecondary">@color/glass_text_muted</item>
+        <item name="colorSurfaceVariant">@color/glass_surface_container_highest</item>
+        <item name="colorOnSurfaceVariant">@color/glass_text_muted</item>
+        <item name="colorSurfaceDim">@color/glass_background</item>
+        <item name="colorSurfaceBright">@color/glass_surface_container_highest</item>
+        <item name="colorSurfaceContainerLowest">@color/glass_background</item>
+        <item name="colorSurfaceContainerLow">@color/glass_background</item>
+        <item name="colorSurfaceContainer">@color/glass_surface_container</item>
+        <item name="colorSurfaceContainerHigh">@color/glass_surface_container_high</item>
+        <item name="colorSurfaceContainerHighest">@color/glass_surface_container_highest</item>
+        <item name="colorOutline">@color/glass_text_muted</item>
+        <item name="colorOutlineVariant">@color/glass_surface_container_highest</item>
+
+        <item name="warning">@color/glass_band_high</item>
+        <item name="onWarning">@color/glass_background</item>
+        <item name="warningContainer">@color/glass_band_very_high</item>
+        <item name="onWarningContainer">@color/glass_background</item>
+
+        <item name="android:windowBackground">@drawable/glass_background</item>
+
+        <item name="textAppearanceDisplayLarge">@style/TextAppearance.LightScout.Glass.DisplayLarge</item>
+        <item name="textAppearanceDisplayMedium">@style/TextAppearance.LightScout.Glass.DisplayMedium</item>
+        <item name="textAppearanceDisplaySmall">@style/TextAppearance.LightScout.Glass.DisplaySmall</item>
+        <item name="textAppearanceHeadlineLarge">@style/TextAppearance.LightScout.Glass.HeadlineLarge</item>
+        <item name="textAppearanceHeadlineMedium">@style/TextAppearance.LightScout.Glass.HeadlineMedium</item>
+        <item name="textAppearanceHeadlineSmall">@style/TextAppearance.LightScout.Glass.HeadlineSmall</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.LightScout.Glass.TitleLarge</item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.LightScout.Glass.TitleMedium</item>
+        <item name="textAppearanceTitleSmall">@style/TextAppearance.LightScout.Glass.TitleSmall</item>
+        <item name="textAppearanceBodyLarge">@style/TextAppearance.LightScout.Glass.BodyLarge</item>
+        <item name="textAppearanceBodyMedium">@style/TextAppearance.LightScout.Glass.BodyMedium</item>
+        <item name="textAppearanceBodySmall">@style/TextAppearance.LightScout.Glass.BodySmall</item>
+        <item name="textAppearanceLabelLarge">@style/TextAppearance.LightScout.Glass.LabelLarge</item>
+        <item name="textAppearanceLabelMedium">@style/TextAppearance.LightScout.Glass.LabelMedium</item>
+        <item name="textAppearanceLabelSmall">@style/TextAppearance.LightScout.Glass.LabelSmall</item>
+
+        <item name="materialCardViewStyle">@style/Widget.LightScout.Glass.Card</item>
+        <item name="toolbarStyle">@style/Widget.LightScout.Glass.Toolbar</item>
+        <item name="appBarLayoutStyle">@style/Widget.LightScout.Glass.AppBarLayout</item>
+    </style>
+
+    <!-- Bottom sheets: large 16 dp corners (DS:D-072). -->
+    <style name="ThemeOverlay.LightScout.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.LightScout.BottomSheet.Modal</item>
+    </style>
+
+    <!-- Dialogs on surfaceContainerHigh (M3-37). -->
+    <style name="ThemeOverlay.LightScout.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="alertDialogStyle">@style/MaterialAlertDialog.LightScout</item>
+    </style>
+
+    <style name="MaterialAlertDialog.LightScout" parent="MaterialAlertDialog.Material3">
+        <item name="backgroundTint">?attr/colorSurfaceContainerHigh</item>
+    </style>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    DEBUG BUILDS ONLY (🏛️ Q-63 / IR-66): VR-16 Run B loop-break receiver. Exported here only, protected by
+    android.permission.DUMP (held by adb shell, not by third-party apps). Absent from the release manifest —
+    CP-15 TST-13 must assert that no DebugLoopBreakReceiver is in the merged release manifest.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <receiver
+            android:name="app.lightscout.monitor.DebugLoopBreakReceiver"
+            android:exported="true"
+            android:permission="android.permission.DUMP">
+            <intent-filter>
+                <action android:name="app.lightscout.monitor.debug.BREAK_LOOP" />
+                <action android:name="app.lightscout.monitor.debug.RESTORE_LOOP" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

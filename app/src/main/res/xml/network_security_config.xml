@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Network security config for release AND debug (CP-15 §8.5; SR-14, SR-15 as amended by 07 §10 S1, SR-16):
+    no cleartext, no domain exceptions, system trust anchors only, no pinning. User CAs are trusted only in the
+    separate debugProxy variant (app/src/debugProxy/res/xml/network_security_config.xml), never installed on RD-1 / RD-2.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

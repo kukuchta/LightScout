@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- TODO-5 logo A2a, dark: a pulse kept between the High (amber) and Low (red) guides, the top spike slightly above High,
+     ending in a neutral dot like an in-range chart dot. Drawn in the 100 x 100 design grid, scaled to 0.78 so that the
+     glyph stays inside the 66 dp safe zone of the 108 dp adaptive icon. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group android:pivotX="50" android:pivotY="50" android:scaleX="0.78" android:scaleY="0.78" android:translateX="4" android:translateY="4">
+        <path android:pathData="M12,28 L88,28" android:strokeColor="#F0A30A" android:strokeWidth="3" android:strokeLineCap="round" />
+        <path android:pathData="M12,72 L88,72" android:strokeColor="#E11D48" android:strokeWidth="3" android:strokeLineCap="round" />
+        <path android:pathData="M10,50 L26,50 L33,50 L40,23 L48,65 L56,41 L62,50 L68,50" android:strokeColor="#F4F6FA" android:strokeWidth="5.4" android:strokeLineCap="round" android:strokeLineJoin="round" />
+        <path android:pathData="M80,50 m-12,0 a12,12 0 1,0 24,0 a12,12 0 1,0 -24,0" android:fillColor="#F4F6FA" android:fillAlpha="0.22" />
+        <path android:pathData="M80,50 m-6.5,0 a6.5,6.5 0 1,0 13,0 a6.5,6.5 0 1,0 -13,0" android:fillColor="#F4F6FA" />
+    </group>
+</vector>

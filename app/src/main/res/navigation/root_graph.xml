@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Root navigation graph of :app (CP-15 §7.3, CP-00A R-38). It includes one nested graph per feature module that
+    exists: home_graph (:feature-home, S-01), onboarding_graph (:feature-onboarding, S-05…S-08) and entry_graph
+    (:feature-entry, S-02; added in SS-15, reached from S-01 by id with the nullable argument entryId).
+    stats_graph (S-03) and settings_graph (S-04) are feature-owned nested graphs.
+
+    Start destination (BUG-05, ruling Q-94): set at runtime. MainActivity sets no graph until IF-27 has resolved (the
+    window background acts as splash), then inflates this graph, sets its start to home_graph or onboarding_graph
+    (StartRoute) and hands it to the NavController, so the root start is always the bottom graph of the back stack
+    and Up on S-01 never relaunches the task. The value below is only the inflation default. After process death the
+    restored back stack is used with the saved start and IF-27 is not called.
+    Cross-feature edges go through IF-29 Navigator, never through actions to other graphs (R-4): graphs by id, S-06 /
+    S-07 inside onboarding_graph by their internal deep links (NavLinks).
+-->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_graph"
+    app:startDestination="@id/home_graph">
+
+    <include app:graph="@navigation/home_graph" />
+
+    <include app:graph="@navigation/onboarding_graph" />
+
+    <include app:graph="@navigation/entry_graph" />
+
+    <include app:graph="@navigation/stats_graph" />
+
+    <include app:graph="@navigation/settings_graph" />
+
+</navigation>

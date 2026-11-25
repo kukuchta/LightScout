@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Nested navigation graph of :feature-onboarding (CP-14 §4.1, §7.1; CP-00 R-4; CP-00A R-38). :app <include>s it in
+    root_graph.xml (CP-15). S-05 → S-06 → S-07 → S-08 are actions inside this graph; other features reach S-06 / S-07
+    only through IF-29 Navigator (by internal deep link, see below). Safe Args (Java) are generated inside this module.
+    Arguments: S-05 none · S-06 mode: ConnectionMode · S-07 mode: ReadinessMode · S-08 manufacturer: Manufacturer.
+    The token is never a navigation argument (SR-02, SR-28).
+    Internal deep links (BUG-05, ruling Q-94): S-06 and S-07 carry an internal URI (scheme lightscout-internal) so that
+    IF-29 can reach them from a sibling graph (S-01 in home_graph, later S-04) with a NavDeepLinkRequest — Navigation
+    resolves destination ids only among the children of the current graph and its parents. {mode} is the Safe Args
+    enum argument below (parsed by name). The URIs are app-internal only: no manifest <nav-graph>, no intent filter
+    (TST-13), and MainActivity hands NavController only a clean intent (SR-21).
+-->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/onboarding_graph"
+    app:startDestination="@id/disclaimerFragment">
+
+    <!-- S-05 Disclaimer (first launch only; back exits the app — A-S05-2). -->
+    <fragment
+        android:id="@+id/disclaimerFragment"
+        android:name="app.lightscout.feature.onboarding.disclaimer.DisclaimerFragment">
+        <action
+            android:id="@+id/action_disclaimerFragment_to_connectionFragment"
+            app:destination="@id/connectionFragment">
+            <argument
+                android:name="mode"
+                android:defaultValue="ONBOARDING"
+                app:argType="app.lightscout.ui.core.ConnectionMode" />
+        </action>
+    </fragment>
+
+    <!-- S-06 Nightscout connection (onboarding from S-05; edit from S-01 / S-04 through Navigator.openConnection). -->
+    <fragment
+        android:id="@+id/connectionFragment"
+        android:name="app.lightscout.feature.onboarding.connection.ConnectionFragment">
+        <argument
+            android:name="mode"
+            android:defaultValue="ONBOARDING"
+            app:argType="app.lightscout.ui.core.ConnectionMode" />
+        <deepLink app:uri="lightscout-internal://connection/{mode}" />
+        <action
+            android:id="@+id/action_connectionFragment_to_readinessFragment"
+            app:destination="@id/readinessFragment">
+            <argument
+                android:name="mode"
+                android:defaultValue="ONBOARDING"
+                app:argType="app.lightscout.ui.core.ReadinessMode" />
+        </action>
+    </fragment>
+
+    <!-- S-07 Alarm readiness (onboarding from S-06; check from S-01 / S-04 through Navigator.openReadiness). Item 6 → S-08. -->
+    <fragment
+        android:id="@+id/readinessFragment"
+        android:name="app.lightscout.feature.onboarding.readiness.ReadinessFragment">
+        <argument
+            android:name="mode"
+            android:defaultValue="ONBOARDING"
+            app:argType="app.lightscout.ui.core.ReadinessMode" />
+        <deepLink app:uri="lightscout-internal://readiness/{mode}" />
+        <action
+            android:id="@+id/action_readinessFragment_to_manufacturerGuideFragment"
+            app:destination="@id/manufacturerGuideFragment" />
+    </fragment>
+
+    <!-- S-08 Manufacturer guide (manufacturer detected by CMP-28; Up / back → S-07). -->
+    <fragment
+        android:id="@+id/manufacturerGuideFragment"
+        android:name="app.lightscout.feature.onboarding.guide.ManufacturerGuideFragment">
+        <argument
+            android:name="manufacturer"
+            app:argType="app.lightscout.platform.Manufacturer" />
+    </fragment>
+
+</navigation>

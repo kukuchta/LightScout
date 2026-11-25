@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    :alarm library manifest (CP-07 §4.1, §8.6; CP-00A R-36, R-86: each library declares its own components and the
+    permissions it uses; CP-15 §8.5 owns the final merged-manifest audit, TST-13).
+    Permissions (CP-07 §8.6): PERM-03 POST_NOTIFICATIONS, PERM-08 USE_FULL_SCREEN_INTENT, PERM-10
+    ACCESS_NOTIFICATION_POLICY (CH-01 DND bypass honoured), PERM-11 VIBRATE, PERM-12 WAKE_LOCK.
+    Not requested: READ_PHONE_STATE (F10), SYSTEM_ALERT_WINDOW.
+    Components: nothing exported (SR-20); all PendingIntents to them are explicit and immutable (SR-22).
+    The dynamic AlarmScreenOffReceiver is registered in code with RECEIVER_NOT_EXPORTED (R-37).
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application>
+
+        <!--
+            CMP-42 S-09 (ADR-022, ADR-047, SR-25): over the lock screen, screen on, own task, excluded from recents,
+            portrait only (D-009; also declared by :app per R-86). No intent filter: reached only through explicit
+            immutable PendingIntents (FSI / content) and the CP-15 MainActivity.onResume hand-off.
+        -->
+        <activity
+            android:name="app.lightscout.alarm.AlarmActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:showWhenLocked="true"
+            android:taskAffinity=""
+            android:theme="@style/Theme.LightScout"
+            android:turnScreenOn="true" />
+
+        <!-- CMP-43 IF-51 notification action "Snooze {n} min" (…action.SNOOZE). -->
+        <receiver
+            android:name="app.lightscout.alarm.SnoozeReceiver"
+            android:exported="false" />
+
+        <!-- F9 delete intent → re-post (…action.ALARM_NOTIFICATION_DELETED); never a snooze (AL-4). -->
+        <receiver
+            android:name="app.lightscout.alarm.AlarmDeleteReceiver"
+            android:exported="false" />
+
+    </application>
+
+</manifest>

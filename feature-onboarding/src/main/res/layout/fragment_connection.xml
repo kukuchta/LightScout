@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    S-06 Nightscout connection (CP-14 §7.3): C-S06-01 bar + C-S06-02 Up, C-S06-03 URL (URI keyboard), C-S06-04 token
+    (password, custom visibility toggle, SR-28 hygiene: no suggestions, no personalised learning, no autofill,
+    saveEnabled=false), C-S06-06 indicator + „Checking…”, C-S06-05 result rows, sticky helper + C-S06-07 primary.
+    The root takes max(IME, navigation bar) as bottom padding (GIR-6 IME resize); the sticky area keeps 16 dp.
+    Outlined fields without asterisks (GIR-9). No fixed heights (A4).
+    BUG-05 (Q-94, PO observation EV-07: a password manager offered to save the token): the whole screen is excluded
+    from the Autofill framework (root importantForAutofill=noExcludeDescendants); the token field keeps its own
+    flags. Accessibility-service password managers are outside the Autofill framework and cannot be blocked here.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/s06_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:importantForAutofill="noExcludeDescendants"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/s06_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/s06_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/s06_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/s06_url_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/s06_url_label"
+                app:placeholderText="@string/s06_url_placeholder">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/s06_url"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="textUri"
+                    android:textAppearance="@style/TextAppearance.LightScout.Glass.BodyMedium" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/s06_token_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/s06_token_label"
+                app:endIconContentDescription="@string/s06_token_show_cd"
+                app:endIconDrawable="@drawable/ic_s06_token_show"
+                app:endIconMode="custom"
+                app:helperText="@string/s06_token_helper"
+                app:helperTextEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/s06_token"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone|flagNoPersonalizedLearning"
+                    android:importantForAutofill="no"
+                    android:inputType="textPassword|textNoSuggestions"
+                    android:saveEnabled="false"
+                    android:textAppearance="@style/TextAppearance.LightScout.Glass.BodyMedium" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:id="@+id/s06_checking_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/s06_progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true" />
+
+                <TextView
+                    android:id="@+id/s06_checking"
+                    style="@style/Widget.LightScout.Onboarding.CheckText"
+                    android:layout_marginTop="4dp"
+                    android:accessibilityLiveRegion="polite"
+                    android:gravity="center_horizontal"
+                    android:text="@string/s06_checking" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/s06_results"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:accessibilityLiveRegion="polite"
+                android:orientation="vertical" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/s06_sticky"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:id="@+id/s06_helper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:accessibilityLiveRegion="polite"
+            android:textAppearance="@style/TextAppearance.LightScout.Supporting"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/s06_primary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:minHeight="48dp"
+            android:text="@string/s06_connect" />
+    </LinearLayout>
+
+</LinearLayout>

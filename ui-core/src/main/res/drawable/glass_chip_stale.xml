@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Stale "No readings" chip: FFD0CC on 632937, no border (R-90). -->
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:insetBottom="@dimen/glass_chip_inset"
+    android:insetTop="@dimen/glass_chip_inset">
+    <shape android:shape="rectangle">
+        <solid android:color="@color/glass_stale_chip_background" />
+        <corners android:radius="100dp" />
+    </shape>
+</inset>

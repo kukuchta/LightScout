@@ -1,0 +1,5 @@
+{"status":200,"result":[
+ {"identifier":"fx13-absolute","eventType":"Temp Basal","created_at":"2030-01-01T00:00:00.000Z","date":1893456000000,"duration":30,"absolute":0.85,"rate":0.95,"enteredBy":"uploader-placeholder","app":"uploader-placeholder","automatic":true},
+ {"identifier":"fx13-rate-only","eventType":"Temp Basal","created_at":"2030-01-01T01:00:00.000Z","date":1893459600000,"duration":45,"rate":1.2346,"enteredBy":"uploader-placeholder","app":"uploader-placeholder","automatic":true},
+ {"identifier":"fx13-percent-only","eventType":"Temp Basal","created_at":"2030-01-01T02:00:00.000Z","date":1893463200000,"duration":60,"percent":-50,"enteredBy":"uploader-placeholder","app":"uploader-placeholder","automatic":true}
+]}

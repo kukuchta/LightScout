@@ -1,0 +1,7 @@
+{"status":200,"result":[
+ {"identifier":"fx18-1","type":"sgv","sgv":1,"date":1893456000000,"device":"share2"},
+ {"identifier":"fx18-39","type":"sgv","sgv":39,"date":1893456300000,"device":"share2"},
+ {"identifier":"fx18-40","type":"sgv","sgv":40,"date":1893456600000,"device":"share2"},
+ {"identifier":"fx18-401","type":"sgv","sgv":401,"date":1893456900000,"device":"share2"},
+ {"identifier":"fx18-0","type":"sgv","sgv":0,"date":1893457200000,"device":"share2"}
+]}

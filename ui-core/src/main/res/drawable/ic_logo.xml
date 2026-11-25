@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- TODO-5 logo A2a, day: app bar logo without the tile; the day and night files are swapped by the resource
+     qualifier, so the logo follows the theme setting (DCR-30). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="46dp"
+    android:height="26dp"
+    android:viewportWidth="113.647"
+    android:viewportHeight="64">
+    <group android:translateX="-8" android:translateY="-17.5">
+        <path android:pathData="M12,28 L88,28" android:strokeColor="#D97706" android:strokeWidth="3" android:strokeLineCap="round" />
+        <path android:pathData="M12,72 L88,72" android:strokeColor="#E11D48" android:strokeWidth="3" android:strokeLineCap="round" />
+        <path android:pathData="M10,50 L26,50 L33,50 L40,23 L48,65 L56,41 L62,50 L68,50" android:strokeColor="#111827" android:strokeWidth="5" android:strokeLineCap="round" android:strokeLineJoin="round" />
+        <path android:pathData="M80,50 m-12,0 a12,12 0 1,0 24,0 a12,12 0 1,0 -24,0" android:fillColor="#111827" android:fillAlpha="0.22" />
+        <path android:pathData="M80,50 m-6.5,0 a6.5,6.5 0 1,0 13,0 a6.5,6.5 0 1,0 -13,0" android:fillColor="#111827" />
+    </group>
+</vector>

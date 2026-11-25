@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    S-07 Alarm readiness (CP-14 §7.4): C-S07-01 bar + C-S07-02 Up, „All set — alarms can ring.” (All set state),
+    C-S07-04 checklist (items inflated in display order 1–5, 7, 6), sticky C-S07-05 „Done” (onboarding only) above the
+    navigation-bar inset + 16 dp (GIR-6). No fixed heights: rationales wrap at 200 % and scroll (M3-31, A4).
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/s07_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/s07_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/s07_title" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/s07_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:id="@+id/s07_all_set"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:accessibilityLiveRegion="polite"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/s07_all_set"
+                android:textAppearance="@style/TextAppearance.LightScout.ListPrimary"
+                android:textColor="?attr/colorOnSurface"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/s07_items"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/s07_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:minHeight="48dp"
+        android:text="@string/s07_done"
+        android:visibility="gone" />
+
+</LinearLayout>

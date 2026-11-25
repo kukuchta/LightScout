@@ -1,0 +1,7 @@
+{"status":200,"result":[
+ {"identifier":"fx21-0001","defaultProfile":"Synthetic","startDate":"2029-12-01T00:00:00.000Z","created_at":"2029-12-01T00:00:00.000Z",
+  "store":{
+   "Synthetic":{"basal":[{"time":"00:00","timeAsSeconds":0,"value":0.55},{"time":"06:30","timeAsSeconds":23400,"value":0.8125},{"time":"22:00","value":0.4}],"timezone":"Europe/Warsaw","units":"mg/dl","dia":4},
+   "Other":{"basal":[{"time":"00:00","timeAsSeconds":0,"value":9.9}],"timezone":"UTC","units":"mg/dl"}
+  }}
+]}

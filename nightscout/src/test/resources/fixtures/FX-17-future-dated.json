@@ -1,0 +1,4 @@
+{"status":200,"result":[
+ {"identifier":"fx17-future-low","type":"sgv","sgv":50,"date":1893459600000,"direction":"SingleDown","device":"share2"},
+ {"identifier":"fx17-future-normal","type":"sgv","sgv":150,"date":1893463200000,"direction":"Flat","device":"share2"}
+]}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    debugProxy ONLY (CP-00A R-86, 07 §10 S1): the only variant that trusts user-installed CAs, for proxy testing.
+    It is never installed on RD-1 / RD-2 (08 §8.1). Still no cleartext and no domain exceptions.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    One C-S08-04 step: number + instruction (Body Large) and, when the step's IF-56 page resolves, the C-S08-05 tonal
+    button „Open {setting name}” below the text, start-aligned. The number + text block is one accessibility unit
+    („Step 2 of 4, …”); the button is a separate focus stop with an explicit label.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <LinearLayout
+        android:id="@+id/s08_step_text_block"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/s08_step_number"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:importantForAccessibility="no"
+            android:textAppearance="@style/TextAppearance.LightScout.ListPrimary"
+            android:textColor="?attr/colorOnSurface" />
+
+        <TextView
+            android:id="@+id/s08_step_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:importantForAccessibility="no"
+            android:textAppearance="@style/TextAppearance.LightScout.ListPrimary"
+            android:textColor="?attr/colorOnSurface" />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/s08_step_open"
+        style="@style/Widget.Material3.Button.TonalButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="4dp"
+        android:minHeight="48dp"
+        android:visibility="gone" />
+
+</LinearLayout>

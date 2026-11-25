@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- :monitor strings (CP-08 §7; CP-00A R-81, R-83 §5.3). Copy verbatim from the slice / CP-00A. -->
+<resources>
+    <!-- S-11 „Restart — waiting for unlock” (D-081), CH-02 — verbatim CP-08 §7. -->
+    <string name="s11_paused_title">LightScout is paused</string>
+    <string name="s11_paused_text">Unlock the phone to resume LightScout</string>
+    <!-- S-10 title (DCR-37): „{sgv} {delta} mg/dL {arrow}”, composed by StatusNotificationContent. -->
+    <string name="s10_reading">%1$d mg/dL</string>
+    <string name="s10_reading_delta">%1$d %2$s mg/dL</string>
+    <!-- Placeholder S-10 (pre-unlock) keeps the original template. -->
+    <string name="s10_title">%1$d mg/dL %2$s</string>
+    <!-- S-10 title without any reading (DESIGN §17 S-10 C-S10-02; Q-57). -->
+    <string name="s10_title_empty">No readings</string>
+    <string name="s10_text">%1$s</string>
+    <string name="s10_text_data_loss">No new readings for %1$d min</string>
+    <string name="s10_text_alarms_off_suffix"> · Alarms off</string>
+    <string name="s10_text_first_use">Waiting for the first reading</string>
+    <string name="s10_error_ns_not_responding">Nightscout is not responding</string>
+    <string name="s10_error_token_rejected">Nightscout rejected the access token</string>
+    <string name="s10_offline">No internet connection · last reading %1$d min ago</string>
+    <string name="s10_channel_monitoring">Monitoring</string>
+    <string name="s11_channel_reminders">Reminders</string>
+    <string name="s11_channel_pump_alerts">Pump alerts</string>
+    <string name="s11_site_due_tomorrow">Site change due tomorrow</string>
+    <string name="s11_sensor_due_tomorrow">Sensor change due tomorrow</string>
+    <string name="s11_due_tomorrow_text">Site age %1$s · lifetime %2$d days</string>
+    <string name="s11_sensor_due_tomorrow_text">Sensor age %1$s · lifetime %2$d days</string>
+    <string name="s11_site_due_now">Site change due now</string>
+    <string name="s11_sensor_due_now">Sensor change due now</string>
+    <string name="s11_due_now_text">Site age %1$s</string>
+    <string name="s11_sensor_due_now_text">Sensor age %1$s</string>
+    <string name="s11_pump_alert_title">Pump alert</string>
+</resources>

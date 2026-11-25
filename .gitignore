@@ -1,0 +1,32 @@
+# Nightscout evidence samples contain health data — never commit (D-014)
+tools/ns-sample/out/
+
+# Secrets and signing material — never commit (SR-33, SR-34)
+local.properties
+keystore.properties
+*.jks
+*.p12
+*.keystore
+signing*.properties
+*.pk8
+*.pem
+*.p8
+
+# Implementation evidence that may contain health values or device logs — never commit (GR-7, GR-9)
+docs/implementation/evidence/raw/
+# TP-0 read-only export of production treatments — deleted after TP-4 (CP-00 §8)
+tools/tp-export/
+# TP harness session ledger and test scratch (TS-01) — identifiers only, never commit
+tools/tp-harness/out/
+
+# Gradle / Android build outputs and IDE files
+.gradle/
+.kotlin/
+build/
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.iml
+.idea/

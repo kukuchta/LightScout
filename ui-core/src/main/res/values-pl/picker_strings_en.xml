@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The app copy is English-only for now: the Material date and time pickers keep their English wording on a Polish
+     phone (buttons, hour / minute fields, tooltips). Same names as Material's values-pl, English text from its defaults.
+     Scope (D-137, review SS-35 C1): only these 63 picker strings are overridden. About 38 other Material strings
+     (bottom sheet drag handle, character counter, password toggle, checkbox state, slider, badge ...) still come from
+     Material's own values-pl and are read in Polish on a Polish phone.
+     TEMPORARY: more languages are planned. When the app gets real translations, move the picker strings into the
+     per-language resources and delete this file (or the entries the translations make unnecessary), and re-check the
+     Material strings above. Then also remove the MissingTranslation / ExtraTranslation lint exemption in
+     ui-core/build.gradle.kts. -->
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
+    <string name="material_clock_toggle_content_description">Select AM or PM</string>
+    <string name="material_hour_24h_suffix"><xliff:g id="number">%1$s</xliff:g> hours</string>
+    <string name="material_hour_selection">Select hour</string>
+    <string name="material_hour_suffix"><xliff:g id="number">%1$s</xliff:g> o\'clock</string>
+    <string name="material_minute_selection">Select minutes</string>
+    <string name="material_minute_suffix"><xliff:g id="number">%1$s</xliff:g> minutes</string>
+    <string name="material_timepicker_am">AM</string>
+    <string name="material_timepicker_clock_mode_description">Switch to clock mode for the time input.</string>
+    <string name="material_timepicker_clock_mode_tooltip">Switch to clock mode</string>
+    <string name="material_timepicker_hour">Hour</string>
+    <string name="material_timepicker_hour_error">Hour must be 1–12</string>
+    <string name="material_timepicker_hour_error_24h">Hour must be 0–23</string>
+    <string name="material_timepicker_minute">Minute</string>
+    <string name="material_timepicker_minute_error">Minute must be 0–59</string>
+    <string name="material_timepicker_pm">PM</string>
+    <string name="material_timepicker_select_time">Select time</string>
+    <string name="material_timepicker_text_input_mode_description">Switch to text input mode for the time input.</string>
+    <string name="material_timepicker_text_input_mode_tooltip">Switch to text input mode</string>
+    <string name="mtrl_picker_a11y_next_month">Change to next month</string>
+    <string name="mtrl_picker_a11y_prev_month">Change to previous month</string>
+    <string name="mtrl_picker_announce_current_range_selection">Start date selection: %1$s – End date selection: %2$s</string>
+    <string name="mtrl_picker_announce_current_selection">Current selection: %1$s</string>
+    <string name="mtrl_picker_announce_current_selection_none">none</string>
+    <string name="mtrl_picker_cancel">Cancel</string>
+    <string name="mtrl_picker_confirm">OK</string>
+    <string name="mtrl_picker_date_header_selected">%1$s</string>
+    <string name="mtrl_picker_date_header_title">Select Date</string>
+    <string name="mtrl_picker_date_header_unselected">Selected date</string>
+    <string name="mtrl_picker_day_of_week_column_header">%1$s</string>
+    <string name="mtrl_picker_end_date_description">End date %1$s</string>
+    <string name="mtrl_picker_invalid_format">Invalid format.</string>
+    <string name="mtrl_picker_invalid_format_example">Example: %1$s</string>
+    <string name="mtrl_picker_invalid_format_use">Use: %1$s</string>
+    <string name="mtrl_picker_invalid_range">Invalid range.</string>
+    <string name="mtrl_picker_navigate_to_current_year_description">Navigate to current year %1$d</string>
+    <string name="mtrl_picker_navigate_to_year_description">Navigate to year %1$d</string>
+    <string name="mtrl_picker_next_month_tooltip">Next month</string>
+    <string name="mtrl_picker_out_of_range">Out of range: %1$s</string>
+    <string name="mtrl_picker_pane_title_calendar_view">Calendar view</string>
+    <string name="mtrl_picker_pane_title_year_view">Year view</string>
+    <string name="mtrl_picker_prev_month_tooltip">Previous month</string>
+    <string name="mtrl_picker_range_header_only_end_selected">Start date – %1$s</string>
+    <string name="mtrl_picker_range_header_only_start_selected">%1$s – End date</string>
+    <string name="mtrl_picker_range_header_selected">%1$s – %2$s</string>
+    <string name="mtrl_picker_range_header_title">Select Range</string>
+    <string name="mtrl_picker_range_header_unselected">Start date – End date</string>
+    <string name="mtrl_picker_save">Save</string>
+    <string name="mtrl_picker_start_date_description">Start date %1$s</string>
+    <string name="mtrl_picker_text_input_date_hint">Date</string>
+    <string name="mtrl_picker_text_input_date_range_end_hint">End date</string>
+    <string name="mtrl_picker_text_input_date_range_start_hint">Start date</string>
+    <string name="mtrl_picker_text_input_day_abbr">d</string>
+    <string name="mtrl_picker_text_input_month_abbr">m</string>
+    <string name="mtrl_picker_text_input_year_abbr">y</string>
+    <string name="mtrl_picker_today_description">Today %1$s</string>
+    <string name="mtrl_picker_toggle_to_calendar_input_mode">Switch to calendar input mode</string>
+    <string name="mtrl_picker_toggle_to_calendar_input_mode_tooltip">Switch to calendar</string>
+    <string name="mtrl_picker_toggle_to_day_selection">Switch to Calendar view</string>
+    <string name="mtrl_picker_toggle_to_text_input_mode">Switch to text input mode</string>
+    <string name="mtrl_picker_toggle_to_text_input_mode_tooltip">Switch to text input</string>
+    <string name="mtrl_picker_toggle_to_year_selection">Switch to year view</string>
+    <string name="mtrl_timepicker_cancel">Cancel</string>
+    <string name="mtrl_timepicker_confirm">OK</string>
+</resources>

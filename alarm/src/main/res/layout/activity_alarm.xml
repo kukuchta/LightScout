@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    S-09 Alarm screen (CP-07 §7.1; CMP-42). No top app bar, no navigation (SR-25, CUT-05).
+    Content (C-S09-01…03) in the upper two thirds, scrollable for 200 % font scale (GIR-7); C-S09-04 "Snooze"
+    centred in the lower third, full width, ≥ 96 dp tall; bottom = navigation-bar inset + 24 dp, sides 16 dp + inset
+    (M3-02, applied in code by CMP-33 EdgeToEdgeInsets.applyAlarmActionInsets). keepScreenOn for the whole ringing
+    time (F1). Colours come from the theme (GIR-10 roles set in code).
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/alarm_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/alarm_content_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingTop="24dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp">
+
+            <!-- C-S09-01 alarm title + alarm icon (decorative; the text carries the meaning). -->
+            <TextView
+                android:id="@+id/alarm_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:accessibilityHeading="true"
+                android:drawablePadding="8dp"
+                android:gravity="center"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"
+                android:textAppearance="@style/TextAppearance.LightScout.AlarmTitle" />
+
+            <!-- C-S09-02 reading + trend. -->
+            <LinearLayout
+                android:id="@+id/alarm_reading_row"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/alarm_reading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.LightScout.CurrentReading" />
+
+                <ImageView
+                    android:id="@+id/alarm_trend"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:contentDescription="@null"
+                    android:scaleType="fitCenter" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/alarm_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/s09_unit"
+                android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+            <!-- C-S09-03 age / cause. -->
+            <TextView
+                android:id="@+id/alarm_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+            <TextView
+                android:id="@+id/alarm_cause"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:textAppearance="?attr/textAppearanceTitleMedium" />
+        </LinearLayout>
+    </ScrollView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- C-S09-04 Snooze: filled, primary, full width, extra tall (≥ 96 dp). -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/alarm_snooze"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            android:minHeight="96dp" />
+    </FrameLayout>
+</LinearLayout>

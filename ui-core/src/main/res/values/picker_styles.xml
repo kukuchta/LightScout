@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Date / time picker dialogs: text buttons in the theme's primary colour (they rendered magenta). -->
+    <!-- Glass: picker titles use the Inter label-large role like the rest of the app. -->
+    <style name="TextAppearance.LightScout.Picker.Title" parent="TextAppearance.LightScout.Glass.LabelLarge">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+    <style name="Widget.LightScout.Picker.HeaderTitle" parent="Widget.Material3.MaterialCalendar.HeaderTitle">
+        <item name="android:textAppearance">@style/TextAppearance.LightScout.Picker.Title</item>
+    </style>
+
+    <style name="Widget.LightScout.Picker.Button" parent="Widget.Material3.Button.TextButton">
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
+    <!-- Selected date sits at the bottom of the header, under the title (it was drawn over the title). -->
+    <style name="Widget.LightScout.Picker.HeaderSelection" parent="Widget.Material3.MaterialCalendar.HeaderSelection">
+        <item name="android:layout_gravity">bottom|start</item>
+        <item name="autoSizeTextType">none</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="ThemeOverlay.LightScout.MaterialCalendar" parent="ThemeOverlay.Material3.MaterialCalendar">
+        <!-- Stock Material 3 type inside the picker: the Glass type roles overlapped its title and selection. -->
+        <item name="textAppearanceHeadlineLarge">@style/TextAppearance.Material3.HeadlineLarge</item>
+        <item name="textAppearanceLabelMedium">@style/TextAppearance.Material3.LabelMedium</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.LightScout.Picker.Button</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.LightScout.Picker.Button</item>
+        <item name="materialCalendarHeaderConfirmButton">@style/Widget.LightScout.Picker.Button</item>
+        <item name="materialCalendarHeaderSelection">@style/Widget.LightScout.Picker.HeaderSelection</item>
+        <item name="materialCalendarHeaderTitle">@style/Widget.LightScout.Picker.HeaderTitle</item>
+    </style>
+
+    <style name="ThemeOverlay.LightScout.MaterialTimePicker" parent="ThemeOverlay.Material3.MaterialTimePicker">
+        <item name="materialButtonStyle">@style/Widget.LightScout.Picker.Button</item>
+        <item name="borderlessButtonStyle">@style/Widget.LightScout.Picker.Button</item>
+        <item name="materialTimePickerTitleStyle">@style/TextAppearance.LightScout.Picker.Title</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.LightScout.Picker.Button</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.LightScout.Picker.Button</item>
+    </style>
+</resources>

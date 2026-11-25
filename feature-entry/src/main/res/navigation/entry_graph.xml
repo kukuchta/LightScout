@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/entry_graph"
+    app:startDestination="@id/entryFormFragment">
+    <dialog
+        android:id="@+id/entryFormFragment"
+        android:name="app.lightscout.feature.entry.EntryFormFragment"
+        android:label="@string/s02_title_new">
+        <argument android:name="mode" app:argType="string" />
+        <argument android:name="entryId" android:defaultValue="@null"
+            app:argType="string" app:nullable="true" />
+        <argument android:name="initialType" android:defaultValue="@null"
+            app:argType="string" app:nullable="true" />
+        <deepLink app:uri="lightscout-internal://entry/{mode}?entryId={entryId}&amp;initialType={initialType}" />
+    </dialog>
+</navigation>

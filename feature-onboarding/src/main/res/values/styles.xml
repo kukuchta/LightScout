@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- :feature-onboarding styles (CP-14 §7.2, §7.3; CMP-30 roles from :ui-core). No fixed text heights (A4). -->
+<resources>
+
+    <!-- S-05 C-S05-03 bullet: Body Large; the bullet marker is a BulletSpan set in code (no text glyph). -->
+    <style name="Widget.LightScout.Onboarding.Bullet" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">12dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.LightScout.ListPrimary</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <!-- S-06 C-S06-05 result row text: Body Medium. -->
+    <style name="Widget.LightScout.Onboarding.CheckText" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/TextAppearance.LightScout.Supporting</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Extended M3 colour role "warning" (amber) with its container pair (CMP-30; CP-06 §3; CP-00A R-84; DS:D-073).
+    GIR-10: High and "Change soon" use ?attr/warning; very high (> 250) uses ?attr/warningContainer.
+-->
+<resources>
+    <attr name="warning" format="color" />
+    <attr name="onWarning" format="color" />
+    <attr name="warningContainer" format="color" />
+    <attr name="onWarningContainer" format="color" />
+</resources>

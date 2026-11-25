@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Glass Mono LIGHT tokens (CP-00A R-90 + SS-35 light amendment, DCR-29). Same names as the dark tokens in
+    values-night/glass_colors.xml, so the one Theme.LightScout.Glass and every glass drawable / style follow the system
+    night mode. Palette B (patient-portal blue accent #0369A1) on the neutral N2 background (grey glow, no hue);
+    meaning colours (bands, pills, chips, markers) keep their roles from the dark theme in darker, white-safe tones.
+    Contrast (checked): text on background 15.9:1, muted text 7.0:1, white on accent 5.9:1, chip / pill text >= 5.3:1.
+    Alpha values: 10 % = 1A, 15 % = 26.
+-->
+<resources>
+    <color name="glass_background">#ECEEF1</color>
+    <color name="glass_glow">#E0E3E7</color>
+    <color name="glass_glow_end">#00E0E3E7</color>
+    <color name="glass_text">#111827</color>
+    <color name="glass_text_muted">#4B5563</color>
+    <color name="glass_accent">#0369A1</color>
+    <color name="glass_on_accent">#FFFFFF</color>
+
+    <!-- Static card: opaque white, hairline grey border; hero border a step stronger. -->
+    <color name="glass_card">#FFFFFF</color>
+    <color name="glass_card_border">#BCC3CD</color>
+    <color name="glass_hero_border">#AEB7C3</color>
+    <color name="glass_surface_container">#FFFFFF</color>
+    <color name="glass_surface_container_high">#FFFFFF</color>
+    <color name="glass_surface_container_highest">#E9ECF0</color>
+    <!-- Selected segment / toggle / tonal fill (colorSecondaryContainer): blue tint, clearly different from the card. -->
+    <color name="glass_secondary_container">#D6E6F5</color>
+    <color name="glass_on_secondary_container">#0C4A6E</color>
+
+    <!-- Reading text colours (visual tokens, not range classifiers). -->
+    <color name="glass_reading_normal">#111827</color>
+    <color name="glass_reading_high">#A04A08</color>
+    <color name="glass_reading_low">#BE123C</color>
+    <color name="glass_reading_urgent_low">#B91C1C</color>
+
+    <!-- Hero tints: High amber 10 %, Low rose 10 %, Urgent low red 15 % with a red border. -->
+    <color name="glass_hero_tint_high">#38D97706</color>
+    <color name="glass_hero_tint_low">#2BE11D48</color>
+    <color name="glass_hero_tint_urgent_low">#38DC2626</color>
+    <color name="glass_hero_border_urgent_low">#A6B91C1C</color>
+    <!-- High / Low hero: border in the band colour (the tint alone is subtle on a white card). -->
+    <color name="glass_hero_border_high">#80B45309</color>
+    <color name="glass_hero_border_low">#73BE123C</color>
+    <!-- Progress bar when there is no fresh data: neutral grey, not a warning colour. -->
+    <color name="glass_progress_nodata">#9CA3AF</color>
+    <!-- Progress bar after a missed check: orange (D-151). -->
+    <color name="glass_progress_missed">#EA6A0A</color>
+    <color name="glass_urgent_label_background">#B91C1C</color>
+    <color name="glass_urgent_label_text">#FFFFFF</color>
+    <color name="glass_stale_chip_background">#FFE4E6</color>
+    <color name="glass_stale_chip_text">#9F1239</color>
+    <color name="glass_progress_track">#E3E6EA</color>
+
+    <!-- Chip pairs: info 0C4A6E on E3EEF8, border 93C5E8; warning 9F1239 on FFE4E6, border FDA4AF. -->
+    <color name="glass_chip_info_text">#0C4A6E</color>
+    <color name="glass_chip_info_background">#E3EEF8</color>
+    <color name="glass_chip_info_border">#93C5E8</color>
+    <color name="glass_chip_warning_text">#9F1239</color>
+    <color name="glass_chip_warning_background">#FFE4E6</color>
+    <color name="glass_chip_warning_border">#FDA4AF</color>
+
+    <!-- Chart / distribution bands (Home context only). -->
+    <color name="glass_band_in_range">#16A34A</color>
+    <color name="glass_band_high">#D97706</color>
+    <color name="glass_band_low">#E11D48</color>
+    <color name="glass_band_very_low">#DC2626</color>
+    <color name="glass_band_very_high">#C2410C</color>
+
+    <!-- Range pill on Home: tinted background behind dark band text. -->
+    <color name="glass_range_pill_in_range_bg">#DCFCE7</color>
+    <color name="glass_range_pill_in_range_text">#166534</color>
+    <color name="glass_range_pill_high_bg">#FFFFFF</color>
+    <color name="glass_range_pill_high_text">#92400E</color>
+    <color name="glass_range_pill_low_bg">#FFFFFF</color>
+    <color name="glass_range_pill_low_text">#9F1239</color>
+    <!-- Round counter action button: info tint and border. -->
+    <color name="glass_action_background">#E3EEF8</color>
+    <color name="glass_action_border">#93C5E8</color>
+    <!-- Chart markers: independent values. -->
+    <color name="glass_marker_site_sensor">#64748B</color>
+    <color name="glass_marker_carbs">#D97706</color>
+    <color name="glass_marker_bolus">#0284C7</color>
+    <color name="glass_marker_bg">#DC2626</color>
+    <!-- Middle chip tier (caution): amber family. -->
+    <color name="glass_chip_caution_text">#92400E</color>
+    <color name="glass_chip_caution_background">#FEF3C7</color>
+    <color name="glass_chip_caution_border">#FCD34D</color>
+    <!-- Chart Low / High guides and the tint beyond them. -->
+    <color name="glass_guide_low">#E11D48</color>
+    <color name="glass_guide_high">#D97706</color>
+</resources>

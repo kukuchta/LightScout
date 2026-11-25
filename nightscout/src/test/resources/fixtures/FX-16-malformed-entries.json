@@ -1,0 +1,9 @@
+{"status":200,"result":[
+ {"identifier":"fx16-ok-1","type":"sgv","sgv":100,"date":1893456000000,"direction":"Flat"},
+ {"identifier":"fx16-sgv-string","type":"sgv","sgv":"100","date":1893456300000,"direction":"Flat"},
+ {"identifier":"fx16-no-date","type":"sgv","sgv":101,"direction":"Flat"},
+ "not-an-object",
+ 42,
+ {"type":"sgv","sgv":102,"date":1893456600000},
+ {"identifier":"fx16-ok-2","type":"sgv","sgv":103,"date":1893456900000,"direction":"Flat"}
+]}

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.LightScout.Home.Card" parent="Widget.LightScout.Glass.Card" />
+    <style name="Widget.LightScout.Home.Hero" parent="Widget.LightScout.Glass.Card.Hero" />
+    <!-- Round tinted counter action: 36 dp visual inside the 48 dp touch target (mockup counter-action). -->
+    <style name="Widget.LightScout.Home.CounterAction" parent="Widget.Material3.Button.TextButton">
+        <item name="android:insetLeft">6dp</item>
+        <item name="android:insetRight">6dp</item>
+        <item name="android:insetTop">6dp</item>
+        <item name="android:insetBottom">6dp</item>
+        <item name="android:padding">6dp</item>
+        <item name="backgroundTint">@color/glass_action_background</item>
+        <item name="strokeColor">@color/glass_action_border</item>
+        <item name="strokeWidth">@dimen/glass_stroke</item>
+        <item name="cornerRadius">24dp</item>
+        <item name="iconTint">?attr/colorPrimary</item>
+        <item name="iconSize">24dp</item>
+    </style>
+    <!-- DCR-46: the support dialog: a filled primary button (Donate). -->
+    <style name="ThemeOverlay.LightScout.SupportDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.Material3.Button</item>
+    </style>
+    <declare-styleable name="StateStableTextView">
+        <attr name="reservedTexts" format="reference" />
+    </declare-styleable>
+    <string-array name="s01_range_labels">
+        <item>@string/s01_range_urgent_low</item><item>@string/s01_range_low</item>
+        <item>@string/s01_range_high</item><item>@string/s01_range_in_range</item>
+    </string-array>
+    <string-array name="s01_distribution_labels">
+        <item>100 % · 100 % · 100 % · 100 % · 100 %</item>
+        <item>@string/s01_doughnut_not_enough_data</item>
+    </string-array>
+    <!-- Counter status labels: the card keeps the height of the tallest one (wraps at large font, with the icon). -->
+    <string-array name="s01_counter_status_labels">
+        <item>@string/s01_counter_ok</item>
+        <item>@string/s01_counter_replace_soon</item>
+        <item>@string/s01_counter_expired</item>
+        <item>@string/s01_counter_no_site_change</item>
+    </string-array>
+    <string-array name="s01_age_labels">
+        <item>@string/s01_state_first_use</item>
+        <item>@string/s01_state_no_readings_24h</item>
+    </string-array>
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+    <!-- S-12 is always dark: a translucent dark surface with light content, in light and dark system mode (DCR-38). -->
+    <color name="widget_surface">#CC111318</color>
+    <color name="widget_on_surface">#ECEFF5</color>
+    <color name="widget_on_surface_variant">#C4C7D0</color>
+    <color name="widget_stale">#FFB4AB</color>
+</resources>

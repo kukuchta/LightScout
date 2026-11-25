@@ -1,0 +1,7 @@
+{"status":200,"result":[
+ {"identifier":"fx02-0001","type":"sgv","sgv":110,"date":1893456000000,"direction":"","device":"share2"},
+ {"identifier":"fx02-0002","type":"sgv","sgv":111,"date":1893456300000,"direction":"NOT COMPUTABLE","device":"share2"},
+ {"identifier":"fx02-0003","type":"sgv","sgv":112,"date":1893456600000,"direction":"RATE OUT OF RANGE","device":"share2"},
+ {"identifier":"fx02-0004","type":"sgv","sgv":113,"date":1893456900000,"direction":"NONE","device":"share2"},
+ {"identifier":"fx02-0005","type":"sgv","sgv":114,"date":1893457200000,"device":"share2"}
+]}

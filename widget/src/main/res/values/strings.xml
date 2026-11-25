@@ -1,0 +1,7 @@
+<resources>
+    <string name="s01_reading_empty" translatable="false">—</string>
+    <string name="s12_unit" translatable="false">mg/dL</string>
+    <string name="s12_first_use">Open LightScout to connect</string>
+    <string name="s12_no_readings">No readings</string>
+    <string name="s12_widget_a11y">Glucose %1$d, %2$s, %3$s</string>
+</resources>

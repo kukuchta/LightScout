@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- S-03 nested feature graph; no arguments or cross-feature actions (CP-00A R-38). -->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/stats_graph"
+    app:startDestination="@id/statisticsFragment">
+
+    <fragment
+        android:id="@+id/statisticsFragment"
+        android:name="app.lightscout.feature.stats.StatisticsFragment"
+        android:label="@string/s03_title"
+        tools:layout="@layout/fragment_statistics" />
+</navigation>

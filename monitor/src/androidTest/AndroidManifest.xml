@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Test APK only (CP-08 §9 instrumented tests; run batched on RD-2 API 33 over USB — CP-00 §10 CR-04, D-048).
+    The test Application stands in for the :app composition root (CP-15) and implements MonitorRuntimeProvider
+    with fakes for IF-20 / IF-21 / stores. The :monitor library manifest (components, permissions) is merged in.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application android:name="app.lightscout.monitor.TestMonitorApplication">
+        <!-- Launcher stand-in: AppLaunch.mainActivityIntent needs one, so the S-10 content intent can be built. -->
+        <activity
+            android:name="app.lightscout.monitor.TestLauncherActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

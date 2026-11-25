@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="s01_dock_margin_horizontal">8dp</dimen>
+    <dimen name="s01_dock_margin_bottom">8dp</dimen>
+    <dimen name="s01_action_offset">-6dp</dimen>
+</resources>

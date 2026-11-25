@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Strings owned by CP-05 §7: notification channel names only (CON-08). Copy verbatim from DESIGN §17. -->
+<resources>
+    <string name="s11_channel_alarms">Alarms</string>
+    <string name="s10_channel_monitoring">Monitoring</string>
+    <string name="s11_channel_reminders">Reminders</string>
+    <string name="s11_channel_pump_alerts">Pump alerts</string>
+</resources>

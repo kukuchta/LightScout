@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    :platform library manifest (CP-00A R-86: each library declares its own <queries>).
+    No components (SR-20). Permissions (R-86: the module that uses a permission declares it; merged with any
+    declaration in :app): PERM-02 ACCESS_NETWORK_STATE for the IF-19 NetworkCallback (CP-05 §8.5); PERM-09
+    REQUEST_IGNORE_BATTERY_OPTIMIZATIONS for the IF-55 item 4 intent built here (Q-48).
+    <queries> make the IF-55 / IF-56 resolve checks visible under package visibility (SR-27: no QUERY_ALL_PACKAGES).
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- F-22 / S-07 item 4 (sideloaded APK; the Play policy warning does not apply). -->
+    <uses-permission
+        android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"
+        tools:ignore="BatteryLife" />
+
+    <queries>
+        <!-- IF-56 OEM settings pages (CP-00A R-85; verified by VR-05). -->
+        <package android:name="com.miui.securitycenter" />
+        <package android:name="com.miui.powerkeeper" />
+
+        <!-- IF-55 system settings pages (resolve check before use). -->
+        <intent>
+            <action android:name="android.settings.APP_NOTIFICATION_SETTINGS" />
+        </intent>
+        <intent>
+            <action android:name="android.settings.CHANNEL_NOTIFICATION_SETTINGS" />
+        </intent>
+        <intent>
+            <action android:name="android.settings.NOTIFICATION_POLICY_ACCESS_SETTINGS" />
+        </intent>
+        <intent>
+            <action android:name="android.settings.MANAGE_APP_USE_FULL_SCREEN_INTENT" />
+            <data android:scheme="package" />
+        </intent>
+        <!-- F-22 / S-07 item 4 (sideloaded APK; the Play policy warning does not apply). -->
+        <intent>
+            <action
+                android:name="android.settings.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"
+                tools:ignore="BatteryLife" />
+            <data android:scheme="package" />
+        </intent>
+        <intent>
+            <action android:name="android.settings.REQUEST_SCHEDULE_EXACT_ALARM" />
+            <data android:scheme="package" />
+        </intent>
+        <intent>
+            <action android:name="android.settings.APPLICATION_DETAILS_SETTINGS" />
+            <data android:scheme="package" />
+        </intent>
+    </queries>
+
+</manifest>

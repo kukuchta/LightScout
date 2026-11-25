@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ThemeOverlay.LightScout.HomeChart" parent="">
+        <item name="colorPrimary">@color/glass_band_in_range</item>
+        <item name="colorError">@color/glass_band_low</item>
+        <item name="colorErrorContainer">@color/glass_band_very_low</item>
+        <item name="warning">@color/glass_band_high</item>
+        <item name="warningContainer">@color/glass_band_very_high</item>
+        <item name="colorOutline">@color/glass_text_muted</item>
+        <item name="colorTertiary">@color/glass_accent</item>
+        <!-- Let the enclosing translucent card show through, including its actual background. -->
+        <item name="colorSurface">@android:color/transparent</item>
+    </style>
+    <style name="Widget.LightScout.HomeChart.Card" parent="Widget.LightScout.Glass.Card" />
+</resources>

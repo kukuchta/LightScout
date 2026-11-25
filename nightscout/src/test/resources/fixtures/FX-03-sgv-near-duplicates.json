@@ -1,0 +1,4 @@
+{"status":200,"result":[
+ {"identifier":"fx03-a","type":"sgv","sgv":140,"date":1893456000000,"direction":"Flat","device":"share2"},
+ {"identifier":"fx03-b","type":"sgv","sgv":141,"date":1893456030000,"direction":"Flat","device":"second-uploader-placeholder"}
+]}

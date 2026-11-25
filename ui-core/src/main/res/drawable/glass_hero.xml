@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hero card, normal state: glass fill, white 18 % border, 24 dp radius (R-90). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/glass_card" />
+    <stroke android:width="@dimen/glass_stroke" android:color="@color/glass_hero_border" />
+    <corners android:radius="@dimen/glass_hero_radius" />
+</shape>

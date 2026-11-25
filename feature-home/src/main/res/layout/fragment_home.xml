@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/s01_background"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/s01_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/s01_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:logo="@drawable/ic_logo"
+            app:menu="@menu/menu_home"
+            app:title="@string/s01_title" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <app.lightscout.feature.home.HomeContentScrollView
+        android:id="@+id/s01_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+        <app.lightscout.feature.home.HomeContentLayout
+            android:id="@+id/s01_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/s01_hero"
+                style="@style/Widget.LightScout.Home.Hero"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:id="@+id/s01_reading_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="true"
+                        android:screenReaderFocusable="true"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="16dp"
+                        android:paddingTop="10dp">
+                        <LinearLayout
+                            android:id="@+id/s01_top_row"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                        <LinearLayout
+                            android:id="@+id/s01_value_row"
+                            android:layout_width="0dp"
+                            android:layout_marginTop="6dp"
+                            android:layout_weight="1"
+                            android:layout_gravity="top"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:importantForAccessibility="noHideDescendants">
+                            <TextView
+                                android:id="@+id/s01_reading"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:importantForAccessibility="no"
+                                android:text="@string/glass_value_empty"
+                                android:textAppearance="@style/TextAppearance.LightScout.Glass.CurrentReading"
+                                android:textSize="62sp" />
+                            <TextView
+                                android:id="@+id/s01_unit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_marginStart="4dp"
+                                android:text="@string/s01_unit_mgdl"
+                                android:textAppearance="?attr/textAppearanceTitleMedium" />
+                            <ImageView
+                                android:id="@+id/s01_trend"
+                                android:layout_width="44dp"
+                                android:layout_height="44dp"
+                                android:layout_marginStart="4dp"
+                                android:contentDescription="@null"
+                                android:importantForAccessibility="no"
+                                android:visibility="invisible" />
+                        </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/s01_chips"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top"
+                                android:layout_marginStart="8dp"
+                                android:gravity="end"
+                                android:orientation="vertical">
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/s01_snooze_chip"
+                                    style="@style/Widget.Material3.Button.TextButton"
+                                        android:layout_gravity="end"
+                                        android:paddingHorizontal="10dp"
+                                        android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:insetTop="6dp"
+                                    android:insetBottom="6dp"
+                                    android:minHeight="48dp"
+                                    android:minWidth="48dp"
+                                    android:text="@string/s01_chip_snoozed"
+                                    android:visibility="gone"
+                                    app:cornerRadius="24dp" />
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/s01_banner"
+                                    style="@style/Widget.Material3.Button.TextButton"
+                                        android:layout_gravity="end"
+                                        android:paddingHorizontal="10dp"
+                                        android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:accessibilityLiveRegion="none"
+                                    android:insetTop="6dp"
+                                    android:insetBottom="6dp"
+                                    android:minHeight="48dp"
+                                    android:minWidth="48dp"
+                                    android:visibility="gone"
+                                    app:cornerRadius="24dp" />
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/s01_banner_readiness"
+                                    style="@style/Widget.Material3.Button.TextButton"
+                                        android:layout_gravity="end"
+                                        android:paddingHorizontal="10dp"
+                                        android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:accessibilityLiveRegion="none"
+                                    android:insetTop="6dp"
+                                    android:insetBottom="6dp"
+                                    android:minHeight="48dp"
+                                    android:minWidth="48dp"
+                                    android:visibility="gone"
+                                    app:cornerRadius="24dp" />
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/s01_banner_connection"
+                                    style="@style/Widget.Material3.Button.TextButton"
+                                        android:layout_gravity="end"
+                                        android:paddingHorizontal="10dp"
+                                        android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:accessibilityLiveRegion="none"
+                                    android:insetTop="6dp"
+                                    android:insetBottom="6dp"
+                                    android:minHeight="48dp"
+                                    android:minWidth="48dp"
+                                    android:visibility="gone"
+                                    app:cornerRadius="24dp" />
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/s01_banner_offline"
+                                    style="@style/Widget.Material3.Button.TextButton"
+                                        android:layout_gravity="end"
+                                        android:paddingHorizontal="10dp"
+                                        android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:accessibilityLiveRegion="none"
+                                    android:insetTop="6dp"
+                                    android:insetBottom="6dp"
+                                    android:minHeight="48dp"
+                                    android:minWidth="48dp"
+                                    android:visibility="gone"
+                                    app:cornerRadius="24dp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/s01_status_row"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:importantForAccessibility="noHideDescendants">
+                            <app.lightscout.feature.home.StateStableTextView
+                                android:id="@+id/s01_range_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="8dp"
+                                android:paddingVertical="4dp"
+                                android:textAppearance="?attr/textAppearanceLabelLarge"
+                                android:visibility="invisible"
+                                app:reservedTexts="@array/s01_range_labels" />
+                            <TextView
+                                android:id="@+id/s01_stale"
+                                style="@style/Widget.LightScout.Glass.Chip.Stale"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="@string/s01_age_no_readings"
+                                android:visibility="gone" />
+                            <TextView
+                                android:id="@+id/s01_delta"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:importantForAccessibility="no"
+                                android:text="@string/s01_delta_unknown"
+                                android:textAppearance="?attr/textAppearanceBodyMedium" />
+                            <app.lightscout.feature.home.StateStableTextView
+                                android:id="@+id/s01_age"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="8dp"
+                                app:reservedTexts="@array/s01_age_labels"
+                                android:gravity="center_vertical"
+                                android:textAppearance="?attr/textAppearanceBodyMedium" />
+                            <TextView
+                                android:id="@+id/s01_iob"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:importantForAccessibility="no"
+                                android:textAppearance="?attr/textAppearanceBodyMedium"
+                                android:visibility="gone" />
+                        </LinearLayout>
+                    </LinearLayout>
+                    <app.lightscout.feature.home.FreshnessTrackView
+                        android:id="@+id/s01_next_reading"
+                        android:layout_width="match_parent"
+                        android:layout_height="6dp"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:importantForAccessibility="no" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <app.lightscout.feature.home.HomeChartHost
+                android:id="@+id/s01_chart_host"
+                style="@style/Widget.LightScout.HomeChart.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minHeight="160dp"
+                android:layout_marginTop="8dp">
+                <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                    <app.lightscout.feature.home.GlucoseChartView
+                        android:id="@+id/s01_chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/s01_now_chip"
+                        style="@style/Widget.LightScout.Home.CounterAction"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="top|end"
+                        android:layout_margin="8dp"
+                        android:contentDescription="@string/s01_now_chip_cd"
+                        app:icon="@drawable/ic_s01_now"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        android:visibility="gone" />
+                </FrameLayout>
+            </app.lightscout.feature.home.HomeChartHost>
+            <LinearLayout
+                android:id="@+id/s01_counters"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/s01_site_card"
+                    style="@style/Widget.LightScout.Home.Card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="4dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:padding="16dp"
+                        android:clipToPadding="false">
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:orientation="vertical">
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:text="@string/s01_counter_site_title" android:textAppearance="?attr/textAppearanceTitleSmall" />
+                        <TextView android:id="@+id/s01_site_value" android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:text="@string/glass_value_empty"
+                            android:textAppearance="?attr/textAppearanceHeadlineSmall" />
+                        <LinearLayout android:id="@+id/s01_site_status" android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="18dp" android:orientation="horizontal">
+                            <ImageView android:id="@+id/s01_site_status_icon" android:layout_width="18dp"
+                                android:layout_marginEnd="6dp"
+                                android:layout_height="18dp" android:importantForAccessibility="no" android:visibility="gone" />
+                            <app.lightscout.feature.home.StateStableTextView android:id="@+id/s01_site_status_text" app:reservedTexts="@array/s01_counter_status_labels"
+                                android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+                                android:textAppearance="?attr/textAppearanceBodySmall" />
+                        </LinearLayout>
+                    </LinearLayout>
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/s01_site_entry"
+                            style="@style/Widget.LightScout.Home.CounterAction"
+                            android:layout_width="48dp" android:layout_height="48dp"
+                            android:layout_gravity="top"
+                            android:layout_marginTop="@dimen/s01_action_offset"
+                            android:layout_marginEnd="@dimen/s01_action_offset"
+                            android:contentDescription="@string/s01_chart_type_site_change"
+                            app:icon="@drawable/ic_chart_marker_site"
+                            app:iconPadding="0dp" app:iconGravity="textStart" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/s01_sensor_card"
+                    style="@style/Widget.LightScout.Home.Card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:padding="16dp"
+                        android:clipToPadding="false">
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:orientation="vertical">
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:text="@string/s01_counter_sensor_title" android:textAppearance="?attr/textAppearanceTitleSmall" />
+                        <TextView android:id="@+id/s01_sensor_value" android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:text="@string/glass_value_empty"
+                            android:textAppearance="?attr/textAppearanceHeadlineSmall" />
+                        <LinearLayout android:id="@+id/s01_sensor_status" android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="18dp" android:orientation="horizontal">
+                            <ImageView android:id="@+id/s01_sensor_status_icon" android:layout_width="18dp"
+                                android:layout_marginEnd="6dp"
+                                android:layout_height="18dp" android:importantForAccessibility="no" android:visibility="gone" />
+                            <app.lightscout.feature.home.StateStableTextView android:id="@+id/s01_sensor_status_text" app:reservedTexts="@array/s01_counter_status_labels"
+                                android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+                                android:textAppearance="?attr/textAppearanceBodySmall" />
+                        </LinearLayout>
+                    </LinearLayout>
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/s01_sensor_entry"
+                            style="@style/Widget.LightScout.Home.CounterAction"
+                            android:layout_width="48dp" android:layout_height="48dp"
+                            android:layout_gravity="top"
+                            android:layout_marginTop="@dimen/s01_action_offset"
+                            android:layout_marginEnd="@dimen/s01_action_offset"
+                            android:contentDescription="@string/s01_chart_type_sensor_change"
+                            app:icon="@drawable/ic_chart_marker_sensor"
+                            app:iconPadding="0dp" app:iconGravity="textStart" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/s01_doughnut_card"
+                style="@style/Widget.LightScout.Home.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:clickable="true" android:focusable="true" android:screenReaderFocusable="true"
+                android:foreground="?attr/selectableItemBackground">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:padding="16dp"
+                    android:importantForAccessibility="noHideDescendants">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/s01_doughnut_title" android:textAppearance="?attr/textAppearanceTitleSmall" />
+                        <TextView android:id="@+id/s01_doughnut_summary"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp" android:gravity="end"
+                            android:textAppearance="?attr/textAppearanceTitleSmall"
+                            android:visibility="invisible" />
+                    </LinearLayout>
+                    <app.lightscout.feature.home.HomeDistributionView
+                        android:id="@+id/s01_distribution"
+                        android:layout_width="match_parent" android:layout_height="16dp" android:layout_marginTop="12dp" />
+                    <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp">
+                        <app.lightscout.feature.home.StateStableTextView
+                            android:id="@+id/s01_doughnut_legend"
+                            android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:textAppearance="?attr/textAppearanceBodyMedium"
+                            app:reservedTexts="@array/s01_distribution_labels" />
+                        <app.lightscout.feature.home.StateStableTextView
+                            android:id="@+id/s01_doughnut_empty"
+                            android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:text="@string/s01_doughnut_not_enough_data"
+                            android:textAppearance="?attr/textAppearanceBodyMedium"
+                            app:reservedTexts="@array/s01_distribution_labels" />
+                    </FrameLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </app.lightscout.feature.home.HomeContentLayout>
+    </app.lightscout.feature.home.HomeContentScrollView>
+    <LinearLayout android:id="@+id/s01_dock"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/s01_dock_background">
+    <LinearLayout android:id="@+id/s01_dock_pill"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:background="@drawable/s01_dock_pill" android:paddingHorizontal="8dp"
+        android:layout_marginHorizontal="@dimen/s01_dock_margin_horizontal"
+        android:layout_marginBottom="@dimen/s01_dock_margin_bottom">
+        <com.google.android.material.button.MaterialButton android:id="@+id/s01_carbs"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+            android:minHeight="48dp" android:minWidth="48dp" android:paddingHorizontal="4dp"
+            app:icon="@drawable/ic_chart_marker_carbs" app:iconGravity="textStart" app:iconPadding="6dp"
+            android:text="@string/s01_chart_type_carbs" />
+        <View android:layout_width="1dp" android:layout_height="24dp" android:background="@drawable/s01_dock_divider" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/s01_bolus"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+            android:minHeight="48dp" android:minWidth="48dp" android:paddingHorizontal="4dp"
+            app:icon="@drawable/ic_chart_marker_bolus" app:iconGravity="textStart" app:iconPadding="6dp"
+            app:iconSize="22dp"
+            android:text="@string/s01_chart_type_bolus" />
+        <View android:layout_width="1dp" android:layout_height="24dp" android:background="@drawable/s01_dock_divider" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/s01_bg"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+            android:minHeight="48dp" android:minWidth="48dp" android:paddingHorizontal="4dp"
+            app:icon="@drawable/ic_chart_marker_bg" app:iconGravity="textStart" app:iconPadding="6dp"
+            android:text="@string/s01_dock_bg" />
+    </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

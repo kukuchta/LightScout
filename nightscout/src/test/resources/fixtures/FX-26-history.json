@@ -1,0 +1,6 @@
+{"status":200,"result":[
+ {"identifier":"fx26-sgv","type":"sgv","sgv":130,"date":1893456000000,"direction":"Flat","device":"share2","srvModified":1893456001000,"isValid":true},
+ {"identifier":"fx26-deleted","type":"sgv","sgv":131,"date":1893456300000,"srvModified":1893456302000,"isValid":false},
+ {"identifier":"fx26-mbg","type":"mbg","mbg":120,"date":1893456600000,"srvModified":1893456603000},
+ {"identifier":"fx26-no-srv","type":"sgv","sgv":132,"date":1893456900000}
+]}

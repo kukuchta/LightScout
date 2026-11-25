@@ -1,0 +1,4 @@
+{"status":200,"result":[
+ {"identifier":"0b5a5f8e-0000-4000-8000-000000000010","eventType":"BG Check","glucose":118,"glucoseType":"Finger","units":"mg/dl","date":1893456000000,"created_at":"2030-01-01T00:00:00.000Z","utcOffset":60,"app":"LightScout","enteredBy":"LightScout","srvModified":1893456001234,"srvCreated":1893456001234,"isValid":true},
+ {"identifier":"fx10-foreign","eventType":"Carb Correction","carbs":10,"created_at":"2030-01-01T00:10:00.000Z","app":"other-uploader","enteredBy":"other-uploader","srvModified":1893456601234,"srvCreated":1893456601234,"isValid":true}
+]}

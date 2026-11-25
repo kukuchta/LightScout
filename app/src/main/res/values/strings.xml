@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Launcher label (CP-00A R-86, §5.3): text of s01_title. -->
+    <string name="app_name">LightScout</string>
+</resources>

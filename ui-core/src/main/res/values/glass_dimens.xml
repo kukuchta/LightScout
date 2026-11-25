@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Glass Mono geometry (CP-00A R-90): card 18 dp, hero 24 dp, 48 dp minimum hit area. -->
+<resources>
+    <dimen name="glass_card_radius">18dp</dimen>
+    <dimen name="glass_hero_radius">24dp</dimen>
+    <dimen name="glass_stroke">1dp</dimen>
+    <dimen name="glass_touch_target">48dp</dimen>
+    <!-- Visual height of a compact chip inside its 48 dp touch target is set by the drawable insets. -->
+    <dimen name="glass_chip_inset">8dp</dimen>
+</resources>

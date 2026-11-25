@@ -1,0 +1,89 @@
+Current Alarm Manager state:
+  Settings:
+    version=2 
+    min_futurity=+5s0ms
+    min_interval=+1m0s0ms
+  Feature Flags:
+  Current AppStateTracker State:
+    Exempted bucket packages:
+        app.lightscout.monitor.test
+  Recent TIME_TICK history:
+
+  Next alarm clock information: 
+    user:0 pendingSend:false time:1792496509820 = 2026-10-20 13:41:49.820 = +3m50s115ms
+
+  5 pending alarms: 
+    ELAPSED_WAKEUP #1: Alarm{8d1bdfe type 2 origWhen 39473378 whenElapsed 39473378 com.example.other}
+      tag=*walarm*:com.example.other.action.ALARM
+      type=ELAPSED_WAKEUP origWhen=-5m37s142ms window=+7m29s999ms repeatInterval=0 count=0 flags=0x20
+      whenElapsed=-5m37s142ms maxWhenElapsed=+1m52s857ms
+      operation=PendingIntent{b6b8b0: PendingIntentRecord{6c6ddd8 com.example.other broadcastIntent}}
+    ELAPSED #2: Alarm{e662e3b type 3 origWhen 39810815 whenElapsed 39810815 android}
+      tag=*alarm*:TIME_TICK
+      type=ELAPSED origWhen=+295ms window=0 exactAllowReason=allow-listed repeatInterval=0 count=0 flags=0x9
+      listener=android.app.AlarmManager$ListenerWrapper@26010b2
+    ELAPSED_WAKEUP #3: Alarm{9b3e87 type 2 origWhen 40152626 whenElapsed 40152626 app.lightscout.monitor.test}
+      tag=*walarm*:app.lightscout.monitor.action.TICK
+      type=ELAPSED_WAKEUP origWhen=+5m42s106ms window=0 exactAllowReason=policy_permission repeatInterval=0 count=0 flags=0x9
+      policyWhenElapsed: requester=+5m42s106ms app_standby=-2s891ms device_idle=-- battery_saver=-2s891ms ssru=-2s891ms power_pending=--
+      whenElapsed=+5m42s106ms maxWhenElapsed=+5m42s106ms
+      operation=PendingIntent{4a756d6: PendingIntentRecord{7395d57 app.lightscout.monitor.test broadcastIntent}}
+      idle-options=Bundle[{android.pendingIntent.backgroundActivityAllowed=2, android:broadcast.flags=8}]
+    ELAPSED_WAKEUP #4: Alarm{f909bdf type 2 origWhen 40200000 whenElapsed 40200000 com.example.other}
+      tag=*walarm*:app.lightscout.monitor.action.HEARTBEAT
+      type=ELAPSED_WAKEUP origWhen=+6m29s480ms window=0 exactAllowReason=policy_permission repeatInterval=0 count=0 flags=0x9
+      operation=PendingIntent{2e86f80: PendingIntentRecord{341382b com.example.other broadcastIntent}}
+    ELAPSED_WAKEUP #5: Alarm{c257520 type 2 origWhen 41007626 whenElapsed 41007626 app.lightscout.monitor.test}
+      tag=*walarm*:app.lightscout.monitor.action.WATCHDOG
+      type=ELAPSED_WAKEUP origWhen=+19m57s106ms window=0 exactAllowReason=policy_permission repeatInterval=0 count=0 flags=0x9
+      policyWhenElapsed: requester=+19m57s106ms app_standby=-2s887ms device_idle=-- battery_saver=-2s887ms ssru=-2s887ms power_pending=--
+      whenElapsed=+19m57s106ms maxWhenElapsed=+19m57s106ms
+      operation=PendingIntent{69a0a62: PendingIntentRecord{88c77f3 app.lightscout.monitor.test broadcastIntent}}
+      idle-options=Bundle[{android.pendingIntent.backgroundActivityAllowed=2, android:broadcast.flags=8}]
+  LazyAlarmStore stats:
+    GET_NEXT_DELIVERY_TIME: count=26712, total=28,7ms, avg=0,001ms, max calls/s=0 max dur/s=0,0ms max time=1,8ms
+
+  Pending user blocked background alarms: 
+    none
+
+  Pending alarms per uid: [1000:43, u0a385:2]
+
+  App Alarm history:
+    app.lightscout.monitor.test, u0: -59s76ms,
+    com.example.other, u0: -3m5s322ms,
+
+  Temporary Quota Reserves:
+
+  Next wake from idle: Alarm{65ca107 type 0 origWhen 1792496509820 whenElapsed 40040635 com.example.other}
+    tag=*walarm*:com.example.other/.WakeLockTrampoline
+    type=RTC_WAKEUP origWhen=2026-10-20 13:41:49.820 window=0 exactAllowReason=compat repeatInterval=0 count=0 flags=0x3
+
+  Past-due non-wakeup alarms: (none)
+    Number of delayed alarms: 1646, total delay time: +3h7m38s595ms
+
+  Broadcast ref count: 0
+
+  Allow while idle history:
+
+  Allow while idle compat history:
+
+  Removal history:
+    u0a385:
+      #1: Reason=alarm_cancelled elapsed=-59s76ms rtc=2026-10-20 13:37:00.629
+        Snapshot:
+          type=ELAPSED_WAKEUP tag=*walarm*:app.lightscout.monitor.action.HEARTBEAT 
+          policyWhenElapsed: requester=+18m55s686ms app_standby=-1m4s308ms device_idle=-- battery_saver=-1m4s308ms ssru=-1m4s308ms power_pending=--
+      #2: Reason=alarm_cancelled elapsed=-59s77ms rtc=2026-10-20 13:37:00.628
+        Snapshot:
+          type=ELAPSED_WAKEUP tag=*walarm*:app.lightscout.monitor.action.BOOT_RETRY 
+          policyWhenElapsed: requester=+4m40s686ms app_standby=-1m4s312ms device_idle=-- battery_saver=-1m4s312ms ssru=-1m4s312ms power_pending=--
+
+  Top Alarms:
+    +30s881ms running, 109 wakeups, 109 alarms: u0a385:app.lightscout.monitor.test
+      *walarm*:app.lightscout.monitor.action.HEARTBEAT
+  Alarm Stats:
+  u0a385:app.lightscout.monitor.test +1s2ms running, 12 wakeups:
+    +600ms 6 wakes 6 alarms, last -59s76ms:
+      *walarm*:app.lightscout.monitor.action.BOOT_RETRY
+  Alarm manager stats:
+    REORDER_ALARMS_FOR_STANDBY: count=3692, total=1487,7ms, avg=0,403ms, max calls/s=133 max dur/s=35,1ms max time=16,9ms

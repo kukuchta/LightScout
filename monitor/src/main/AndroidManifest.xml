@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    :monitor library manifest (CP-08 §4.1, CP-00A R-36, R-86: each library declares its own components and the
+    permissions it uses; CP-15 §8.5 owns the final merged-manifest audit, TST-13).
+    Permissions used by :monitor (CP-08 §8.3): PERM-03 POST_NOTIFICATIONS (paused / S-10), PERM-04 FOREGROUND_SERVICE,
+    PERM-05 FOREGROUND_SERVICE_SPECIAL_USE, PERM-06 RECEIVE_BOOT_COMPLETED, PERM-07 USE_EXACT_ALARM (33+) +
+    SCHEDULE_EXACT_ALARM maxSdk 32 (D-021), PERM-12 WAKE_LOCK. PERM-02 / PERM-09 are declared by :platform,
+    PERM-01 by :nightscout / :app.
+    Components: nothing exported (SR-20). Boot / time receivers exported="false" per VR-20 (fallback if VR-20
+    fails: exported="true" + the code allow-list, SR-21). No USER_UNLOCKED (F5).
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission
+        android:name="android.permission.SCHEDULE_EXACT_ALARM"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application>
+
+        <!-- CMP-50 (ADR-042, D-019): the one FGS, type specialUse + subtype property. -->
+        <service
+            android:name="app.lightscout.monitor.MonitorService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Continuous glucose follower: monitoring and alarms" />
+        </service>
+
+        <!-- Tick / heartbeat / boot-retry exact alarms (CP-00A R-36); explicit immutable PIs only. -->
+        <receiver
+            android:name="app.lightscout.monitor.MonitorAlarmReceiver"
+            android:exported="false" />
+
+        <!-- CMP-52 watchdog exact alarm (ADR-045). -->
+        <receiver
+            android:name="app.lightscout.monitor.WatchdogReceiver"
+            android:exported="false" />
+
+        <!-- CMP-53 (ADR-046, WF-04 + F5): direct-boot aware for LOCKED_BOOT_COMPLETED. -->
+        <receiver
+            android:name="app.lightscout.monitor.BootReceiver"
+            android:directBootAware="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- WF-10 (ADR-046). -->
+        <receiver
+            android:name="app.lightscout.monitor.TimeChangeReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- JobScheduler net (ADR-045): persisted periodic job, restart only. -->
+        <service
+            android:name="app.lightscout.monitor.MonitorJobService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+    </application>
+
+</manifest>

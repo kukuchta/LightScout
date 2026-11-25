@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/s02_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    android:focusableInTouchMode="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+        <View
+            android:layout_width="32dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:importantForAccessibility="no"
+            android:background="@drawable/s02_sheet_handle" />
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/s02_toolbar"
+            style="@style/Widget.LightScout.Glass.Toolbar"
+            app:contentInsetStart="0dp"
+            app:titleMarginStart="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/s02_progress"
+            style="@style/Widget.LightScout.Glass.ProgressIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="invisible" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/s02_message_card"
+            style="@style/Widget.LightScout.Glass.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:cardBackgroundColor="?attr/colorErrorContainer">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical" android:padding="12dp">
+                <ImageView android:id="@+id/s02_message_icon"
+                    android:layout_width="24dp" android:layout_height="24dp"
+                    android:importantForAccessibility="no" android:src="@drawable/ic_s02_error"
+                    app:tint="?attr/colorOnErrorContainer" />
+                <TextView android:id="@+id/s02_message_text"
+                    android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:layout_marginStart="8dp" android:accessibilityLiveRegion="polite"
+                    android:textAppearance="@style/TextAppearance.LightScout.Glass.BodyMedium"
+                    android:textColor="?attr/colorOnErrorContainer" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/s02_similar_card"
+            style="@style/Widget.LightScout.Glass.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:cardBackgroundColor="?attr/colorPrimaryContainer">
+            <TextView android:id="@+id/s02_similar_text"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:padding="12dp" android:accessibilityLiveRegion="polite"
+                android:textAppearance="@style/TextAppearance.LightScout.Glass.BodyMedium"
+                android:textColor="?attr/colorOnPrimaryContainer" />
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/s02_types"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+            <com.google.android.material.button.MaterialButton android:id="@+id/s02_chip_carbs"
+                style="@style/Widget.LightScout.Segment"
+                android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                android:minWidth="0dp" android:minHeight="48dp"
+                android:paddingStart="4dp" android:paddingEnd="4dp"
+                android:text="@string/s02_type_carbs"
+                app:icon="@drawable/ic_s02_type_carbs" app:iconGravity="textStart" app:iconPadding="6dp" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/s02_chip_bolus"
+                style="@style/Widget.LightScout.Segment"
+                android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                android:minWidth="0dp" android:minHeight="48dp"
+                android:paddingStart="4dp" android:paddingEnd="4dp"
+                android:text="@string/s02_type_bolus"
+                app:icon="@drawable/ic_s02_type_bolus" app:iconGravity="textStart" app:iconPadding="6dp" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/s02_chip_bg_check"
+                style="@style/Widget.LightScout.Segment"
+                android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                android:minWidth="0dp" android:minHeight="48dp"
+                android:paddingStart="4dp" android:paddingEnd="4dp"
+                android:text="@string/s02_type_bg"
+                app:icon="@drawable/ic_s02_type_bg" app:iconGravity="textStart" app:iconPadding="6dp" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+        <TextView android:id="@+id/s02_type_helper"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="@string/s02_helper_choose_type" android:visibility="gone" />
+        <LinearLayout android:id="@+id/s02_controls"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+            <!-- Standard outlined field: label = type, suffix = unit, helper = allowed range, error replaces helper. -->
+            <com.google.android.material.textfield.TextInputLayout android:id="@+id/s02_value_layout"
+                style="@style/Widget.LightScout.TextInputLayout"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                app:helperTextEnabled="true">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/s02_value"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:hint="@string/s02_value_hint"
+                    android:imeOptions="actionDone" android:importantForAutofill="no" android:inputType="number"
+                    android:minHeight="64dp"
+                    android:textAppearance="?attr/textAppearanceHeadlineSmall" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/s02_time_label"
+            android:textAppearance="?attr/textAppearanceLabelMedium"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:gravity="start" android:orientation="horizontal">
+            <com.google.android.material.button.MaterialButton android:id="@+id/s02_now"
+                style="@style/Widget.LightScout.Entry.Pill"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="@string/s02_time_now"
+                android:contentDescription="@string/s02_time_now_cd" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/s02_pick_time"
+                style="@style/Widget.LightScout.Entry.Pill"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="@string/s02_pick_time" />
+        </LinearLayout>
+        <com.google.android.material.textfield.TextInputLayout android:id="@+id/s02_time_layout"
+            style="@style/Widget.LightScout.TextInputLayout"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:hint="@string/s02_time_label">
+            <com.google.android.material.textfield.TextInputEditText android:id="@+id/s02_time"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:clickable="true" android:cursorVisible="false" android:focusable="false"
+                android:importantForAutofill="no" android:inputType="none" android:longClickable="false" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="end" android:orientation="horizontal">
+            <com.google.android.material.button.MaterialButton android:id="@+id/s02_delete"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content" android:layout_height="wrap_content" android:minHeight="48dp"
+                android:text="@string/s02_delete_dialog_confirm" android:textColor="?attr/colorError"
+                android:visibility="gone" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/s02_cancel"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content" android:layout_height="wrap_content" android:minHeight="48dp"
+                android:text="@string/s02_cancel" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/s02_save"
+                android:layout_width="wrap_content" android:layout_height="wrap_content" android:minHeight="48dp"
+                android:text="@string/s02_save" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

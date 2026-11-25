@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    CMP-81 MainActivity: one NavHostFragment for S-01…S-08 (ADR-022). No app:navGraph: MainActivity sets root_graph
+    with its runtime start destination once IF-27 has resolved (window background as splash; CP-00A R-38, BUG-05 /
+    Q-94). On re-creation RootNavHostFragment sets the restored root graph before its child fragments are restored
+    (BUG-12). Insets are applied per screen (CMP-33).
+-->
+<androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_host"
+    android:name="app.lightscout.navigation.RootNavHostFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:defaultNavHost="true" />

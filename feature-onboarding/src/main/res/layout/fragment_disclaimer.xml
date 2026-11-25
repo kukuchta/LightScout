@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    S-05 Disclaimer (CP-14 §7.2): C-S05-01 bar, C-S05-03 scrollable bullet list (Body Large), C-S05-05 checkbox,
+    sticky area with the linked helper (M3-26) and C-S05-04 „Continue” (Filled, full width) above the
+    navigation-bar inset + 16 dp (GIR-6). No fixed heights: text grows to 200 % and scrolls (A4).
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/s05_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/s05_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/s05_title" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/s05_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp">
+
+            <LinearLayout
+                android:id="@+id/s05_bullets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/s05_bullet_1"
+                    style="@style/Widget.LightScout.Onboarding.Bullet"
+                    android:text="@string/s05_bullet_1" />
+
+                <TextView
+                    android:id="@+id/s05_bullet_2"
+                    style="@style/Widget.LightScout.Onboarding.Bullet"
+                    android:text="@string/s05_bullet_2" />
+
+                <TextView
+                    android:id="@+id/s05_bullet_3"
+                    style="@style/Widget.LightScout.Onboarding.Bullet"
+                    android:text="@string/s05_bullet_3" />
+
+                <TextView
+                    android:id="@+id/s05_bullet_4"
+                    style="@style/Widget.LightScout.Onboarding.Bullet"
+                    android:text="@string/s05_bullet_4" />
+
+                <TextView
+                    android:id="@+id/s05_bullet_5"
+                    style="@style/Widget.LightScout.Onboarding.Bullet"
+                    android:text="@string/s05_bullet_5" />
+            </LinearLayout>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/s05_acknowledge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:minHeight="48dp"
+                android:text="@string/s05_acknowledge"
+                android:textAppearance="?attr/textAppearanceBodyLarge" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/s05_sticky"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:id="@+id/s05_helper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:importantForAccessibility="no"
+            android:text="@string/s05_helper_tick"
+            android:textAppearance="@style/TextAppearance.LightScout.Supporting"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/s05_continue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:minHeight="48dp"
+            android:text="@string/s05_continue" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Shared strings owned by CP-06 (CON-08; Lint HardcodedText = error, TST-12). Text verbatim from CP-06 §7.1
+    (DESIGN §17) and CP-00A §5.2 / §5.3; "{n}"-style placeholders of the design become positional format
+    arguments. Screen-specific strings belong to the feature modules.
+-->
+<resources>
+    <!-- Reading age (S-01 C-S01-10; boundaries CP-00A R-82). -->
+    <string name="s01_age_just_now">Just now</string>
+    <string name="s01_age_min">%1$d min ago</string>
+    <string name="s01_age_h_min">%1$d h %2$d min ago</string>
+    <string name="s01_age_no_readings">No readings</string>
+    <!-- Widget age (S-12 C-S12-03): total minutes. -->
+    <string name="s12_age">%1$d min</string>
+    <!-- Consumable age (S-01 C-S01-16/17, S-11 texts; T-3). -->
+    <string name="s01_counter_value">%1$d d %2$d h</string>
+    <!-- Empty reading glyph; reused on bitmaps (S-10 number icon "stale", CP-00A R-81, R-82). -->
+    <string name="s01_reading_empty" translatable="false">—</string>
+    <!-- Missing number on reviewed Glass Mono surfaces (CP-00A R-90); s01_reading_empty stays for bitmaps / S-09..S-12. -->
+    <string name="glass_value_empty" translatable="false">---</string>
+
+    <!-- Trend spoken words (M3-34), Nightscout directions DoubleUp … DoubleDown, other / none. -->
+    <string name="trend_double_up">rising quickly</string>
+    <string name="trend_single_up">rising</string>
+    <string name="trend_forty_five_up">rising slowly</string>
+    <string name="trend_flat">steady</string>
+    <string name="trend_forty_five_down">falling slowly</string>
+    <string name="trend_single_down">falling</string>
+    <string name="trend_double_down">falling quickly</string>
+    <string name="trend_unknown">trend unknown</string>
+
+    <!-- Trend arrow glyphs for text surfaces (CP-00A §5.3, R-82); UNKNOWN has no glyph. -->
+    <string name="trend_arrow_double_up" translatable="false">↑↑</string>
+    <string name="trend_arrow_single_up" translatable="false">↑</string>
+    <string name="trend_arrow_forty_five_up" translatable="false">↗</string>
+    <string name="trend_arrow_flat" translatable="false">→</string>
+    <string name="trend_arrow_forty_five_down" translatable="false">↘</string>
+    <string name="trend_arrow_single_down" translatable="false">↓</string>
+    <string name="trend_arrow_double_down" translatable="false">↓↓</string>
+
+    <!-- Time labels (CP-00A §5.3: s02_time_formats; R-82). -->
+    <string name="fmt_time_today">Today %1$s</string>
+    <string name="fmt_time_yesterday">Yesterday %1$s</string>
+    <string name="fmt_time_date">%1$s %2$s</string>
+    <!-- Date patterns (java.time DateTimeFormatter; CP-00A §5.3: s01_chart_day_label, s03_period_formats). -->
+    <string name="pattern_day">EEE d MMM</string>
+    <string name="pattern_day_month">d MMM</string>
+    <string name="fmt_period_range">%1$s – %2$s</string>
+
+    <!-- Spoken age fragments for TalkBack (DCR-04.6 to .8, approved D-038). -->
+    <plurals name="a11y_minutes">
+        <item quantity="one">%1$d minute</item>
+        <item quantity="other">%1$d minutes</item>
+    </plurals>
+    <plurals name="a11y_hours">
+        <item quantity="one">%1$d hour</item>
+        <item quantity="other">%1$d hours</item>
+    </plurals>
+    <string name="a11y_age_ago">%1$s ago</string>
+
+    <!-- Value units (DESIGN §17; Q-54: defined here, CP-13 / CP-17 reuse them). Number + space + suffix (R-82). -->
+    <string name="s02_suffix_mgdl">mg/dL</string>
+    <string name="s02_suffix_g">g</string>
+    <string name="s02_suffix_u">U</string>
+    <string name="s04_value_mgdl">%1$d mg/dL</string>
+
+    <!-- Snackbar for UiMessage.CONNECTION_SAVED (A-S06-3; CP-00A R-12, R-38), shown by the receiving screen (S-01,
+         S-04); placed next to UiMessage by Moderator ruling (SS-13). -->
+    <string name="s06_snackbar_saved">Connection saved</string>
+</resources>

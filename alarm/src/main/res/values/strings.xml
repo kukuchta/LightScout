@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Strings owned by CP-07 (§7.4 = DESIGN §17, verbatim; CON-08). "(example)" keys are templates per CP-00A R-83 /
+    §5.3: the example wording is kept and the example values become placeholders.
+    Not here: s11_channel_alarms (owned by :platform, CP-05), s09_age (reuses s01_age_* in :ui-core, §5.3),
+    trend_* (owned by :ui-core, CP-06).
+-->
+<resources>
+    <!-- C-S09-01 -->
+    <string name="s09_title_urgent_low">Urgent low</string>
+    <string name="s09_title_low">Low</string>
+    <string name="s09_title_high">High</string>
+    <string name="s09_title_no_data">No data</string>
+    <string name="s09_title_not_running">LightScout is not running</string>
+    <!-- C-S09-02 -->
+    <string name="s09_unit">mg/dL</string>
+    <!-- C-S09-03 -->
+    <string name="s09_no_new_readings">No new readings for %1$d min</string>
+    <string name="s09_cause_no_internet">No internet connection on this phone</string>
+    <string name="s09_cause_ns_not_responding">Nightscout is not responding</string>
+    <string name="s09_cause_uploader">Nightscout works, but nothing new arrived from the uploader</string>
+    <string name="s09_stopped_checking">LightScout stopped checking at %1$s</string>
+    <!-- C-S09-04 -->
+    <string name="s09_snooze">Snooze %1$d min</string>
+    <!-- TalkBack on open (GIR-7). Glucose alarms: {type}, {sgv}, {trend}. -->
+    <string name="s09_open_a11y">Alarm. %1$s, %2$d milligrams per decilitre, %3$s</string>
+    <!-- TalkBack on open, No data / Not running (CP-00A §5.3 variant of s09_open_a11y): {title}, {age or cause line}. -->
+    <string name="s09_open_a11y_status">Alarm. %1$s, %2$s</string>
+
+    <!-- C-S11-01 / C-S11-02 (S-11 alarm kinds). Glucose alarm title: {type} · {sgv} mg/dL {arrow} (R-83). -->
+    <string name="s11_alarm_title">%1$s · %2$s mg/dL %3$s</string>
+    <string name="s11_alarm_text">Snooze or open LightScout</string>
+    <string name="s11_no_data_title">No data · %1$d min</string>
+    <string name="s11_watchdog_title">LightScout is not running</string>
+    <string name="s11_watchdog_text">Last check %1$s. Open the app to restart monitoring.</string>
+    <string name="s11_snooze_action">Snooze %1$d min</string>
+</resources>

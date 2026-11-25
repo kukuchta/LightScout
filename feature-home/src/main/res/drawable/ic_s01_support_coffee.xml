@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- DCR-46: coffee cup in a soft circle, the icon of the support dialog; colours follow the theme (day / night). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="56dp"
+    android:height="56dp"
+    android:viewportWidth="56"
+    android:viewportHeight="56">
+    <path
+        android:fillColor="?attr/colorSecondaryContainer"
+        android:pathData="M28,28m-28,0a28,28 0 1,1 56,0a28,28 0 1,1 -56,0" />
+    <group android:pivotX="28" android:pivotY="28" android:scaleX="1.45" android:scaleY="1.45">
+        <path
+            android:pathData="M18,25 L34,25 L34,31 A6,6 0 0 1 28,37 L24,37 A6,6 0 0 1 18,31 Z"
+            android:strokeColor="?attr/colorOnSecondaryContainer"
+            android:strokeLineJoin="round"
+            android:strokeWidth="2" />
+        <path
+            android:pathData="M34,27 L36,27 A3.5,3.5 0 0 1 36,34 L34,34"
+            android:strokeColor="?attr/colorOnSecondaryContainer"
+            android:strokeLineCap="round"
+            android:strokeWidth="2" />
+        <path
+            android:pathData="M22,21 C22,19.5 23.5,19.5 23.5,18 M26,21 C26,19.5 27.5,19.5 27.5,18 M30,21 C30,19.5 31.5,19.5 31.5,18"
+            android:strokeColor="?attr/colorOnSecondaryContainer"
+            android:strokeLineCap="round"
+            android:strokeWidth="2" />
+    </group>
+</vector>

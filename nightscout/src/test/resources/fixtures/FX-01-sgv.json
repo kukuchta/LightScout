@@ -1,0 +1,4 @@
+{"status":200,"result":[
+ {"identifier":"fx01-sgv-0001","type":"sgv","sgv":123,"date":1893456000000,"dateString":"2030-01-01T00:00:00.000Z","trend":4,"direction":"Flat","device":"share2","utcOffset":0,"sysTime":"2030-01-01T00:00:00.000Z","noise":1,"filtered":100000,"unfiltered":100000,"delta":1.5},
+ {"identifier":"fx01-sgv-0002","type":"sgv","sgv":127,"date":1893456300000,"dateString":"2030-01-01T00:05:00.000Z","trend":3,"direction":"FortyFiveUp","device":"share2","utcOffset":0,"sysTime":"2030-01-01T00:05:00.000Z"}
+]}

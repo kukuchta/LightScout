@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Trend arrow, line style "B1" (DCR-37; the only trend glyph): forty_five_down. Geometry on a +-10 grid, both head legs 7x7 (90 degrees), stroke 3.2,
+     round caps. White: tint with setColorFilter / android:tint. Used by the S-10 chart layouts. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="22dp"
+    android:height="22dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <group
+        android:translateX="12"
+        android:translateY="12">
+        <group android:rotation="45">
+            <path
+                android:pathData="M-10,0H10M3,-7L10,0L3,7"
+                android:strokeColor="@android:color/white"
+                android:strokeWidth="3.2"
+                android:strokeLineCap="round"
+                android:strokeLineJoin="round" />
+        </group>
+    </group>
+</vector>

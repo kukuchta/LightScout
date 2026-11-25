@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Window background: static upper-left glow (teal in dark, grey in light) fading over the background; no animation, no blur (R-90). -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/glass_background" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:centerX="0.1"
+                android:centerY="0.0"
+                android:endColor="@color/glass_glow_end"
+                android:gradientRadius="90%p"
+                android:startColor="@color/glass_glow"
+                android:type="radial" />
+        </shape>
+    </item>
+</layer-list>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Test APK only (CP-14 §9 TST-06 S-05…S-08; compiled in SS-11, run on RD-2 API 33 over USB — CP-00 §10 CR-04,
+    D-048). The test Application stands in for the CP-15 composition root (IF-28 with fakes for IF-24 / IF-27 / IF-21);
+    the host activity stands in for MainActivity (IF-29 recording navigator, NavHostFragment with onboarding_graph).
+    No network: the fake IF-24 never contacts any server (CP-00 §8).
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:name="app.lightscout.feature.onboarding.TestOnboardingApplication"
+        android:theme="@style/Theme.LightScout">
+        <activity
+            android:name="app.lightscout.feature.onboarding.TestHostActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- Stand-in for system / OEM settings pages and the browser (S-07 / S-08 device tests). -->
+        <activity
+            android:name="app.lightscout.feature.onboarding.RecordingSettingsActivity"
+            android:exported="false" />
+    </application>
+
+</manifest>

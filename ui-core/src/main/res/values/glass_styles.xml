@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Glass Mono styles (CP-00A R-90; CP-06 DCR-14). Applied only through Theme.LightScout.Glass (MainActivity); the
+    legacy TextAppearance.LightScout.* / Widget.LightScout.* styles used by alarm, notification and widget contexts
+    are unchanged. Text-role sizes stay the native Material 3 roles (parents); only family / weight
+    change, so text still scales to font scale 200 %. No fixed text heights; 48 dp are minimums only.
+    DM Sans (weight 500, plain proportional figures per PO direction): Display, Headline, Title Large.
+    Inter: other Title, Body, Label.
+-->
+<resources>
+
+    <!-- DM Sans roles. -->
+    <style name="TextAppearance.LightScout.Glass.DisplayLarge" parent="TextAppearance.Material3.DisplayLarge">
+        <item name="fontFamily">@font/glass_dm_sans</item>
+        <item name="android:fontFamily">@font/glass_dm_sans</item>
+        <item name="android:textFontWeight">500</item>
+    </style>
+    <style name="TextAppearance.LightScout.Glass.DisplayMedium" parent="TextAppearance.Material3.DisplayMedium">
+        <item name="fontFamily">@font/glass_dm_sans</item>
+        <item name="android:fontFamily">@font/glass_dm_sans</item>
+        <item name="android:textFontWeight">500</item>
+    </style>
+    <style name="TextAppearance.LightScout.Glass.DisplaySmall" parent="TextAppearance.Material3.DisplaySmall">
+        <item name="fontFamily">@font/glass_dm_sans</item>
+        <item name="android:fontFamily">@font/glass_dm_sans</item>
+        <item name="android:textFontWeight">500</item>
+    </style>
+    <style name="TextAppearance.LightScout.Glass.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="fontFamily">@font/glass_dm_sans</item>
+        <item name="android:fontFamily">@font/glass_dm_sans</item>
+        <item name="android:textFontWeight">500</item>
+    </style>
+    <style name="TextAppearance.LightScout.Glass.HeadlineMedium" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="fontFamily">@font/glass_dm_sans</item>
+        <item name="android:fontFamily">@font/glass_dm_sans</item>
+        <item name="android:textFontWeight">500</item>
+    </style>
+    <style name="TextAppearance.LightScout.Glass.HeadlineSmall" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="fontFamily">@font/glass_dm_sans</item>
+        <item name="android:fontFamily">@font/glass_dm_sans</item>
+        <item name="android:textFontWeight">500</item>
+    </style>
+    <style name="TextAppearance.LightScout.Glass.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="fontFamily">@font/glass_dm_sans</item>
+        <item name="android:fontFamily">@font/glass_dm_sans</item>
+        <item name="android:textFontWeight">500</item>
+    </style>
+
+    <!-- Inter roles. -->
+    <style name="TextAppearance.LightScout.Glass.TitleMedium" parent="TextAppearance.Material3.TitleMedium">
+        <item name="fontFamily">@font/glass_inter</item>
+        <item name="android:fontFamily">@font/glass_inter</item>
+    </style>
+    <style name="TextAppearance.LightScout.Glass.TitleSmall" parent="TextAppearance.Material3.TitleSmall">
+        <item name="fontFamily">@font/glass_inter</item>
+        <item name="android:fontFamily">@font/glass_inter</item>
+    </style>
+    <style name="TextAppearance.LightScout.Glass.BodyLarge" parent="TextAppearance.Material3.BodyLarge">
+        <item name="fontFamily">@font/glass_inter</item>
+        <item name="android:fontFamily">@font/glass_inter</item>
+    </style>
+    <style name="TextAppearance.LightScout.Glass.BodyMedium" parent="TextAppearance.Material3.BodyMedium">
+        <item name="fontFamily">@font/glass_inter</item>
+        <item name="android:fontFamily">@font/glass_inter</item>
+    </style>
+    <style name="TextAppearance.LightScout.Glass.BodySmall" parent="TextAppearance.Material3.BodySmall">
+        <item name="fontFamily">@font/glass_inter</item>
+        <item name="android:fontFamily">@font/glass_inter</item>
+    </style>
+    <style name="TextAppearance.LightScout.Glass.LabelLarge" parent="TextAppearance.Material3.LabelLarge">
+        <item name="fontFamily">@font/glass_inter</item>
+        <item name="android:fontFamily">@font/glass_inter</item>
+    </style>
+    <style name="TextAppearance.LightScout.Glass.LabelMedium" parent="TextAppearance.Material3.LabelMedium">
+        <item name="fontFamily">@font/glass_inter</item>
+        <item name="android:fontFamily">@font/glass_inter</item>
+    </style>
+    <style name="TextAppearance.LightScout.Glass.LabelSmall" parent="TextAppearance.Material3.LabelSmall">
+        <item name="fontFamily">@font/glass_inter</item>
+        <item name="android:fontFamily">@font/glass_inter</item>
+    </style>
+
+    <!-- Current reading value (Display Large role, normal reading colour; High / Low / Urgent low colours are applied by the screen). -->
+    <style name="TextAppearance.LightScout.Glass.CurrentReading" parent="TextAppearance.LightScout.Glass.DisplayLarge">
+        <item name="android:textColor">@color/glass_reading_normal</item>
+    </style>
+
+    <!-- Shape: 18 dp cards, 24 dp hero. -->
+    <style name="ShapeAppearance.LightScout.Glass.Card" parent="ShapeAppearance.Material3.Corner.Medium">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/glass_card_radius</item>
+    </style>
+    <style name="ShapeAppearance.LightScout.Glass.Hero" parent="ShapeAppearance.Material3.Corner.Large">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/glass_hero_radius</item>
+    </style>
+
+    <!-- Static glass card (no blur, no elevation). -->
+    <style name="Widget.LightScout.Glass.Card" parent="Widget.Material3.CardView.Outlined">
+        <item name="cardBackgroundColor">@color/glass_card</item>
+        <item name="strokeColor">@color/glass_card_border</item>
+        <item name="strokeWidth">@dimen/glass_stroke</item>
+        <item name="cardElevation">0dp</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.LightScout.Glass.Card</item>
+    </style>
+    <style name="Widget.LightScout.Glass.Card.Hero">
+        <item name="cardBackgroundColor">@color/glass_card</item>
+        <item name="strokeColor">@color/glass_hero_border</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.LightScout.Glass.Hero</item>
+    </style>
+
+    <!-- App bar sits on the window glow: transparent, no lift colour, so no seam under the toolbar (mockup). -->
+    <style name="Widget.LightScout.Glass.AppBarLayout" parent="Widget.LightScout.AppBarLayout">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="liftOnScroll">false</item>
+        <item name="liftOnScrollColor">@android:color/transparent</item>
+    </style>
+
+    <!-- Toolbar title: Title Large in DM Sans. -->
+    <style name="Widget.LightScout.Glass.Toolbar" parent="Widget.LightScout.Toolbar">
+        <item name="titleTextAppearance">@style/TextAppearance.LightScout.Glass.TitleLarge</item>
+    </style>
+
+    <!-- Chips are text views whose drawable insets leave a 48 dp touch target; text grows with font scale. -->
+    <style name="Widget.LightScout.Glass.Chip" parent="">
+        <item name="android:minHeight">@dimen/glass_touch_target</item>
+        <item name="android:minWidth">@dimen/glass_touch_target</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.LightScout.Glass.LabelLarge</item>
+    </style>
+    <style name="Widget.LightScout.Glass.Chip.Info">
+        <item name="android:background">@drawable/glass_chip_info</item>
+        <item name="android:textColor">@color/glass_chip_info_text</item>
+    </style>
+    <style name="Widget.LightScout.Glass.Chip.Warning">
+        <item name="android:background">@drawable/glass_chip_warning</item>
+        <item name="android:textColor">@color/glass_chip_warning_text</item>
+    </style>
+    <style name="Widget.LightScout.Glass.Chip.Stale">
+        <item name="android:background">@drawable/glass_chip_stale</item>
+        <item name="android:textColor">@color/glass_stale_chip_text</item>
+    </style>
+
+    <!-- Urgent label: white on BC1724 (not interactive). -->
+    <style name="Widget.LightScout.Glass.UrgentLabel" parent="">
+        <item name="android:background">@drawable/glass_urgent_label</item>
+        <item name="android:textColor">@color/glass_urgent_label_text</item>
+        <item name="android:textAppearance">@style/TextAppearance.LightScout.Glass.LabelLarge</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+    </style>
+
+    <!-- Progress: white 10 % track, accent fill. -->
+    <style name="Widget.LightScout.Glass.ProgressIndicator" parent="Widget.Material3.LinearProgressIndicator">
+        <item name="trackColor">@color/glass_progress_track</item>
+        <item name="indicatorColor">?attr/colorPrimary</item>
+    </style>
+</resources>

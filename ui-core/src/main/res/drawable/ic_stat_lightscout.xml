@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Resource small icon for notifications (CP-00A R-81, R-12; 06 §11 F4): the first S-10 notification and the
+    fallback when the number bitmap cannot be rendered. White silhouette on transparent (status-bar icon rules).
+    PLACEHOLDER artwork (a drop) — architecture fallback, not a design element (Q-56). Final artwork to be
+    supplied later with PO sign-off.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M12,2.5C12,2.5 5.5,10 5.5,14.5A6.5,6.5 0,0 0,18.5 14.5C18.5,10 12,2.5 12,2.5Z" />
+</vector>

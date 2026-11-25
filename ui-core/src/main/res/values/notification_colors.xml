@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- S-10 notification chart (DCR-37): the High guide is a lighter amber than the main chart's, so that on the light
+     notification surface it is not mistaken for the red Low guide. The Low guide keeps glass_guide_low. -->
+<resources>
+    <color name="notification_guide_high">#F0A30A</color>
+</resources>

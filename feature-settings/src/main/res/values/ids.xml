@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="s04_value_input" type="id" />
+    <item name="s04_from_input" type="id" />
+    <item name="s04_to_input" type="id" />
+</resources>

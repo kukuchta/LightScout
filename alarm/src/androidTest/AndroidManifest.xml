@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Test APK only (CP-07 §9 TST-07 / TST-13 instrumented tests; compiled in SS-10, run batched on RD-2 API 33 over
+    USB — CP-00 §10 CR-04, D-048; API 34+/36-only parts are VR procedures for RD-1). The test Application stands in
+    for the :app composition root (CP-15) and implements AlarmRuntimeProvider with fakes for IF-25 / IF-14 and the
+    real CMP-26 channels. The :alarm library manifest (components, permissions) is merged in.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application android:name="app.lightscout.alarm.TestAlarmApplication" />
+
+</manifest>

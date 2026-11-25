@@ -1,0 +1,27 @@
+<!-- Sensor: adhesive ring with a squared Dexcom-style body turned 45 deg. Stroked, Material rounded metrics
+     (24 dp grid, 2 dp strokes). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M21.5,12A9.5,9.5 0,1 1,2.5 12A9.5,9.5 0,1 1,21.5 12"
+        android:strokeColor="#FF000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeWidth="2" />
+    <group
+        android:pivotX="12"
+        android:pivotY="12"
+        android:rotation="45">
+        <path
+            android:fillColor="#00000000"
+            android:pathData="M9.5,8H14.5A1.5,1.5 0,0 1,16 9.5V14.5A1.5,1.5 0,0 1,14.5 16H9.5A1.5,1.5 0,0 1,8 14.5V9.5A1.5,1.5 0,0 1,9.5 8Z"
+            android:strokeColor="#FF000000"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:strokeWidth="2" />
+    </group>
+</vector>

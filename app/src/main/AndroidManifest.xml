@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    :app manifest (CP-15 §8.5, CP-00A R-36, R-39, R-86). Each library module declares its own components,
+    permissions and <queries>; :app declares the <application> attributes and MainActivity. TST-13
+    (Tst13ManifestAuditTest) audits the MERGED release / debug / debugProxy manifests against the §8.5 allow-lists.
+
+    Permissions declared here: PERM-01 INTERNET (the gateway is wired here; okhttp-android also adds it). PERM-02…PERM-12
+    come from :platform, :monitor and :alarm (merged once each). No other permission is allowed (SR-27).
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!--
+        Backup off (SR-06): allowBackup=false + data extraction rules (31+, cloud and device transfer) + full backup
+        content (29-30), all excluding everything. Network (SR-14…SR-16): no cleartext; system CAs only (user CAs only
+        in debugProxy). Predictive back on (CP-00 §2). Theme Theme.LightScout (:ui-core, Material 3 DayNight,
+        no dynamic colour, D-069 / D-070).
+    -->
+    <application
+        android:name=".LightScoutApplication"
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.LightScout"
+        android:usesCleartextTraffic="false">
+
+        <!--
+            CMP-81 (ADR-022, SR-20, SR-21, SR-25, D-009): exported with MAIN / LAUNCHER only — no other filter, no deep
+            or app links, no shortcuts; never over the keyguard (no showWhenLocked / turnScreenOn); portrait only;
+            adjustResize for the S-06 IME inset. IF-50 PendingIntents reach it with CLEAR_TOP | SINGLE_TOP
+            (AppLaunch.mainActivityIntent). Theme.LightScout.Glass (:ui-core, CP-00A R-90 / R-95): reviewed light and dark
+            presentation for this activity only; the application theme and every other component stay on
+            Theme.LightScout.
+        -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.LightScout.Glass"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- S-09 portrait lock is also declared by :alarm (identical value, merges once; CP-00A R-86, SS-10 §5.4). -->
+        <activity
+            android:name="app.lightscout.alarm.AlarmActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <!--
+            Component allow-list (SR-20, CP-15 §8.5): androidx.profileinstaller (transitive AndroidX) adds an EXPORTED
+            ProfileInstallReceiver (DUMP-protected). It is not on the allow-list, so it is removed from every variant.
+            Baseline profiles are still installed by the non-exported startup initializer (SS-14 A-7, Q-new-2).
+        -->
+        <receiver
+            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+            tools:ignore="MissingClass"
+            tools:node="remove" />
+
+        <!--
+            androidx.startup InitializationProvider stays NON-exported (okhttp-android + lifecycle-process, Q-36).
+            SR-19 (no fonts / CDNs): the EmojiCompat initializer (emoji2, transitive via AppCompat / Material) would
+            request a downloadable emoji font from the system font provider at start-up; LightScout shows no emoji,
+            so it is removed (SS-14 A-8).
+        -->
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:ignore="MissingClass"
+            tools:node="merge">
+            <meta-data
+                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+                tools:node="remove" />
+        </provider>
+
+    </application>
+
+</manifest>

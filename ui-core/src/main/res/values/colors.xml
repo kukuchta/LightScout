@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    LightScout fixed colour scheme, light (CMP-30; CP-00A R-84; GIR-8, GIR-10; DS:D-069, D-070, D-073).
+    M3 scheme: seed #3F5F90, variant Tonal Spot, standard contrast, generated with material-color-utilities
+    (the Material Theme Builder engine, bundled in MDC 1.14.0) by tools/colors/GenerateScheme.java.
+    Extended colour "warning": custom seed #FFB300 (amber), harmonisation off, tones 40/100/90/10.
+    Static values: no dynamic colour on any API level (also the widget below API 31, M3-35).
+-->
+<resources>
+    <color name="md_theme_primary">#3F5F90</color>
+    <color name="md_theme_onPrimary">#FFFFFF</color>
+    <color name="md_theme_primaryContainer">#D6E3FF</color>
+    <color name="md_theme_onPrimaryContainer">#254777</color>
+    <color name="md_theme_secondary">#555F71</color>
+    <color name="md_theme_onSecondary">#FFFFFF</color>
+    <color name="md_theme_secondaryContainer">#D9E3F8</color>
+    <color name="md_theme_onSecondaryContainer">#3E4758</color>
+    <color name="md_theme_tertiary">#6F5675</color>
+    <color name="md_theme_onTertiary">#FFFFFF</color>
+    <color name="md_theme_tertiaryContainer">#F8D8FE</color>
+    <color name="md_theme_onTertiaryContainer">#563E5D</color>
+    <color name="md_theme_error">#BA1A1A</color>
+    <color name="md_theme_onError">#FFFFFF</color>
+    <color name="md_theme_errorContainer">#FFDAD6</color>
+    <color name="md_theme_onErrorContainer">#93000A</color>
+    <color name="md_theme_background">#F9F9FF</color>
+    <color name="md_theme_onBackground">#191C20</color>
+    <color name="md_theme_surface">#F9F9FF</color>
+    <color name="md_theme_onSurface">#191C20</color>
+    <color name="md_theme_surfaceVariant">#E0E2EC</color>
+    <color name="md_theme_onSurfaceVariant">#43474E</color>
+    <color name="md_theme_outline">#74777F</color>
+    <color name="md_theme_outlineVariant">#C4C6CF</color>
+    <color name="md_theme_scrim">#000000</color>
+    <color name="md_theme_inverseSurface">#2E3035</color>
+    <color name="md_theme_inverseOnSurface">#F0F0F7</color>
+    <color name="md_theme_inversePrimary">#A8C8FF</color>
+    <color name="md_theme_primaryFixed">#D6E3FF</color>
+    <color name="md_theme_onPrimaryFixed">#001B3C</color>
+    <color name="md_theme_primaryFixedDim">#A8C8FF</color>
+    <color name="md_theme_onPrimaryFixedVariant">#254777</color>
+    <color name="md_theme_secondaryFixed">#D9E3F8</color>
+    <color name="md_theme_onSecondaryFixed">#121C2B</color>
+    <color name="md_theme_secondaryFixedDim">#BDC7DC</color>
+    <color name="md_theme_onSecondaryFixedVariant">#3E4758</color>
+    <color name="md_theme_tertiaryFixed">#F8D8FE</color>
+    <color name="md_theme_onTertiaryFixed">#28132F</color>
+    <color name="md_theme_tertiaryFixedDim">#DBBCE1</color>
+    <color name="md_theme_onTertiaryFixedVariant">#563E5D</color>
+    <color name="md_theme_surfaceDim">#D9D9E0</color>
+    <color name="md_theme_surfaceBright">#F9F9FF</color>
+    <color name="md_theme_surfaceContainerLowest">#FFFFFF</color>
+    <color name="md_theme_surfaceContainerLow">#F3F3FA</color>
+    <color name="md_theme_surfaceContainer">#EDEDF4</color>
+    <color name="md_theme_surfaceContainerHigh">#E7E8EE</color>
+    <color name="md_theme_surfaceContainerHighest">#E1E2E9</color>
+    <color name="md_theme_warning">#7E5700</color>
+    <color name="md_theme_onWarning">#FFFFFF</color>
+    <color name="md_theme_warningContainer">#FFDEAC</color>
+    <color name="md_theme_onWarningContainer">#281900</color>
+</resources>
