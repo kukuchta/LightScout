@@ -3,7 +3,7 @@
 # Any new entry needs a PO decision. Versions = latest stable on Google Maven / Maven Central on 2026-10-15.
 
 [versions]
-agp = "9.5.2"
+agp = "9.5.3"
 appcompat = "1.8.0"
 core = "1.19.1"
 activity = "1.13.0"
