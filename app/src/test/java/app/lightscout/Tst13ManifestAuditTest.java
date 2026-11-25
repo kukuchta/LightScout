@@ -38,7 +38,7 @@ public class Tst13ManifestAuditTest {
             P + "USE_FULL_SCREEN_INTENT", P + "REQUEST_IGNORE_BATTERY_OPTIMIZATIONS", P + "ACCESS_NOTIFICATION_POLICY",
             P + "VIBRATE", P + "WAKE_LOCK");
 
-    private static final String[] VARIANTS = {"release", "debug", "debugProxy"};
+    private static final String[] VARIANTS = {"release", "nightly", "debug", "debugProxy"};
 
     // ------------------------------------------------------------------ permissions
 
@@ -289,12 +289,13 @@ public class Tst13ManifestAuditTest {
             assertEquals("false", app.getAttributeNS(A, "usesCleartextTraffic"));
             assertEquals("@xml/network_security_config", app.getAttributeNS(A, "networkSecurityConfig"));
             assertEquals("true", app.getAttributeNS(A, "enableOnBackInvokedCallback"));
-            if ("release".equals(variant)) {
+            if ("release".equals(variant) || "nightly".equals(variant)) {
                 assertFalse("release not debuggable", "true".equals(app.getAttributeNS(A, "debuggable")));
                 assertEquals("", app.getAttributeNS(A, "testOnly"));
             }
         }
         assertEquals("app.lightscout", manifest("release").getDocumentElement().getAttribute("package"));
+        assertEquals("app.lightscout.nightly", manifest("nightly").getDocumentElement().getAttribute("package"));
         assertEquals("app.lightscout.debug", manifest("debug").getDocumentElement().getAttribute("package"));
         assertEquals("app.lightscout.debug", manifest("debugProxy").getDocumentElement().getAttribute("package"));
     }

@@ -55,6 +55,45 @@ that is used for real alarms**: both would monitor and ring.
 - **Never use a real Nightscout with someone's data for tests.** Unit tests use fakes.
 - All user-visible text is in string resources.
 
-## Releases
+## Build types
 
-Releases are built from a tag and signed by the maintainer. Contributors only need the debug build.
+| Build type | App id | Signing | Use |
+|---|---|---|---|
+| `debug`, `debugProxy` | `app.lightscout.debug` | debug key | development, device tests |
+| `release` | `app.lightscout` | release key, in CI only | stable releases |
+| `nightly` | `app.lightscout.nightly` | nightly key, in CI only | nightly pre-releases, a separate app "LightScout Nightly" |
+
+Locally `release` and `nightly` build unsigned. CI signs them from environment variables
+(`LIGHTSCOUT_RELEASE_*` / `LIGHTSCOUT_NIGHTLY_*`: `STORE_FILE`, `STORE_PASSWORD`, `KEY_ALIAS`, `KEY_PASSWORD`); keys are
+never stored in the repository.
+
+## CI and releases (GitHub Actions)
+
+| Workflow | When | What |
+|---|---|---|
+| `CI` | every push and pull request | `./gradlew build` |
+| `Nightly` | 02:00 UTC, or by hand | only if `master` has a commit without a `nightly-<sha>` tag: tests, signed nightly APK, pre-release; keeps the newest 5 |
+| `Release` | by hand | tests and an unsigned APK; with *publish* also signs (environment `release`, needs approval), tags `vX.Y.Z` and publishes |
+
+To release: raise `lightscout.versionName` in `gradle.properties`, add a `## [X.Y.Z]` section to `CHANGELOG.md`,
+merge to `master`, run *Release* with *publish*, approve the `release` environment.
+
+Repository settings the workflows need (maintainer):
+
+- Environment **`release`** with a required reviewer and the secrets `RELEASE_KEYSTORE_BASE64`,
+  `RELEASE_STORE_PASSWORD`, `RELEASE_KEY_ALIAS`, `RELEASE_KEY_PASSWORD`.
+- Repository secrets `NIGHTLY_KEYSTORE_BASE64`, `NIGHTLY_STORE_PASSWORD`, `NIGHTLY_KEY_ALIAS`, `NIGHTLY_KEY_PASSWORD`
+  (a separate key; losing it only means reinstalling the nightly app).
+- Actions → General → Workflow permissions: read and write (to create tags and releases).
+
+## Dependency updates
+
+Dependabot opens weekly pull requests. Gradle dependency verification is on (`gradle/verification-metadata.xml`), so
+a Gradle update fails CI until the metadata is refreshed. On the update branch:
+
+```powershell
+./gradlew.bat --write-verification-metadata sha256,pgp help
+```
+
+Review the diff of `gradle/verification-metadata.xml` (new versions only, expected publishers), commit it to the
+branch, and merge when CI is green.

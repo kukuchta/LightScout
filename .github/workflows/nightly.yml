@@ -1,0 +1,104 @@
+# Nightly: every night, only when master has a commit without a nightly build yet (checked by commit SHA, so an
+# unchanged commit never gets a second tag). Builds the separate app "LightScout Nightly" (app.lightscout.nightly),
+# signs it with the nightly key and publishes a pre-release. Keeps the newest 5 nightly releases.
+name: Nightly
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nightly
+  cancel-in-progress: false
+
+jobs:
+  nightly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Decide whether to build
+        id: meta
+        run: |
+          SHA=$(git rev-parse --short=7 HEAD)
+          DATE=$(date -u +%Y%m%d)
+          BASE=$(grep '^lightscout.versionName=' gradle.properties | cut -d= -f2 | tr -d '[:space:]')
+          TAG="nightly-${SHA}"
+          echo "sha=${SHA}" >> "$GITHUB_OUTPUT"
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+          echo "version=${BASE}-nightly.${DATE}.${SHA}" >> "$GITHUB_OUTPUT"
+          echo "suffix=-nightly.${DATE}.${SHA}" >> "$GITHUB_OUTPUT"
+          if git ls-remote --exit-code --tags origin "refs/tags/${TAG}" > /dev/null 2>&1; then
+            echo "Commit ${SHA} already has a nightly build (${TAG}), skipping."
+            echo "build=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "build=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-java@v4
+        if: steps.meta.outputs.build == 'true'
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - uses: gradle/actions/setup-gradle@v4
+        if: steps.meta.outputs.build == 'true'
+
+      - name: Test and build nightly
+        if: steps.meta.outputs.build == 'true'
+        env:
+          NIGHTLY_KEYSTORE_BASE64: ${{ secrets.NIGHTLY_KEYSTORE_BASE64 }}
+          LIGHTSCOUT_NIGHTLY_STORE_PASSWORD: ${{ secrets.NIGHTLY_STORE_PASSWORD }}
+          LIGHTSCOUT_NIGHTLY_KEY_ALIAS: ${{ secrets.NIGHTLY_KEY_ALIAS }}
+          LIGHTSCOUT_NIGHTLY_KEY_PASSWORD: ${{ secrets.NIGHTLY_KEY_PASSWORD }}
+        run: |
+          echo "$NIGHTLY_KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/nightly.jks"
+          export LIGHTSCOUT_NIGHTLY_STORE_FILE="$RUNNER_TEMP/nightly.jks"
+          ./gradlew build :app:assembleNightly --stacktrace \
+            -Plightscout.nightlyVersionSuffix=${{ steps.meta.outputs.suffix }} \
+            -Plightscout.nightlyVersionCode=${{ github.run_number }}
+          rm -f "$RUNNER_TEMP/nightly.jks"
+
+      - name: Publish pre-release
+        if: steps.meta.outputs.build == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=${{ steps.meta.outputs.version }}
+          APK="LightScout-Nightly-${VERSION}.apk"
+          cp app/build/outputs/apk/nightly/app-nightly.apk "$APK"
+          sha256sum "$APK" > "$APK.sha256"
+          APKSIGNER="$(ls -d "$ANDROID_HOME"/build-tools/*/ | sort -V | tail -1)apksigner"
+          CERT=$("$APKSIGNER" verify --print-certs "$APK" | grep 'SHA-256 digest' | head -1 | cut -d: -f2 | tr -d ' ')
+          {
+            echo "Nightly build of \`master\` at \`${{ steps.meta.outputs.sha }}\` (${VERSION})."
+            echo
+            echo "**For testing only.** This is a separate app, *LightScout Nightly*. Do not install it next to the"
+            echo "stable LightScout on a phone that is used for real alarms: both would monitor and ring."
+            echo
+            echo "SHA-256 of the APK: \`$(cut -d' ' -f1 "$APK.sha256")\`"
+            echo "Signing certificate SHA-256: \`${CERT}\`"
+          } > notes.md
+          git tag "${{ steps.meta.outputs.tag }}" HEAD
+          git push origin "${{ steps.meta.outputs.tag }}"
+          gh release create "${{ steps.meta.outputs.tag }}" "$APK" "$APK.sha256" \
+            --prerelease --title "Nightly ${VERSION}" --notes-file notes.md
+
+      - name: Keep the newest 5 nightly releases
+        if: steps.meta.outputs.build == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release list --limit 100 --json tagName,createdAt \
+            --jq '[.[] | select(.tagName | startswith("nightly-"))] | sort_by(.createdAt) | reverse | .[5:] | .[].tagName' \
+          | while read -r tag; do
+              gh release delete "$tag" --yes --cleanup-tag
+            done

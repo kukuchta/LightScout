@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- DCR-48: the nightly build is a separate app; its name tells it apart from the stable one. -->
+<resources>
+    <string name="app_name" translatable="false">LightScout Nightly</string>
+</resources>

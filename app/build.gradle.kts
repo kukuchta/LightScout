@@ -24,6 +24,12 @@ android {
                 include = false
             }
         }
+        // DCR-48: the nightly build (separate app, see lightscout.module) carries no git revision either.
+        getByName("nightly") {
+            vcsInfo {
+                include = false
+            }
+        }
     }
 }
 

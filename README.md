@@ -50,6 +50,9 @@ LightScout is not in Google Play. Download the APK from [Releases](https://githu
 Updates are installed the same way, over the existing app. Releases are signed with the same key; Android refuses
 an update signed with a different one.
 
+**Nightly builds** (pre-releases named *Nightly*) are a separate app, *LightScout Nightly*, built from the latest code
+for testing. Do not install them next to the stable app on a phone used for real alarms: both would ring.
+
 ## Documentation
 
 - [Medical disclaimer](DISCLAIMER.md)

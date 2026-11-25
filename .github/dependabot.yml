@@ -1,0 +1,23 @@
+# Weekly update pull requests. Every update is reviewed before it is merged: the app keeps a small, reviewed set of
+# libraries. Gradle dependency verification (gradle/verification-metadata.xml) must be updated for each Gradle update;
+# see docs/development.md.
+version: 2
+updates:
+  - package-ecosystem: gradle
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      androidx:
+        patterns:
+          - "androidx.*"
+          - "com.google.android.material*"
+      test:
+        patterns:
+          - "junit*"
+          - "com.squareup.okhttp3:mockwebserver*"
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

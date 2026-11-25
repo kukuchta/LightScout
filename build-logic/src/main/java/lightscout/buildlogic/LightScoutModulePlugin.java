@@ -1,10 +1,13 @@
 package lightscout.buildlogic;
 
+import com.android.build.api.dsl.ApkSigningConfig;
 import com.android.build.api.dsl.ApplicationBuildType;
 import com.android.build.api.dsl.ApplicationExtension;
 import com.android.build.api.dsl.CommonExtension;
 import com.android.build.api.dsl.LibraryExtension;
 import com.android.build.api.dsl.Lint;
+import com.android.build.api.variant.ApplicationAndroidComponentsExtension;
+import com.android.build.api.variant.VariantOutput;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -58,6 +61,14 @@ public final class LightScoutModulePlugin implements Plugin<Project> {
     public static final String VERSION_NAME_PROPERTY = "lightscout.versionName";
     /** Gradle property naming the PO-signed release APK for {@code lightscoutReleaseArtifact}. */
     public static final String SIGNED_APK_PROPERTY = "lightscout.signedApk";
+    /** Gradle property: suffix of the nightly {@code versionName}, e.g. {@code -nightly.20261125.abc1234}. */
+    public static final String NIGHTLY_VERSION_SUFFIX_PROPERTY = "lightscout.nightlyVersionSuffix";
+    /** Gradle property: {@code versionCode} of the nightly build (the CI run number); default = release code. */
+    public static final String NIGHTLY_VERSION_CODE_PROPERTY = "lightscout.nightlyVersionCode";
+    /** Prefix of the CI environment variables that sign the release build (STORE_FILE, STORE_PASSWORD, ...). */
+    public static final String RELEASE_SIGNING_ENV = "LIGHTSCOUT_RELEASE_";
+    /** Prefix of the CI environment variables that sign the nightly build. */
+    public static final String NIGHTLY_SIGNING_ENV = "LIGHTSCOUT_NIGHTLY_";
     /** AGP property that must be {@code false}: built-in Kotlin support disabled (CP-15 §8.7). */
     public static final String BUILT_IN_KOTLIN_PROPERTY = "android.builtInKotlin";
 
@@ -76,6 +87,7 @@ public final class LightScoutModulePlugin implements Plugin<Project> {
     private static final String DEBUG = "debug";
     private static final String DEBUG_PROXY = "debugProxy";
     private static final String RELEASE = "release";
+    private static final String NIGHTLY = "nightly";
 
     @Override
     public void apply(Project project) {
@@ -353,6 +365,31 @@ public final class LightScoutModulePlugin implements Plugin<Project> {
         release.proguardFiles(android.getDefaultProguardFile("proguard-android-optimize.txt"),
                 project.file("proguard-rules.pro"));
 
+        // DCR-48: signing only in CI, from environment variables (never from files in the repository). Without them
+        // the build stays unsigned, as before. The nightly build is a separate app (".nightly") with its own key.
+        ApkSigningConfig releaseSigning = signingFromEnvironment(project, android, RELEASE, RELEASE_SIGNING_ENV);
+        if (releaseSigning != null) {
+            release.setSigningConfig(releaseSigning);
+        }
+        ApplicationBuildType nightly = android.getBuildTypes().create(NIGHTLY);
+        nightly.initWith(release);
+        nightly.setApplicationIdSuffix(".nightly");
+        nightly.setVersionNameSuffix(project.getProviders().gradleProperty(NIGHTLY_VERSION_SUFFIX_PROPERTY)
+                .getOrElse("-nightly"));
+        nightly.getMatchingFallbacks().add(RELEASE);
+        nightly.setSigningConfig(signingFromEnvironment(project, android, NIGHTLY, NIGHTLY_SIGNING_ENV));
+        Provider<String> nightlyCode = project.getProviders().gradleProperty(NIGHTLY_VERSION_CODE_PROPERTY);
+        ApplicationAndroidComponentsExtension components =
+                project.getExtensions().getByType(ApplicationAndroidComponentsExtension.class);
+        components.onVariants(components.selector().withBuildType(NIGHTLY), variant -> {
+            if (nightlyCode.isPresent()) {
+                int code = Integer.parseInt(nightlyCode.get().trim());
+                for (VariantOutput output : variant.getOutputs()) {
+                    output.getVersionCode().set(code);
+                }
+            }
+        });
+
         // A relative path is resolved against the root directory (where gradlew is run).
         File rootDir = project.getRootDir();
         Provider<File> signedApk = project.getProviders().gradleProperty(SIGNED_APK_PROPERTY).map(value -> {
@@ -367,6 +404,37 @@ public final class LightScoutModulePlugin implements Plugin<Project> {
             task.getSignedApk().set(project.getLayout().file(signedApk));
             task.getOutputDirectory().set(project.getLayout().getBuildDirectory().dir("outputs/lightscout-release"));
         });
+    }
+
+    /**
+     * DCR-48: a signing config from {@code <prefix>STORE_FILE}, {@code STORE_PASSWORD}, {@code KEY_ALIAS} and
+     * {@code KEY_PASSWORD}; {@code null} when {@code STORE_FILE} is not set (local builds stay unsigned).
+     */
+    private static ApkSigningConfig signingFromEnvironment(Project project, ApplicationExtension android, String name,
+                                                           String prefix) {
+        String storeFile = environment(project, prefix + "STORE_FILE");
+        if (storeFile == null) {
+            return null;
+        }
+        ApkSigningConfig config = android.getSigningConfigs().create(name + "Ci");
+        config.setStoreFile(new File(storeFile));
+        config.setStorePassword(requiredEnvironment(project, prefix + "STORE_PASSWORD"));
+        config.setKeyAlias(requiredEnvironment(project, prefix + "KEY_ALIAS"));
+        config.setKeyPassword(requiredEnvironment(project, prefix + "KEY_PASSWORD"));
+        return config;
+    }
+
+    private static String environment(Project project, String name) {
+        String value = project.getProviders().environmentVariable(name).getOrNull();
+        return value == null || value.isBlank() ? null : value.trim();
+    }
+
+    private static String requiredEnvironment(Project project, String name) {
+        String value = environment(project, name);
+        if (value == null) {
+            throw new GradleException("Environment variable " + name + " is missing (CI signing).");
+        }
+        return value;
     }
 
     // ---------------------------------------------------------------- properties
