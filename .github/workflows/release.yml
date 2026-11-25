@@ -46,7 +46,7 @@ jobs:
       - name: Test and build (unsigned)
         run: ./gradlew build :app:assembleRelease --stacktrace
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: LightScout-${{ steps.meta.outputs.version }}-unsigned
           path: app/build/outputs/apk/release/app-release-unsigned.apk

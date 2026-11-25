@@ -31,7 +31,7 @@ jobs:
       - name: Build and write verification metadata
         run: ./gradlew --write-verification-metadata sha256 build :app:assembleRelease :app:assembleNightly --stacktrace
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: verification-metadata
           path: gradle/verification-metadata.xml
