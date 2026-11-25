@@ -1,0 +1,72 @@
+name: Bug report
+description: Something in LightScout does not work as it should, and you can describe how it happens.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for the report. Questions and setup help go to [Discussions](https://github.com/kukuchta/LightScout/discussions).
+        **Never paste your Nightscout address, access token, `API_SECRET` or screenshots with real readings.** Hide them first.
+        Security problems: report them privately, see SECURITY.md.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you see, and what did you expect instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: How to make it happen
+      description: Steps, and how often it happens (always, sometimes, once).
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: LightScout version
+      description: LightScout Settings → About shows the version.
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: input
+    id: phone
+    attributes:
+      label: Phone and Android version
+      placeholder: "Xiaomi 13T, HyperOS, Android 16"
+    validations:
+      required: true
+  - type: input
+    id: nightscout
+    attributes:
+      label: Nightscout version and hosting
+      placeholder: "15.0.9 on a VPS"
+    validations:
+      required: true
+  - type: input
+    id: uploader
+    attributes:
+      label: Uploader and CGM
+      placeholder: "nightscout-connect with Dexcom Share"
+  - type: dropdown
+    id: alarm
+    attributes:
+      label: Is an alarm affected (late, missing, wrong)?
+      options:
+        - "No"
+        - "Yes"
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostic report or other details
+      description: If the app offers a diagnostic report, paste it here after checking it. Screenshots only with values hidden.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy
+      options:
+        - label: I removed my Nightscout address, tokens and real readings from this report.
+          required: true
