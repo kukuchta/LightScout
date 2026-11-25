@@ -27,7 +27,7 @@ jobs:
     outputs:
       version: ${{ steps.meta.outputs.version }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Read version
         id: meta
@@ -36,17 +36,19 @@ jobs:
           echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
           grep -q "^## \[${VERSION}\]" CHANGELOG.md || { echo "CHANGELOG.md has no section ## [${VERSION}]"; exit 1; }
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: '21'
 
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-provider: basic
 
       - name: Test and build (unsigned)
         run: ./gradlew build :app:assembleRelease --stacktrace
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: LightScout-${{ steps.meta.outputs.version }}-unsigned
           path: app/build/outputs/apk/release/app-release-unsigned.apk
@@ -61,7 +63,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
@@ -73,12 +75,14 @@ jobs:
             exit 1
           fi
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: '21'
 
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-provider: basic
 
       - name: Build signed release
         env:
