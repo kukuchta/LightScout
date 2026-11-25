@@ -17,6 +17,7 @@ import app.lightscout.domain.port.ReadingStore;
 import app.lightscout.domain.port.ReminderStateStore;
 import app.lightscout.domain.port.SettingsStore;
 import app.lightscout.domain.port.SupportPromptStore;
+import app.lightscout.domain.port.UpdateStore;
 
 /**
  * Builds the {@code :storage} implementations of the store ports for the composition root in {@code :app}
@@ -58,6 +59,7 @@ public final class StorageFactory {
     private ReminderStateStore reminderState;
     private NotifiedAlertStore notifiedAlerts;
     private SupportPromptStore supportPrompt;
+    private UpdateStore updateStore;
 
     /**
      * Creates the factory without touching any storage.
@@ -207,6 +209,18 @@ public final class StorageFactory {
             supportPrompt = new PrefsSupportPromptStore(runtimePrefs(), guard);
         }
         return supportPrompt;
+    }
+
+    /**
+     * The update check state (DCR-49). After unlock only.
+     *
+     * @return the update store
+     */
+    public synchronized UpdateStore updateStore() {
+        if (updateStore == null) {
+            updateStore = new PrefsUpdateStore(runtimePrefs(), guard);
+        }
+        return updateStore;
     }
 
     private CacheDatabase cacheDatabase() {

@@ -21,6 +21,8 @@ import app.lightscout.domain.port.ReminderScheduler;
 import app.lightscout.domain.port.ReminderStateStore;
 import app.lightscout.domain.port.SettingsStore;
 import app.lightscout.domain.port.SupportPromptStore;
+import app.lightscout.domain.port.UpdateSource;
+import app.lightscout.domain.port.UpdateStore;
 import app.lightscout.monitor.MonitorRuntime;
 import app.lightscout.platform.ManufacturerDetector;
 import app.lightscout.platform.NotificationChannels;
@@ -200,6 +202,20 @@ public interface ContainerComponents {
      * @return the support prompt store
      */
     SupportPromptStore supportPrompt();
+
+    /**
+     * Creates the update check state store (DCR-49, CE storage). Called off the main thread, on first use.
+     *
+     * @return the update store
+     */
+    UpdateStore updateStore();
+
+    /**
+     * Creates the source of the newest stable version (DCR-49, the project's GitHub releases).
+     *
+     * @return the update source
+     */
+    UpdateSource updateSource();
 
     /**
      * Creates IF-64 (CE storage). Called off the main thread, on first use.

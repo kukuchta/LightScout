@@ -11,8 +11,12 @@ data from the app.
   entries you create (BG check, carbs, bolus, site change, sensor change). It uses HTTPS only and trusts only the
   certificate authorities built into Android.
 - **The support link** (buycoffee.to) opens in your browser only when you tap Donate. The app sends nothing to it.
-- Nothing else. (A planned update check will ask GitHub for the latest release version; it will be described here
-  and can be switched off.)
+- **GitHub, once a day, to look for a new version.** The app asks `api.github.com` for the newest published
+  release of LightScout. The request is the same for everyone: no identifier, no token, no Nightscout address and no
+  app version. Like any web server, GitHub sees the phone's IP address. The result is only compared with the
+  installed version; the Download button opens the release page in your browser, and the app installs nothing by
+  itself. You can switch the check off in Settings under About. Nightly builds never ask.
+- Nothing else.
 
 ## What is stored on the phone
 
@@ -57,8 +61,12 @@ danych.
   urzędom certyfikacji wbudowanym w Androida.
 - **Link wsparcia** (buycoffee.to) otwiera się w przeglądarce dopiero po dotknięciu Donate. Aplikacja nic tam nie
   wysyła.
-- Z niczym więcej. (Planowane sprawdzanie aktualizacji zapyta GitHuba o numer najnowszej wersji; zostanie tu opisane
-  i będzie można je wyłączyć.)
+- **GitHub, raz dziennie, w poszukiwaniu nowej wersji.** Aplikacja pyta `api.github.com` o najnowsze opublikowane
+  wydanie LightScout. Zapytanie jest takie samo dla wszystkich: bez identyfikatora, tokenu, adresu Nightscouta i
+  numeru wersji aplikacji. Jak każdy serwer WWW, GitHub widzi adres IP telefonu. Wynik jest tylko porównywany z
+  zainstalowaną wersją; przycisk Download otwiera stronę wydania w przeglądarce, a aplikacja sama niczego nie
+  instaluje. Sprawdzanie można wyłączyć w Ustawieniach, w sekcji About. Wersje Nightly nigdy nie pytają.
+- Z niczym więcej.
 
 ## Co jest przechowywane w telefonie
 

@@ -9,6 +9,7 @@ import app.lightscout.domain.port.AlarmController;
 import app.lightscout.domain.port.AlarmStateStore;
 import app.lightscout.domain.port.AppFlagsStore;
 import app.lightscout.domain.port.SupportPromptStore;
+import app.lightscout.usecases.update.UpdateService;
 import app.lightscout.domain.port.Clock;
 import app.lightscout.domain.port.ConnectionStore;
 import app.lightscout.domain.port.Connectivity;
@@ -143,6 +144,7 @@ public final class AppContainer implements Dependencies {
     private DefaultEntryWriter entryWriter;
     private EntryRules entryRules;
     private SupportPromptStore supportPrompt;
+    private UpdateService updateService;
     private DefaultHistoryLoader historyLoader;
     private GlucoseWidgetUpdater glucoseWidgetUpdater;
 
@@ -262,6 +264,7 @@ public final class AppContainer implements Dependencies {
         map.put(Clock.class, this::clock);                             // IF-15
         map.put(EntryRules.class, this::entryRules);                   // IF-06 (S-02)
         map.put(SupportPromptStore.class, this::supportPrompt);        // DCR-46 (S-01)
+        map.put(UpdateService.class, this::updateService);             // DCR-49 (S-01, S-04)
         return Collections.unmodifiableMap(map);
     }
 
@@ -764,6 +767,20 @@ public final class AppContainer implements Dependencies {
             supportPrompt = components.supportPrompt();
         }
         return supportPrompt;
+    }
+
+    /**
+     * Returns the update check (DCR-49): the daily GitHub check and the S-01 dialog rule. One shared instance,
+     * created on first use; its methods are blocking, call them off the main thread.
+     *
+     * @return the update service
+     */
+    public synchronized UpdateService updateService() {
+        if (updateService == null) {
+            updateService = new UpdateService(components.updateStore(), components.updateSource(),
+                    components.versionName());
+        }
+        return updateService;
     }
 
     /**

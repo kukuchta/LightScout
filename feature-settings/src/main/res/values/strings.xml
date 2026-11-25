@@ -33,6 +33,10 @@
         <item quantity="other">%1$d items need attention</item>
     </plurals>
     <string name="s04_version">Version %1$s</string>
+    <string name="s04_update_check">Check for updates</string>
+    <string name="s04_update_check_support">Asks GitHub once a day. Nothing about you is sent.</string>
+    <string name="s04_update_available">Update available</string>
+    <string name="s04_update_open_failed">Could not open the page. Try again later.</string>
     <string name="s04_value_mgdl">%1$d mg/dL</string>
     <string name="s04_value_min">%1$d min</string>
     <string name="s04_value_days">%1$d days</string>

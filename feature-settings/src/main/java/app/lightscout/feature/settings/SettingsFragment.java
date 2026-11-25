@@ -1,6 +1,9 @@
 package app.lightscout.feature.settings;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -35,7 +38,9 @@ import app.lightscout.ui.core.ReadinessMode;
 import app.lightscout.ui.core.UiMessage;
 import app.lightscout.usecases.AlarmActions;
 import app.lightscout.usecases.ConnectionService;
+import app.lightscout.domain.update.UpdateOffer;
 import app.lightscout.usecases.SettingsService;
+import app.lightscout.usecases.update.UpdateService;
 import app.lightscout.platform.ReadinessChecker;
 
 import com.google.android.material.appbar.MaterialToolbar;
@@ -52,6 +57,12 @@ public final class SettingsFragment extends Fragment {
     private SettingsViewModel viewModel;
     private LinearLayout content;
     private boolean navigating;
+    /** DCR-49: the update check choice and the newer version it found; read off the main thread, shown on it. */
+    private UpdateService updates;
+    private Executor io;
+    private volatile boolean updateLoaded;
+    private volatile boolean updateEnabled = true;
+    private volatile UpdateOffer updateOffer;
 
     public SettingsFragment() {
         super(R.layout.fragment_settings);
@@ -66,6 +77,8 @@ public final class SettingsFragment extends Fragment {
         ConnectionService connection = dependencies.get(ConnectionService.class);
         ReadinessChecker readiness = dependencies.get(ReadinessChecker.class);
         Executor ioExecutor = dependencies.ioExecutor();
+        io = ioExecutor;
+        updates = dependencies.get(UpdateService.class);
         AppInfo appInfo = dependencies.appInfo();
         viewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
             @NonNull
@@ -107,6 +120,51 @@ public final class SettingsFragment extends Fragment {
         super.onResume();
         navigating = false;
         viewModel.refreshReadiness();
+        io.execute(this::readUpdateState);
+    }
+
+    /** DCR-49: reads the check choice and the newer version found earlier (stored state, no network), then redraws. */
+    private void readUpdateState() {
+        try {
+            updateEnabled = updates.isEnabled();
+            updateOffer = updates.available().orElse(null);
+            updateLoaded = true;
+        } catch (RuntimeException e) {
+            return;   // the rows keep what they show; the next resume reads again
+        }
+        FragmentActivity activity = getActivity();
+        if (activity != null) {
+            activity.runOnUiThread(() -> {
+                if (getView() != null) {
+                    render(viewModel.snapshot());
+                }
+            });
+        }
+    }
+
+    private void onUpdateCheckChanged(boolean enabled) {
+        updateEnabled = enabled;
+        io.execute(() -> {
+            try {
+                updates.setEnabled(enabled);
+            } catch (RuntimeException e) {
+                // the read below shows the value that is really stored
+            }
+            readUpdateState();
+        });
+    }
+
+    private void openRelease(UpdateOffer offer) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(offer.pageUrl()))
+                .addCategory(Intent.CATEGORY_BROWSABLE);
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException | SecurityException e) {
+            View root = getView();
+            if (root != null) {
+                Snackbar.make(root, R.string.s04_update_open_failed, Snackbar.LENGTH_LONG).show();
+            }
+        }
     }
 
     SettingsViewModel viewModel() {
@@ -192,6 +250,15 @@ public final class SettingsFragment extends Fragment {
                 () -> navigateToReadiness());
 
         addHeader(R.string.s04_header_about);
+        addSwitchRow(R.string.s04_update_check, getString(R.string.s04_update_check_support), updateEnabled,
+                getString(R.string.s04_row_value_a11y, getString(R.string.s04_update_check),
+                        stateOf(updateEnabled)),
+                this::onUpdateCheckChanged, updateLoaded);
+        UpdateOffer offer = updateEnabled ? updateOffer : null;
+        if (offer != null) {
+            addLinkRow(R.string.s04_update_available, getString(R.string.s04_version, offer.version().toString()),
+                    false, true, () -> openRelease(offer));
+        }
         addStaticRow(getString(R.string.s04_version, viewModel.appInfo().versionName()));
     }
 

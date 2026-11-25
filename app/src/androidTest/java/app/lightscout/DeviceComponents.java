@@ -346,6 +346,60 @@ final class DeviceComponents implements ContainerComponents {
     }
 
     @Override
+    public app.lightscout.domain.port.UpdateStore updateStore() {
+        return new app.lightscout.domain.port.UpdateStore() {
+            private boolean enabled = true;
+            private java.time.Instant lastCheck;
+            private app.lightscout.domain.update.AppVersion latest;
+            private app.lightscout.domain.update.AppVersion prompted;
+
+            @Override
+            public boolean enabled() {
+                return enabled;
+            }
+
+            @Override
+            public void setEnabled(boolean value) {
+                enabled = value;
+            }
+
+            @Override
+            public java.time.Instant lastCheck() {
+                return lastCheck;
+            }
+
+            @Override
+            public app.lightscout.domain.update.AppVersion latest() {
+                return latest;
+            }
+
+            @Override
+            public app.lightscout.domain.update.AppVersion lastPrompted() {
+                return prompted;
+            }
+
+            @Override
+            public void recordCheck(java.time.Instant checkedAt, app.lightscout.domain.update.AppVersion named) {
+                lastCheck = checkedAt;
+                if (named != null) {
+                    latest = named;
+                }
+            }
+
+            @Override
+            public void markPrompted(app.lightscout.domain.update.AppVersion version) {
+                prompted = version;
+            }
+        };
+    }
+
+    /** The UI tests never reach GitHub: no release is ever named. */
+    @Override
+    public app.lightscout.domain.port.UpdateSource updateSource() {
+        return () -> null;
+    }
+
+    @Override
     public app.lightscout.domain.port.SupportPromptStore supportPrompt() {
         return new app.lightscout.domain.port.SupportPromptStore() {
             private java.time.Instant first;

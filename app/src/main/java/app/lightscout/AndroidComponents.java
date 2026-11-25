@@ -22,6 +22,9 @@ import app.lightscout.domain.port.ReminderScheduler;
 import app.lightscout.domain.port.ReminderStateStore;
 import app.lightscout.domain.port.SettingsStore;
 import app.lightscout.domain.port.SupportPromptStore;
+import app.lightscout.domain.port.UpdateSource;
+import app.lightscout.domain.port.UpdateStore;
+import app.lightscout.nightscout.GitHubReleaseSource;
 import app.lightscout.monitor.BootCountCheck;
 import app.lightscout.monitor.MonitorNotifications;
 import app.lightscout.monitor.MonitorRuntime;
@@ -170,6 +173,16 @@ final class AndroidComponents implements ContainerComponents {
     @Override
     public SupportPromptStore supportPrompt() {
         return storage().supportPrompt();
+    }
+
+    @Override
+    public UpdateStore updateStore() {
+        return storage().updateStore();
+    }
+
+    @Override
+    public UpdateSource updateSource() {
+        return new GitHubReleaseSource();
     }
 
     @Override

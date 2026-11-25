@@ -18,13 +18,19 @@
     <string name="s01_action_support">Support</string>
     <string name="s01_action_support_cd">Support LightScout</string>
 
-    <!-- DCR-43: optional support dialog, shown only after a tap on the heart -->
+    <!-- DCR-43: optional support dialog, shown only after a tap on the star -->
     <string name="s01_support_title">Support LightScout</string>
     <string name="s01_support_message">LightScout is a free app, made by one person who also lives with the daily rhythm of diabetes. If it makes your days a little easier, you can say thanks by buying me a coffee. It is completely optional, and the app stays exactly the same either way.</string>
     <string name="s01_support_open">Donate</string>
     <string name="s01_support_dismiss">Not now</string>
     <string name="s01_support_open_failed">Could not open the page. Try again later.</string>
     <string name="s01_support_url" translatable="false">https://buycoffee.to/kukuchta</string>
+
+    <!-- DCR-49: update dialog, shown once per new stable version in a calm moment -->
+    <string name="s01_update_title">Update available</string>
+    <string name="s01_update_message">LightScout %1$s is available. Download it from GitHub and install it over the current app. Your settings and history stay. Alarms are off while the update installs, so pick a calm moment.</string>
+    <string name="s01_update_download">Download</string>
+    <string name="s01_update_later">Later</string>
 
     <!-- C-S01-08 range label -->
     <string name="s01_range_urgent_low">Urgent low</string>

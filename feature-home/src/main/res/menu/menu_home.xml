@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Support heart (DCR-43, opens an optional donation dialog), C-S01-03 „Statistics” and C-S01-04 „Settings” icon buttons (CP-12 §7.1, §7.3; M3-09: contentDescription and
+    Support star (DCR-43, opens an optional donation dialog), C-S01-03 „Statistics” and C-S01-04 „Settings” icon buttons (CP-12 §7.1, §7.3; M3-09: contentDescription and
     long-press tooltip „Open statistics” / „Open settings”). No alarms toggle (DS:D-067).
 -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"

@@ -50,6 +50,10 @@ public class ResourcesTest {
         EXPECTED.put("s01_support_message", "LightScout is a free app, made by one person who also lives with the daily rhythm of diabetes. If it makes your days a little easier, you can say thanks by buying me a coffee. It is completely optional, and the app stays exactly the same either way.");
         EXPECTED.put("s01_support_open_failed", "Could not open the page. Try again later.");
         EXPECTED.put("s01_support_url", "https://buycoffee.to/kukuchta");
+        EXPECTED.put("s01_update_title", "Update available");
+        EXPECTED.put("s01_update_message", "LightScout %1$s is available. Download it from GitHub and install it over the current app. Your settings and history stay. Alarms are off while the update installs, so pick a calm moment.");
+        EXPECTED.put("s01_update_download", "Download");
+        EXPECTED.put("s01_update_later", "Later");
         EXPECTED.put("s01_range_urgent_low", "Urgent low");
         EXPECTED.put("s01_range_low", "Low");
         EXPECTED.put("s01_range_high", "High");

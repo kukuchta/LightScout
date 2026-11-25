@@ -49,6 +49,7 @@ import app.lightscout.usecases.AlarmActions;
 import app.lightscout.usecases.HistoryLoader;
 import app.lightscout.usecases.SettingsService;
 import app.lightscout.usecases.StatusRepository;
+import app.lightscout.usecases.update.UpdateService;
 
 /**
  * S-01 Home (CMP-70; CP-12): renders the status, chart, counters and doughnut; data rules live in
@@ -71,6 +72,11 @@ public final class HomeFragment extends Fragment {
     private final app.lightscout.domain.support.SupportPromptPolicy supportPolicy =
             new app.lightscout.domain.support.SupportPromptPolicy();
     private boolean supportPromptChecked;
+    private UpdateService updates;
+    private boolean updatePromptChecked;
+    private AlertDialog updateDialog;
+    /** Set on the main thread when the update dialog appears: closes the window before the version is stored. */
+    private static volatile boolean updatePromptShownInProcess;
     /** Set on the main thread when the one-time prompt appears: closes the window before the flag is stored. */
     private static volatile boolean supportPromptShownInProcess;
 
@@ -141,6 +147,7 @@ public final class HomeFragment extends Fragment {
         java.util.concurrent.Executor ioExecutor = deps.ioExecutor();
         supportStore = deps.get(app.lightscout.domain.port.SupportPromptStore.class);
         supportIo = ioExecutor;
+        updates = deps.get(UpdateService.class);
         viewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
             @NonNull
             @Override
@@ -269,6 +276,7 @@ public final class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         supportPromptChecked = false;
+        updatePromptChecked = false;
         if (viewModel.onResume() && chart != null) {
             chart.clearHistoryData();
             viewModel.prepareChartCache();
@@ -295,6 +303,7 @@ public final class HomeFragment extends Fragment {
         closeDetails();
         closeSnoozeWindow();
         closeSupportDialog();
+        closeUpdateDialog();
         java.util.Arrays.fill(bannerSlots, null);
         snoozeChip = null;
         hero = null;
@@ -370,6 +379,7 @@ public final class HomeFragment extends Fragment {
         renderBanners(s.banners());
         renderSnooze(s);
         maybeShowSupportPrompt(s);
+        maybeShowUpdatePrompt(s);
         renderReading(s);
         renderProgress(s);
         renderChart(s);
@@ -818,7 +828,79 @@ public final class HomeFragment extends Fragment {
         });
     }
 
-    /** DCR-43 / DCR-46: the support dialog; the toolbar heart opens it at any time, the one-time prompt once. */
+    /**
+     * DCR-49: the update dialog. Checked once per resume, only in a calm moment of S-01 ({@link SupportPromptGate}),
+     * never together with the support dialog and never in the process that showed it. The daily GitHub check, the
+     * 09:00–20:00 window and the once-per-version rule are decided off the main thread by {@link UpdateService}; the
+     * version is stored as offered when the dialog appears, whatever the user does with it.
+     */
+    private void maybeShowUpdatePrompt(HomeUiState s) {
+        if (updatePromptChecked || updatePromptShownInProcess || supportPromptShownInProcess || updates == null
+                || !isResumed() || supportDialog != null || updateDialog != null || snoozeDialog != null
+                || !SupportPromptGate.isCalm(s)) {
+            return;
+        }
+        updatePromptChecked = true;
+        final java.time.Instant now = clock.now();
+        final java.time.ZoneId zone = s.zone();
+        supportIo.execute(() -> {
+            java.util.Optional<app.lightscout.domain.update.UpdateOffer> offer;
+            try {
+                offer = updates.offerForDialog(now, zone, true);
+            } catch (RuntimeException e) {
+                offer = java.util.Optional.empty();   // a storage failure never blocks Home; asked again on resume
+            }
+            if (offer.isEmpty()) {
+                return;
+            }
+            final app.lightscout.domain.update.UpdateOffer found = offer.get();
+            android.app.Activity activity = getActivity();
+            if (activity == null) {
+                return;
+            }
+            activity.runOnUiThread(() -> {
+                HomeUiState latest = viewModel.state().getValue();
+                if (!isResumed() || getView() == null || supportDialog != null || updateDialog != null
+                        || snoozeDialog != null || supportPromptShownInProcess || updatePromptShownInProcess
+                        || latest == null || !SupportPromptGate.isCalm(latest)) {
+                    updatePromptChecked = false;   // not shown: ask again on the next render
+                    return;
+                }
+                updatePromptShownInProcess = true;
+                showUpdateDialog(found);
+                supportIo.execute(() -> {
+                    try {
+                        updates.markPrompted(found);
+                    } catch (RuntimeException e) {
+                        // offered again next time; harmless
+                    }
+                });
+            });
+        });
+    }
+
+    /** DCR-49: the update dialog, laid out like the support dialog; Download opens the GitHub release page. */
+    private void showUpdateDialog(app.lightscout.domain.update.UpdateOffer offer) {
+        if (updateDialog != null) {
+            return;
+        }
+        updateDialog = new MaterialAlertDialogBuilder(requireContext(), R.style.ThemeOverlay_LightScout_SupportDialog)
+                .setCustomTitle(getLayoutInflater().inflate(R.layout.s01_update_title, null))
+                .setMessage(getString(R.string.s01_update_message, offer.version().toString()))
+                .setPositiveButton(R.string.s01_update_download, (dialog, which) -> openLink(offer.pageUrl()))
+                .setNegativeButton(R.string.s01_update_later, null).create();
+        updateDialog.setOnDismissListener(dialog -> updateDialog = null);
+        dimBehind(updateDialog);
+        updateDialog.show();
+    }
+
+    private void closeUpdateDialog() {
+        if (updateDialog != null) {
+            updateDialog.dismiss();
+        }
+    }
+
+    /** DCR-43 / DCR-46: the support dialog; the toolbar star opens it at any time, the one-time prompt once. */
     private void showSupportDialog() {
         if (supportDialog != null) {
             return;
@@ -866,7 +948,12 @@ public final class HomeFragment extends Fragment {
     }
 
     private void openSupportLink() {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.s01_support_url)))
+        openLink(getString(R.string.s01_support_url));
+    }
+
+    /** Opens an https page in the browser; when no browser is available a Snackbar says so. */
+    private void openLink(String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url))
                 .addCategory(Intent.CATEGORY_BROWSABLE);
         try {
             startActivity(intent);
