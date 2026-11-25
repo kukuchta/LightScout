@@ -1,6 +1,6 @@
 # Privacy
 
-*Polska wersja poniżej.*
+*[Polska wersja poniżej](#prywatność).*
 
 LightScout has no accounts, no analytics, no advertising and no crash reporting service. The author receives no
 data from the app.

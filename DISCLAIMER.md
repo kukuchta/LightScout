@@ -1,6 +1,6 @@
 # Medical disclaimer
 
-*Polska wersja poniżej.*
+*[Polska wersja poniżej](#zastrzeżenie-medyczne).*
 
 LightScout is **not a medical device**. It is not certified, approved or cleared by any medical or regulatory
 authority, and it is not intended to diagnose, treat, cure or prevent any disease.
