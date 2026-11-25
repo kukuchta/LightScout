@@ -1,0 +1,38 @@
+# Helper: refreshes Gradle dependency verification on a Linux runner. Some artifacts are only used on Linux (for
+# example platform-specific tools or POM files Gradle needs there), so metadata written on Windows misses them.
+# The build runs with --write-verification-metadata sha256 and the resulting file is uploaded as an artifact.
+# Nothing is committed: the maintainer downloads it, reviews the diff and commits it by hand.
+name: Verification metadata
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths:
+      - '.github/workflows/verification-metadata.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  metadata:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Build and write verification metadata
+        run: ./gradlew --write-verification-metadata sha256 build :app:assembleRelease :app:assembleNightly --stacktrace
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: verification-metadata
+          path: gradle/verification-metadata.xml
+          retention-days: 7
