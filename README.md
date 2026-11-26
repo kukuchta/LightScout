@@ -35,9 +35,9 @@ range 70–180 mg/dL, site 3 days, sensor 10 days. Values are shown in mg/dL; mm
 
 ## Screenshots
 
-| Add an entry | Statistics | Alarm readiness |
-|:---:|:---:|:---:|
-| <img src="docs/screenshots/new-entry.png" alt="New entry sheet with carbs, bolus and BG check, time and Save" width="250"> | <img src="docs/screenshots/statistics.png" alt="Statistics for yesterday: time in range, mean glucose, variability and estimated HbA1c" width="250"> | <img src="docs/screenshots/alarm-readiness.png" alt="Alarm readiness checklist: notifications, Do not disturb, full-screen alarms, battery optimisation" width="250"> |
+| Add an entry | Statistics | Alarm readiness | Alarm settings |
+|:---:|:---:|:---:|:---:|
+| <img src="docs/screenshots/new-entry.png" alt="New entry sheet with carbs, bolus and BG check, time and Save" width="200"> | <img src="docs/screenshots/statistics.png" alt="Statistics for yesterday: time in range, mean glucose, variability and estimated HbA1c" width="200"> | <img src="docs/screenshots/alarm-readiness.png" alt="Alarm readiness checklist: notifications, Do not disturb, full-screen alarms, battery optimisation" width="200"> | <img src="docs/screenshots/settings-alarms.png" alt="Settings: alarm thresholds and snooze times for Low, Urgent low, High and No data" width="200"> |
 
 Without opening the app:
 
