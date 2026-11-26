@@ -48,7 +48,19 @@ final class StorageTestSupport {
         context.deleteSharedPreferences(StorageFactory.SETTINGS_PREFS);
         context.deleteSharedPreferences(StorageFactory.CONNECTION_PREFS);
         context.deleteSharedPreferences(StorageFactory.RUNTIME_PREFS);
+        context.deleteSharedPreferences(StorageFactory.ALARM_SOUNDS_PREFS);
+        deleteTree(new java.io.File(context.getFilesDir(), StorageFactory.SOUND_DIR));
         context.createDeviceProtectedStorageContext().deleteSharedPreferences(StorageFactory.BOOT_PREFS);
+    }
+
+    private static void deleteTree(java.io.File file) {
+        java.io.File[] children = file.listFiles();
+        if (children != null) {
+            for (java.io.File child : children) {
+                deleteTree(child);
+            }
+        }
+        file.delete();
     }
 
     /** A {@link CacheDatabase} wired like {@link StorageFactory} does it. */

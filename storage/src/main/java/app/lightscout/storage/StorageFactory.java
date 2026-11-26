@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.UserManager;
 
+import java.io.File;
+
+import app.lightscout.domain.port.AlarmSoundResolver;
+import app.lightscout.domain.port.AlarmSoundStore;
 import app.lightscout.domain.port.AlarmStateStore;
 import app.lightscout.domain.port.AppFlagsStore;
 import app.lightscout.domain.port.Clock;
@@ -41,6 +45,10 @@ public final class StorageFactory {
     static final String RUNTIME_PREFS = "runtime";
     /** ST-05 file name (device-protected storage). */
     static final String BOOT_PREFS = "boot";
+    /** ST-09 file name (DCR-51, alarm sound choice and library). */
+    static final String ALARM_SOUNDS_PREFS = "alarm_sounds";
+    /** ST-10 directory name under {@code filesDir} (DCR-51, sound files). */
+    static final String SOUND_DIR = "alarm_sounds";
 
     private final Context context;
     private final Clock clock;
@@ -60,6 +68,7 @@ public final class StorageFactory {
     private NotifiedAlertStore notifiedAlerts;
     private SupportPromptStore supportPrompt;
     private UpdateStore updateStore;
+    private PrefsAlarmSoundStore alarmSoundStore;
 
     /**
      * Creates the factory without touching any storage.
@@ -221,6 +230,34 @@ public final class StorageFactory {
             updateStore = new PrefsUpdateStore(runtimePrefs(), guard);
         }
         return updateStore;
+    }
+
+    /**
+     * IF-67 (DCR-51): the sound library and the sound files. After unlock only. The same object as
+     * {@link #alarmSoundResolver()}.
+     *
+     * @return the alarm sound store
+     */
+    public synchronized AlarmSoundStore alarmSounds() {
+        return soundStore();
+    }
+
+    /**
+     * IF-69 (DCR-51): the read-only view of the chosen sounds for the alarm player. After unlock only. The same
+     * object as {@link #alarmSounds()}.
+     *
+     * @return the alarm sound resolver
+     */
+    public synchronized AlarmSoundResolver alarmSoundResolver() {
+        return soundStore();
+    }
+
+    private PrefsAlarmSoundStore soundStore() {
+        if (alarmSoundStore == null) {
+            alarmSoundStore = new PrefsAlarmSoundStore(cePrefs(ALARM_SOUNDS_PREFS),
+                    new SoundFiles(new File(context.getFilesDir(), SOUND_DIR)), guard);
+        }
+        return alarmSoundStore;
     }
 
     private CacheDatabase cacheDatabase() {
