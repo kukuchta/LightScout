@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Support toolbar icon (opens the optional support dialog): Material Symbols "star", outlined, rounded (weight 400, fill 0), Apache 2.0. -->
+<!-- Support toolbar icon (opens the optional support dialog): Material Symbols "local_cafe", rounded (weight 400, fill 0), Apache 2.0.
+     The source SVG uses viewBox "0 -960 960 960", hence the translate. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
     android:tint="?attr/colorControlNormal"
     android:viewportWidth="960"
     android:viewportHeight="960">
-    <path
-        android:fillColor="@android:color/white"
-        android:pathData="M354,673L480,597L606,674L573,530L684,434L538,421L480,285L422,420L276,433L387,530L354,673ZM480,691L314,791Q303,798 291,797Q279,796 270,789Q261,782 256,771.5Q251,761 254,748L298,559L151,432Q141,423 138.5,411.5Q136,400 140,389Q144,378 152,371Q160,364 174,362L368,345L443,167Q448,155 458.5,149Q469,143 480,143Q491,143 501.5,149Q512,155 517,167L592,345L786,362Q800,364 808,371Q816,378 820,389Q824,400 821.5,411.5Q819,423 809,432L662,559L706,748Q709,761 704,771.5Q699,782 690,789Q681,796 669,797Q657,798 646,791L480,691Z" />
+    <group android:translateY="960">
+        <path
+            android:fillColor="@android:color/white"
+            android:pathData="M200,-120q-17,0 -28.5,-11.5T160,-160q0,-17 11.5,-28.5T200,-200h560q17,0 28.5,11.5T800,-160q0,17 -11.5,28.5T760,-120H200ZM320,-280q-66,0 -113,-47t-47,-113v-320q0,-33 23.5,-56.5T240,-840h560q33,0 56.5,23.5T880,-760v120q0,33 -23.5,56.5T800,-560h-80v120q0,66 -47,113t-113,47H320ZM320,-360h240q33,0 56.5,-23.5T640,-440v-320H240v320q0,33 23.5,56.5T320,-360ZM720,-640h80v-120h-80v120ZM320,-360h-80 400,-320Z" />
+    </group>
 </vector>

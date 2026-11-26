@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- DCR-46: coffee cup in a soft circle, the icon of the support dialog; colours follow the theme (day / night). -->
+<!-- DCR-46: Material Symbols "local_cafe" (rounded, Apache 2.0) with three steam lines above it, in a soft circle: the icon of
+     the support dialog; colours follow the theme (day / night). The cup and saucer are the unchanged Material glyph (source
+     viewBox "0 -960 960 960", hence the translate); the steam is drawn in dp above it. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="56dp"
     android:height="56dp"
@@ -8,21 +10,18 @@
     <path
         android:fillColor="?attr/colorSecondaryContainer"
         android:pathData="M28,28m-28,0a28,28 0 1,1 56,0a28,28 0 1,1 -56,0" />
-    <group android:pivotX="28" android:pivotY="28" android:scaleX="1.45" android:scaleY="1.45">
+    <group
+        android:scaleX="0.0333"
+        android:scaleY="0.0333"
+        android:translateX="10.67"
+        android:translateY="52">
         <path
-            android:pathData="M18,25 L34,25 L34,31 A6,6 0 0 1 28,37 L24,37 A6,6 0 0 1 18,31 Z"
-            android:strokeColor="?attr/colorOnSecondaryContainer"
-            android:strokeLineJoin="round"
-            android:strokeWidth="2" />
-        <path
-            android:pathData="M34,27 L36,27 A3.5,3.5 0 0 1 36,34 L34,34"
-            android:strokeColor="?attr/colorOnSecondaryContainer"
-            android:strokeLineCap="round"
-            android:strokeWidth="2" />
-        <path
-            android:pathData="M22,21 C22,19.5 23.5,19.5 23.5,18 M26,21 C26,19.5 27.5,19.5 27.5,18 M30,21 C30,19.5 31.5,19.5 31.5,18"
-            android:strokeColor="?attr/colorOnSecondaryContainer"
-            android:strokeLineCap="round"
-            android:strokeWidth="2" />
+            android:fillColor="?attr/colorOnSecondaryContainer"
+            android:pathData="M200,-120q-17,0 -28.5,-11.5T160,-160q0,-17 11.5,-28.5T200,-200h560q17,0 28.5,11.5T800,-160q0,17 -11.5,28.5T760,-120H200ZM320,-280q-66,0 -113,-47t-47,-113v-320q0,-33 23.5,-56.5T240,-840h560q33,0 56.5,23.5T880,-760v120q0,33 -23.5,56.5T800,-560h-80v120q0,66 -47,113t-113,47H320ZM320,-360h240q33,0 56.5,-23.5T640,-440v-320H240v320q0,33 23.5,56.5T320,-360ZM720,-640h80v-120h-80v120ZM320,-360h-80 400,-320Z" />
     </group>
+    <path
+        android:pathData="M20.5,21 Q22.5,19.5 20.5,18 T20.5,15 M25.3,21 Q27.3,19 25.3,17 T25.3,13 M30.1,21 Q32.1,19.5 30.1,18 T30.1,15"
+        android:strokeColor="?attr/colorOnSecondaryContainer"
+        android:strokeLineCap="round"
+        android:strokeWidth="2" />
 </vector>

@@ -13,7 +13,7 @@
     <string name="s10_title_empty">No readings</string>
     <string name="s10_text">%1$s</string>
     <string name="s10_text_data_loss">No new readings for %1$d min</string>
-    <string name="s10_text_alarms_off_suffix"> · Alarms off</string>
+    <string name="s10_text_alarms_off_suffix">" · Alarms off"</string>
     <string name="s10_text_first_use">Waiting for the first reading</string>
     <string name="s10_error_ns_not_responding">Nightscout is not responding</string>
     <string name="s10_error_token_rejected">Nightscout rejected the access token</string>

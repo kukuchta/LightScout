@@ -41,7 +41,7 @@
     <string name="s04_value_min">%1$d min</string>
     <string name="s04_value_days">%1$d days</string>
     <string name="s04_value_range">%1$d–%2$d mg/dL</string>
-    <string name="sep_dot"> · </string>
+    <string name="sep_dot">" · "</string>
     <string name="s04_urgent_low_support">%1$s%2$s%3$s</string>
     <string name="s04_dialog_title_low_threshold">Low alarm threshold</string>
     <string name="s04_dialog_title_urgent_low_threshold">Urgent low alarm threshold</string>
