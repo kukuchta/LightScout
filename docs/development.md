@@ -71,7 +71,7 @@ never stored in the repository.
 
 | Workflow | When | What |
 |---|---|---|
-| `CI` | by hand for now, to save the free Actions minutes (normally every push and pull request) | `./gradlew build` |
+| `CI` | every push and pull request, or by hand | `./gradlew build` |
 | `Nightly` | 02:00 UTC, or by hand | only if `master` has a commit without a `nightly-<sha>` tag: tests, signed nightly APK, pre-release; keeps the newest 5 |
 | `Release` | by hand | tests and an unsigned APK; with *publish* also signs (environment `release`, needs approval), tags `vX.Y.Z` and publishes |
 
@@ -96,4 +96,4 @@ a Gradle update fails CI until the metadata is refreshed. On the update branch:
 ```
 
 Review the diff of `gradle/verification-metadata.xml` (new versions only, expected publishers), commit it to the
-branch, run *CI* by hand on the branch, and merge when it is green.
+branch, wait for *CI* on the pull request, and merge when it is green.

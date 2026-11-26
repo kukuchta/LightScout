@@ -1,12 +1,11 @@
 # CI: unit tests, lint and assemble. No secrets.
-# Temporarily started by hand only (Actions → CI → Run workflow) to save the free Actions minutes.
-# To run it again on every push and pull request, put back the two commented triggers.
+# Runs on every push and pull request, and by hand (Actions → CI → Run workflow).
 name: CI
 
 on:
   workflow_dispatch:
-  # push:
-  # pull_request:
+  push:
+  pull_request:
 
 permissions:
   contents: read
