@@ -48,7 +48,7 @@ public class AlarmCommandProcessorTest {
         AlarmCommandProcessor[] self = new AlarmCommandProcessor[1];
         engine = new RingEngine(f.volume, f.output, f.wakeLock, f.scheduler, f.logger,
                 (type, step) -> self[0].onStep(type, step),   // the runtime posts this to monitorExecutor
-                f.clock::elapsedRealtimeMs);
+                f.clock::elapsedRealtimeMs, f.choice);
         self[0] = new AlarmCommandProcessor(new AlarmStateAccess(memory, f.store), engine, surface, f.logger);
         return self[0];
     }

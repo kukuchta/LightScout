@@ -3,6 +3,7 @@ package app.lightscout.alarm;
 import app.lightscout.domain.alarm.AlarmType;
 import app.lightscout.domain.port.EventCode;
 import app.lightscout.domain.port.Logger;
+import app.lightscout.domain.sound.SoundKind;
 
 import java.util.function.LongSupplier;
 
@@ -22,8 +23,9 @@ import java.util.function.LongSupplier;
  *   <li>Snooze (Q-71, IR-87): {@link #silence} records the snoozed type; keep-alives of that type are ignored here, on
  *       the player thread, so the check and the restart are atomic. A start / keep-alive / switch of another type
  *       rings at once; after {@link #SNOOZE_SILENCE_GUARD_MS} without {@code Stop} the type rings again.</li>
- *   <li>Sound fallback chain (R-80): tone → system alarm tone → vibration only, logged as
- *       {@code ALARM_SOUND_FALLBACK:<stage>}.</li>
+ *   <li>Sound fallback chain (R-80, DCR-51): the sound the user chose for the type (if any) → classic tone → system
+ *       alarm tone → vibration only, logged as {@code ALARM_SOUND_FALLBACK:<stage>}. The chosen sound is read once, at
+ *       {@link #start}; a Replace ({@link #switchType}) keeps the sound that already rings.</li>
  *   <li>Wake lock (F16): acquired with a 2-min timeout on start and on every keep-alive, released on stop.</li>
  * </ul>
  */
@@ -81,10 +83,12 @@ final class RingEngine implements AlarmSound {
         /**
          * Starts looping playback of a stage.
          *
-         * @param stage {@link SoundStage#PRIMARY_TONE} or {@link SoundStage#SYSTEM_TONE}
+         * @param stage {@link SoundStage#SELECTED_SOUND}, {@link SoundStage#PRIMARY_TONE} or
+         *              {@link SoundStage#SYSTEM_TONE}
+         * @param type  the alarm type that rings; only {@link SoundStage#SELECTED_SOUND} depends on it
          * @return {@code false} when the source cannot be played
          */
-        boolean play(SoundStage stage);
+        boolean play(SoundStage stage, AlarmType type);
 
         /**
          * Sets the player gain.
@@ -140,6 +144,7 @@ final class RingEngine implements AlarmSound {
     private final Logger logger;
     private final StepListener stepListener;
     private final LongSupplier elapsedMs;
+    private final SoundChoice choice;
 
     private boolean active;
     private AlarmType type;
@@ -165,9 +170,10 @@ final class RingEngine implements AlarmSound {
      * @param logger       IF-66
      * @param stepListener escalation progress receiver
      * @param elapsedMs    monotonic time (IF-15 {@code elapsedRealtimeMs}) for the snooze fail-safe
+     * @param choice       which kind of sound the user chose per alarm type (DCR-51)
      */
     RingEngine(Volume volume, Output output, WakeLock wakeLock, Scheduler scheduler, Logger logger,
-               StepListener stepListener, LongSupplier elapsedMs) {
+               StepListener stepListener, LongSupplier elapsedMs, SoundChoice choice) {
         this.volume = volume;
         this.output = output;
         this.wakeLock = wakeLock;
@@ -175,6 +181,7 @@ final class RingEngine implements AlarmSound {
         this.logger = logger;
         this.stepListener = stepListener;
         this.elapsedMs = elapsedMs;
+        this.choice = choice;
     }
 
     @Override
@@ -193,7 +200,11 @@ final class RingEngine implements AlarmSound {
         lastSet = -1;
         wakeLock.acquire(WAKE_LOCK_TIMEOUT_MS);
         output.startVibration();
-        playChain(SoundStage.PRIMARY_TONE);
+        SoundKind kind = choice.kind(newType);
+        playChain(kind == SoundKind.CLASSIC ? SoundStage.PRIMARY_TONE : SoundStage.SELECTED_SOUND);
+        if (stage == SoundStage.SELECTED_SOUND) {
+            logger.event(EventCode.ALARM_SOUND, kind.name());   // SR-07: the kind only, never a name or a path
+        }
         applyLevel();
         escalating = step < lastStep();
         scheduleTick();
@@ -442,7 +453,7 @@ final class RingEngine implements AlarmSound {
 
     private void playChain(SoundStage first) {
         SoundStage s = first;
-        while (s != SoundStage.VIBRATION_ONLY && !output.play(s)) {
+        while (s != SoundStage.VIBRATION_ONLY && !output.play(s, type)) {
             s = s.next();
             logger.event(EventCode.ALARM_SOUND_FALLBACK, s.name());
         }

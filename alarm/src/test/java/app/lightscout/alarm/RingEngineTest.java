@@ -31,7 +31,7 @@ public class RingEngineTest {
         f.volume.min = 0;
         f.volume.current = 2;
         engine = new RingEngine(f.volume, f.output, f.wakeLock, f.scheduler, f.logger,
-                (type, step) -> steps.add(type + ":" + step), f.clock::elapsedRealtimeMs);
+                (type, step) -> steps.add(type + ":" + step), f.clock::elapsedRealtimeMs, f.choice);
     }
 
     @Test

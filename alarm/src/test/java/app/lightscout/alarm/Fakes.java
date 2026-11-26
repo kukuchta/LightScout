@@ -10,6 +10,7 @@ import app.lightscout.domain.port.Clock;
 import app.lightscout.domain.port.EventCode;
 import app.lightscout.domain.port.Logger;
 import app.lightscout.domain.port.StorageException;
+import app.lightscout.domain.sound.SoundKind;
 import app.lightscout.platform.ChannelId;
 import app.lightscout.platform.ChannelState;
 import app.lightscout.platform.NotificationChannels;
@@ -17,8 +18,10 @@ import app.lightscout.platform.NotificationChannels;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Hand-written fakes for the {@code :alarm} JVM tests (no Mockito / Robolectric — CP-00 §2). A shared {@link #ops}
@@ -39,6 +42,9 @@ final class Fakes {
     final FakeChannels channels = new FakeChannels();
     final FakeNotifications notifications = new FakeNotifications();
     final FakeScreenOff screenOff = new FakeScreenOff();
+    /** What the user chose per type; empty = every type on the classic tone (the default of 0.1.0). */
+    final Map<AlarmType, SoundKind> chosen = new EnumMap<>(AlarmType.class);
+    final SoundChoice choice = type -> chosen.getOrDefault(type, SoundKind.CLASSIC);
 
     static AlarmView view(AlarmType type, Integer sgv) {
         return new AlarmView(type, sgv, Trend.SINGLE_DOWN, T0.minusSeconds(120), null, null, null, 15);
@@ -164,20 +170,28 @@ final class Fakes {
 
     /** MediaPlayer / Vibrator fake. */
     final class FakeOutput implements RingEngine.Output {
+        boolean selectedFails;
         boolean primaryFails;
         boolean systemFails;
         SoundStage playing;
+        AlarmType playingType;
         boolean vibrating;
         float gain = 1f;
         int plays;
+        /** Every {@code play} call that was asked, as {@code STAGE:TYPE}, whether it worked or not. */
+        final List<String> asked = new ArrayList<>();
 
         @Override
-        public boolean play(SoundStage stage) {
-            if (stage == SoundStage.PRIMARY_TONE && primaryFails || stage == SoundStage.SYSTEM_TONE && systemFails) {
+        public boolean play(SoundStage stage, AlarmType type) {
+            asked.add(stage + ":" + type);
+            if (stage == SoundStage.SELECTED_SOUND && selectedFails
+                    || stage == SoundStage.PRIMARY_TONE && primaryFails
+                    || stage == SoundStage.SYSTEM_TONE && systemFails) {
                 return false;
             }
             plays++;
             playing = stage;
+            playingType = type;
             return true;
         }
 

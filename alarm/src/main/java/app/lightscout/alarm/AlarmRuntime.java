@@ -5,6 +5,7 @@ import android.content.Context;
 import app.lightscout.domain.alarm.AlarmCommand;
 import app.lightscout.domain.alarm.AlarmType;
 import app.lightscout.domain.port.AlarmController;
+import app.lightscout.domain.port.AlarmSoundResolver;
 import app.lightscout.domain.port.AlarmStateStore;
 import app.lightscout.domain.port.Clock;
 import app.lightscout.domain.port.Logger;
@@ -47,10 +48,12 @@ public final class AlarmRuntime implements AlarmController {
      * @param clock           IF-15
      * @param logger          IF-66 (event codes only, SR-07)
      * @param monitorExecutor the single monitor thread (escalation-step persistence, R-34 / R-35)
+     * @param soundResolver   IF-69, the sound the user chose per alarm type (DCR-51); it may load storage on its
+     *                        first call, so the player calls it on its own thread only
      */
     public AlarmRuntime(Context context, Supplier<AlarmActions> alarmActions, AlarmStateStore alarmStateStore,
                         AlarmStateMemory alarmMemory, NotificationChannels channels, Clock clock, Logger logger,
-                        Executor monitorExecutor) {
+                        Executor monitorExecutor, AlarmSoundResolver soundResolver) {
         this.context = context.getApplicationContext();
         this.alarmActions = Objects.requireNonNull(alarmActions, "alarmActions");
         this.clock = Objects.requireNonNull(clock, "clock");
@@ -60,7 +63,8 @@ public final class AlarmRuntime implements AlarmController {
         AlarmCommandProcessor[] self = new AlarmCommandProcessor[1];
         AlarmPlayer player = new AlarmPlayer(this.context, logger,
                 (type, step) -> monitorExecutor.execute(() -> self[0].onStep(type, step)),
-                surface::onCallEnded, clock::elapsedRealtimeMs);
+                surface::onCallEnded, clock::elapsedRealtimeMs,
+                Objects.requireNonNull(soundResolver, "soundResolver"));
         this.processor = new AlarmCommandProcessor(new AlarmStateAccess(alarmMemory, alarmStateStore), player,
                 surface, logger);
         self[0] = processor;

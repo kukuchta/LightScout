@@ -6,6 +6,8 @@ package app.lightscout.alarm;
  * actual default ringtone are never used (they need {@code READ_MEDIA_AUDIO}).
  */
 enum SoundSource {
+    /** DCR-51: the sound the user chose, as the resolver names it (a bundled resource or a file in app storage). */
+    SELECTED,
     /** {@code res/raw/alarm_tone} in {@code :platform} (self-generated beep loop, Q-69). */
     RAW_ALARM_TONE,
     /** {@code Settings.System.DEFAULT_ALARM_ALERT_URI}. */
@@ -19,6 +21,8 @@ enum SoundSource {
      */
     static SoundSource of(SoundStage stage) {
         switch (stage) {
+            case SELECTED_SOUND:
+                return SELECTED;
             case PRIMARY_TONE:
                 return RAW_ALARM_TONE;
             case SYSTEM_TONE:

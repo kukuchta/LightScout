@@ -5,10 +5,12 @@ import android.app.Application;
 import app.lightscout.domain.alarm.AlarmCommand;
 import app.lightscout.domain.alarm.AlarmState;
 import app.lightscout.domain.alarm.AlarmType;
+import app.lightscout.domain.port.AlarmSoundResolver;
 import app.lightscout.domain.port.AlarmStateStore;
 import app.lightscout.domain.port.Clock;
 import app.lightscout.domain.port.EventCode;
 import app.lightscout.domain.port.Logger;
+import app.lightscout.domain.sound.PlayableSound;
 import app.lightscout.platform.NotificationChannels;
 import app.lightscout.platform.channels.AndroidChannelBackend;
 import app.lightscout.platform.channels.DefaultNotificationChannels;
@@ -83,7 +85,18 @@ public class TestAlarmApplication extends Application implements AlarmRuntimePro
                     // not used by :alarm
                 }
             };
-            runtime = new AlarmRuntime(this, () -> actions, store, memory, channels, clock, logger, monitorExecutor);
+            runtime = new AlarmRuntime(this, () -> actions, store, memory, channels, clock, logger, monitorExecutor,
+                    new AlarmSoundResolver() {
+                        @Override
+                        public PlayableSound playable(AlarmType t) {
+                            return PlayableSound.CLASSIC;   // device tests of the alarm screen use the classic tone
+                        }
+
+                        @Override
+                        public void reportUnplayable(AlarmType t) {
+                            // nothing to record in these tests
+                        }
+                    });
         }
         return runtime;
     }

@@ -221,7 +221,7 @@ public class CallWatchTest {
         final AlarmSurfaceController surface = new AlarmSurfaceController(f.notifications, f.channels, screen,
                 f.screenOff);
         final RingEngine engine = new RingEngine(f.volume, f.output, f.wakeLock, f.scheduler, f.logger,
-                (t, s) -> { }, f.clock::elapsedRealtimeMs);
+                (t, s) -> { }, f.clock::elapsedRealtimeMs, f.choice);
         final CallWatch w;
 
         Rig(int sdk) {

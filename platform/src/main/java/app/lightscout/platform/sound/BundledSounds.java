@@ -1,5 +1,7 @@
 package app.lightscout.platform.sound;
 
+import java.util.OptionalInt;
+
 import app.lightscout.platform.R;
 
 /**
@@ -23,5 +25,16 @@ public final class BundledSounds {
      */
     public static int classicRaw() {
         return R.raw.alarm_tone;
+    }
+
+    /**
+     * Returns the resource of a bundled sound other than the classic tone. There is none yet, so every id gives
+     * empty and the alarm falls back to the classic tone.
+     *
+     * @param id bundled id as stored in a sound reference; {@code null} is allowed
+     * @return the {@code R.raw} id, or empty when no such sound is bundled
+     */
+    public static OptionalInt rawFor(String id) {
+        return OptionalInt.empty();
     }
 }

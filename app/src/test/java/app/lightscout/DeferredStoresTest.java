@@ -3,8 +3,11 @@ package app.lightscout;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
+import app.lightscout.domain.alarm.AlarmType;
+import app.lightscout.domain.port.AlarmSoundResolver;
 import app.lightscout.domain.port.SettingsStore;
 import app.lightscout.domain.settings.Settings;
+import app.lightscout.domain.sound.PlayableSound;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -72,5 +75,60 @@ public class DeferredStoresTest {
         TestDoubles.FakeSettings real = new TestDoubles.FakeSettings(new TestDoubles.CallLog());
         SettingsStore settings = new DeferredStores.SettingsPort(() -> real);
         assertSame(real.value, settings.get());
+    }
+
+    @Test
+    public void soundResolverIsCreatedOnTheFirstCallOnly_neverWhileWired() {
+        AtomicInteger created = new AtomicInteger();
+        AtomicInteger reports = new AtomicInteger();
+        DeferredStores.SoundResolver resolver = new DeferredStores.SoundResolver(() -> {
+            created.incrementAndGet();
+            return new AlarmSoundResolver() {
+                @Override
+                public PlayableSound playable(AlarmType type) {
+                    return PlayableSound.bundled("chime");
+                }
+
+                @Override
+                public void reportUnplayable(AlarmType type) {
+                    reports.incrementAndGet();
+                }
+            };
+        });
+        assertEquals("wiring the alarm runtime must not open the sound preferences (main thread)", 0, created.get());
+        assertEquals(PlayableSound.bundled("chime"), resolver.playable(AlarmType.LOW));
+        resolver.reportUnplayable(AlarmType.LOW);
+        assertEquals(PlayableSound.bundled("chime"), resolver.playable(AlarmType.HIGH));
+        assertEquals(1, created.get());
+        assertEquals(1, reports.get());
+    }
+
+    @Test
+    public void soundResolverThatCannotBeCreated_failsOnlyTheCallAndTriesAgain() {
+        AtomicInteger attempts = new AtomicInteger();
+        DeferredStores.SoundResolver resolver = new DeferredStores.SoundResolver(() -> {
+            if (attempts.incrementAndGet() == 1) {
+                throw new IllegalStateException("user locked");
+            }
+            return new AlarmSoundResolver() {
+                @Override
+                public PlayableSound playable(AlarmType type) {
+                    return PlayableSound.CLASSIC;
+                }
+
+                @Override
+                public void reportUnplayable(AlarmType type) {
+                    // not needed here
+                }
+            };
+        });
+        try {
+            resolver.playable(AlarmType.LOW);
+            org.junit.Assert.fail("expected the first call to fail");
+        } catch (IllegalStateException expected) {
+            // the engine's ResolverSoundChoice turns this into the classic tone
+        }
+        assertEquals(PlayableSound.CLASSIC, resolver.playable(AlarmType.LOW));
+        assertEquals(2, attempts.get());
     }
 }

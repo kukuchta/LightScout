@@ -1,6 +1,7 @@
 package app.lightscout;
 
 import app.lightscout.domain.alarm.AlarmState;
+import app.lightscout.domain.alarm.AlarmType;
 import app.lightscout.domain.consumable.ConsumableKind;
 import app.lightscout.domain.consumable.ReminderState;
 import app.lightscout.domain.model.DeviceStatus;
@@ -10,6 +11,7 @@ import app.lightscout.domain.model.EntryType;
 import app.lightscout.domain.model.Profile;
 import app.lightscout.domain.model.Reading;
 import app.lightscout.domain.monitor.MonitorState;
+import app.lightscout.domain.port.AlarmSoundResolver;
 import app.lightscout.domain.port.AlarmStateStore;
 import app.lightscout.domain.port.AppFlagsStore;
 import app.lightscout.domain.port.ConnectionStore;
@@ -21,6 +23,7 @@ import app.lightscout.domain.port.ReadingStore;
 import app.lightscout.domain.port.ReminderStateStore;
 import app.lightscout.domain.port.SettingsStore;
 import app.lightscout.domain.settings.Settings;
+import app.lightscout.domain.sound.PlayableSound;
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
@@ -427,6 +430,29 @@ final class DeferredStores {
         @Override
         public void clear() {
             store.get().clear();
+        }
+    }
+
+    /**
+     * IF-69 (DCR-51). The real resolver, which opens the sound preferences, is created on the first
+     * {@link #playable} call. That call comes from the alarm player thread, never from main, so wiring
+     * {@code AlarmRuntime} on the main thread ({@code AlarmActivity}) touches no disk.
+     */
+    static final class SoundResolver implements AlarmSoundResolver {
+        private final Memo<AlarmSoundResolver> resolver;
+
+        SoundResolver(Supplier<AlarmSoundResolver> factory) {
+            this.resolver = new Memo<>(factory);
+        }
+
+        @Override
+        public PlayableSound playable(AlarmType type) {
+            return resolver.get().playable(type);
+        }
+
+        @Override
+        public void reportUnplayable(AlarmType type) {
+            resolver.get().reportUnplayable(type);
         }
     }
 }

@@ -66,6 +66,14 @@ public class BundledSoundsAuditTest {
         assertNotEquals(0, BundledSounds.classicRaw());
     }
 
+    @Test
+    public void noOtherSoundIsBundledYet() {
+        assertTrue(BundledSounds.rawFor("chime").isEmpty());
+        assertTrue(BundledSounds.rawFor("classic").isEmpty());
+        assertTrue(BundledSounds.rawFor("").isEmpty());
+        assertTrue(BundledSounds.rawFor(null).isEmpty());
+    }
+
     private static void assertCanonicalWav(Path file) throws IOException {
         byte[] bytes = Files.readAllBytes(file);
         String name = file.getFileName().toString();

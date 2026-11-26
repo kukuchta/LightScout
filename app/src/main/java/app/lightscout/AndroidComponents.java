@@ -215,8 +215,9 @@ final class AndroidComponents implements ContainerComponents {
     public AlarmRuntimeHandle alarmRuntime(Supplier<AlarmActions> alarmActions, AlarmStateStore alarmStateStore,
                                            AlarmStateMemory alarmMemory, NotificationChannels channels,
                                            Executor monitorExecutor) {
+        // DCR-51: the sound preferences open on the first alarm start, on the player thread, not while this is wired
         AlarmRuntime runtime = new AlarmRuntime(app, alarmActions, alarmStateStore, alarmMemory, channels, clock,
-                logger, monitorExecutor);
+                logger, monitorExecutor, new DeferredStores.SoundResolver(() -> storage().alarmSoundResolver()));
         return new AlarmRuntimeHandle(runtime, runtime, () -> {
             AlarmView view = runtime.screen().current();
             return view == null ? null : view.type();

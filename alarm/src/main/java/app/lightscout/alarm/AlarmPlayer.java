@@ -23,9 +23,13 @@ import android.provider.Settings;
 import androidx.core.content.ContextCompat;
 
 import app.lightscout.domain.alarm.AlarmType;
+import app.lightscout.domain.port.AlarmSoundResolver;
 import app.lightscout.domain.port.Logger;
+import app.lightscout.domain.sound.PlayableSound;
 import app.lightscout.platform.sound.BundledSounds;
 
+import java.io.FileInputStream;
+import java.util.OptionalInt;
 import java.util.function.LongSupplier;
 
 import java.util.concurrent.CountDownLatch;
@@ -54,6 +58,7 @@ final class AlarmPlayer implements AlarmSound {
     private static final String WAKE_LOCK_TAG = "LightScout:alarm";
 
     private final Context context;
+    private final AlarmSoundResolver soundResolver;
     private final Handler handler;
     private final AudioManager audio;
     private final AudioAttributes attributes = new AudioAttributes.Builder()
@@ -76,10 +81,12 @@ final class AlarmPlayer implements AlarmSound {
      * @param stepListener escalation progress (posted to {@code monitorExecutor} by the runtime)
      * @param onCallEnded  F10 call end (re-post CH-01 with the FSI)
      * @param elapsedMs    IF-15 monotonic time (snooze fail-safe)
+     * @param soundResolver IF-69, the sound the user chose per alarm type (DCR-51); first used on the player thread
      */
     AlarmPlayer(Context context, Logger logger, RingEngine.StepListener stepListener, Runnable onCallEnded,
-                LongSupplier elapsedMs) {
+                LongSupplier elapsedMs, AlarmSoundResolver soundResolver) {
         this.context = context;
+        this.soundResolver = soundResolver;
         HandlerThread thread = new HandlerThread("AlarmPlayer");
         thread.start();
         this.handler = new Handler(thread.getLooper());
@@ -89,7 +96,7 @@ final class AlarmPlayer implements AlarmSound {
             return () -> handler.removeCallbacks(task);
         };
         this.engine = new RingEngine(new StreamVolume(), new Output(), new PartialWakeLock(context), scheduler,
-                logger, stepListener, elapsedMs);
+                logger, stepListener, elapsedMs, new ResolverSoundChoice(soundResolver));
         this.session = new RingSession(engine, Build.VERSION.SDK_INT, new Modes(), new Focus(), scheduler,
                 onCallEnded);
     }
@@ -226,13 +233,19 @@ final class AlarmPlayer implements AlarmSound {
     private final class Output implements RingEngine.Output {
 
         @Override
-        public boolean play(SoundStage stage) {
+        public boolean play(SoundStage stage, AlarmType type) {
             stopPlayback();
             MediaPlayer mp = new MediaPlayer();
             try {
                 mp.setAudioAttributes(attributes);
                 SoundSource source = SoundSource.of(stage);
-                if (source == SoundSource.RAW_ALARM_TONE) {
+                if (source == SoundSource.SELECTED) {
+                    if (!setSelectedSource(mp, type)) {
+                        mp.release();
+                        reportUnplayable(type);
+                        return false;
+                    }
+                } else if (source == SoundSource.RAW_ALARM_TONE) {
                     try (AssetFileDescriptor afd = context.getResources().openRawResourceFd(BundledSounds.classicRaw())) {
                         mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
                     }
@@ -248,12 +261,55 @@ final class AlarmPlayer implements AlarmSound {
                     return true;
                 });
                 mp.prepare();
+                if (stage == SoundStage.SELECTED_SOUND && mp.getDuration() <= 0) {
+                    // a file that opens but has nothing to play would ring silently: let the chain go on
+                    throw new java.io.IOException("Chosen sound has no duration");
+                }
                 mp.start();
                 player = mp;
                 return true;
             } catch (java.io.IOException | RuntimeException e) {
                 mp.release();
+                if (stage == SoundStage.SELECTED_SOUND) {
+                    reportUnplayable(type);
+                }
                 return false;
+            }
+        }
+
+        /** The report is only a hint for the settings screen: it must never stop the alarm chain. */
+        private void reportUnplayable(AlarmType type) {
+            try {
+                soundResolver.reportUnplayable(type);
+            } catch (RuntimeException e) {
+                // the chain goes on with the classic tone either way
+            }
+        }
+
+        /**
+         * Points the player at the sound the user chose for a type (DCR-51): a bundled resource or a file in app
+         * storage that the resolver has checked. Anything else, or an id this build does not know, is {@code false}
+         * and the chain goes on with the classic tone.
+         */
+        private boolean setSelectedSource(MediaPlayer mp, AlarmType type) throws java.io.IOException {
+            PlayableSound sound = soundResolver.playable(type);
+            switch (sound.kind()) {
+                case BUNDLED:
+                    OptionalInt raw = BundledSounds.rawFor(sound.name());
+                    if (raw.isEmpty()) {
+                        return false;
+                    }
+                    try (AssetFileDescriptor afd = context.getResources().openRawResourceFd(raw.getAsInt())) {
+                        mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+                    }
+                    return true;
+                case OWN:
+                    try (FileInputStream in = new FileInputStream(sound.name())) {
+                        mp.setDataSource(in.getFD());
+                    }
+                    return true;
+                default:
+                    return false;
             }
         }
 

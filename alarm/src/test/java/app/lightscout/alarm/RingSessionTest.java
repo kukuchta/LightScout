@@ -81,7 +81,7 @@ public class RingSessionTest {
         modes = new Modes();
         focus = new Focus();
         RingEngine engine = new RingEngine(f.volume, f.output, f.wakeLock, f.scheduler, f.logger, (t, s) -> { },
-                f.clock::elapsedRealtimeMs);
+                f.clock::elapsedRealtimeMs, f.choice);
         session = new RingSession(engine, 33, modes, focus, f.scheduler, () -> callEndedReposts++);
     }
 
