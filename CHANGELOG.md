@@ -17,5 +17,7 @@ First public version.
 - Home screen widget, day and night themes, app icon.
 - Faster first history load after installing or after a long pause.
 - Optional support dialog.
+- Once a day LightScout asks GitHub whether a newer stable version exists and, in a calm moment, offers it once per
+  version. It sends no data about you. Can be turned off in Settings.
 
 Known limitations: see [docs/limitations.md](docs/limitations.md).
