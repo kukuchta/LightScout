@@ -5,7 +5,7 @@ package app.lightscout.alarm;
  * default alarm tone, then vibration only. The constant names are the {@code ALARM_SOUND_FALLBACK} log detail.
  */
 enum SoundStage {
-    /** {@code res/raw/alarm_tone}. */
+    /** {@code res/raw/alarm_tone} in {@code :platform}. */
     PRIMARY_TONE,
     /** System default alarm URI ({@code RingtoneManager.TYPE_ALARM}). */
     SYSTEM_TONE,

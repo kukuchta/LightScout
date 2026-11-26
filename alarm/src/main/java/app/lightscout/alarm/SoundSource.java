@@ -6,7 +6,7 @@ package app.lightscout.alarm;
  * actual default ringtone are never used (they need {@code READ_MEDIA_AUDIO}).
  */
 enum SoundSource {
-    /** {@code res/raw/alarm_tone} (self-generated beep loop, Q-69). */
+    /** {@code res/raw/alarm_tone} in {@code :platform} (self-generated beep loop, Q-69). */
     RAW_ALARM_TONE,
     /** {@code Settings.System.DEFAULT_ALARM_ALERT_URI}. */
     SYSTEM_DEFAULT_ALARM_URI;

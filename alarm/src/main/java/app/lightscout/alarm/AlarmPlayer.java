@@ -24,6 +24,7 @@ import androidx.core.content.ContextCompat;
 
 import app.lightscout.domain.alarm.AlarmType;
 import app.lightscout.domain.port.Logger;
+import app.lightscout.platform.sound.BundledSounds;
 
 import java.util.function.LongSupplier;
 
@@ -232,7 +233,7 @@ final class AlarmPlayer implements AlarmSound {
                 mp.setAudioAttributes(attributes);
                 SoundSource source = SoundSource.of(stage);
                 if (source == SoundSource.RAW_ALARM_TONE) {
-                    try (AssetFileDescriptor afd = context.getResources().openRawResourceFd(R.raw.alarm_tone)) {
+                    try (AssetFileDescriptor afd = context.getResources().openRawResourceFd(BundledSounds.classicRaw())) {
                         mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
                     }
                 } else if (source == SoundSource.SYSTEM_DEFAULT_ALARM_URI) {
