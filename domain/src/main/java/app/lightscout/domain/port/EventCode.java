@@ -35,6 +35,10 @@ public enum EventCode {
     ALARM_STOP,
     /** Alarm sound fallback; detail stage. */
     ALARM_SOUND_FALLBACK,
+    /** DCR-51: an alarm started with a chosen sound; detail {@code SoundKind} only, never a name, URI or path. */
+    ALARM_SOUND,
+    /** DCR-51: a phone sound or a user file could not be copied; detail {@code ImportOutcome}. */
+    SOUND_IMPORT_FAIL,
     /** Watchdog fired. */
     WATCHDOG_FIRE,
     /** Heartbeat. */
@@ -92,7 +96,7 @@ public enum EventCode {
     public Level level() {
         return switch (this) {
             case SYNC_FAIL, JWT_REFRESH_FAIL, FGS_START_DENIED, EXACT_ALARM_DENIED,
-                 REDIRECT_REFUSED, RESPONSE_TOO_LARGE, BOOT_NOT_HANDLED -> Level.WARN;
+                 REDIRECT_REFUSED, RESPONSE_TOO_LARGE, BOOT_NOT_HANDLED, SOUND_IMPORT_FAIL -> Level.WARN;
             case STORAGE_ERROR, CRASH -> Level.ERROR;
             default -> Level.INFO;
         };
