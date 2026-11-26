@@ -5,9 +5,11 @@ import static org.junit.Assert.assertSame;
 
 import app.lightscout.domain.alarm.AlarmType;
 import app.lightscout.domain.port.AlarmSoundResolver;
+import app.lightscout.domain.port.AlarmSoundStore;
 import app.lightscout.domain.port.SettingsStore;
 import app.lightscout.domain.settings.Settings;
 import app.lightscout.domain.sound.PlayableSound;
+import app.lightscout.domain.sound.SoundLibrary;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -101,6 +103,59 @@ public class DeferredStoresTest {
         assertEquals(PlayableSound.bundled("chime"), resolver.playable(AlarmType.HIGH));
         assertEquals(1, created.get());
         assertEquals(1, reports.get());
+    }
+
+    @Test
+    public void soundStoreIsCreatedOnTheFirstCallOnly_andEveryCallIsDelegated() {
+        AtomicInteger created = new AtomicInteger();
+        java.util.List<String> calls = new java.util.ArrayList<>();
+        DeferredStores.AlarmSounds store = new DeferredStores.AlarmSounds(() -> {
+            created.incrementAndGet();
+            return new AlarmSoundStore() {
+                @Override
+                public SoundLibrary read() {
+                    calls.add("read");
+                    return SoundLibrary.EMPTY;
+                }
+
+                @Override
+                public void commit(SoundLibrary next) {
+                    calls.add("commit");
+                }
+
+                @Override
+                public java.io.File newTempFile() {
+                    calls.add("newTempFile");
+                    return null;
+                }
+
+                @Override
+                public String publish(java.io.File temp, String fileName) {
+                    calls.add("publish:" + fileName);
+                    return fileName;
+                }
+
+                @Override
+                public void deleteFiles(java.util.Set<String> fileNames) {
+                    calls.add("deleteFiles");
+                }
+
+                @Override
+                public void sweep(java.util.Set<String> keep) {
+                    calls.add("sweep");
+                }
+            };
+        });
+        assertEquals("building the sound service must not open the sound preferences", 0, created.get());
+        assertEquals(SoundLibrary.EMPTY, store.read());
+        store.commit(SoundLibrary.EMPTY);
+        store.newTempFile();
+        assertEquals("own-a", store.publish(null, "own-a"));
+        store.deleteFiles(java.util.Set.of());
+        store.sweep(java.util.Set.of());
+        assertEquals(1, created.get());
+        assertEquals(java.util.List.of("read", "commit", "newTempFile", "publish:own-a", "deleteFiles", "sweep"),
+                calls);
     }
 
     @Test

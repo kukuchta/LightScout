@@ -12,6 +12,7 @@ import app.lightscout.domain.model.Profile;
 import app.lightscout.domain.model.Reading;
 import app.lightscout.domain.monitor.MonitorState;
 import app.lightscout.domain.port.AlarmSoundResolver;
+import app.lightscout.domain.port.AlarmSoundStore;
 import app.lightscout.domain.port.AlarmStateStore;
 import app.lightscout.domain.port.AppFlagsStore;
 import app.lightscout.domain.port.ConnectionStore;
@@ -24,10 +25,13 @@ import app.lightscout.domain.port.ReminderStateStore;
 import app.lightscout.domain.port.SettingsStore;
 import app.lightscout.domain.settings.Settings;
 import app.lightscout.domain.sound.PlayableSound;
+import app.lightscout.domain.sound.SoundLibrary;
+import java.io.File;
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Supplier;
 
@@ -453,6 +457,48 @@ final class DeferredStores {
         @Override
         public void reportUnplayable(AlarmType type) {
             resolver.get().reportUnplayable(type);
+        }
+    }
+
+    /**
+     * IF-67 (DCR-51). The sound store is created on the first call, which comes from {@code ioExecutor} (the sound
+     * service does all its work there), so building the service on any thread opens no preferences file.
+     */
+    static final class AlarmSounds implements AlarmSoundStore {
+        private final Memo<AlarmSoundStore> store;
+
+        AlarmSounds(Supplier<AlarmSoundStore> factory) {
+            this.store = new Memo<>(factory);
+        }
+
+        @Override
+        public SoundLibrary read() {
+            return store.get().read();
+        }
+
+        @Override
+        public void commit(SoundLibrary next) {
+            store.get().commit(next);
+        }
+
+        @Override
+        public File newTempFile() {
+            return store.get().newTempFile();
+        }
+
+        @Override
+        public String publish(File temp, String fileName) {
+            return store.get().publish(temp, fileName);
+        }
+
+        @Override
+        public void deleteFiles(Set<String> fileNames) {
+            store.get().deleteFiles(fileNames);
+        }
+
+        @Override
+        public void sweep(Set<String> keep) {
+            store.get().sweep(keep);
         }
     }
 }

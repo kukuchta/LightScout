@@ -23,6 +23,8 @@ import app.lightscout.domain.port.ReminderStateStore;
 import app.lightscout.domain.port.SettingsStore;
 import app.lightscout.domain.port.SupportPromptStore;
 import app.lightscout.domain.port.UpdateSource;
+import app.lightscout.domain.port.AlarmSoundStore;
+import app.lightscout.domain.port.AudioSourcePort;
 import app.lightscout.domain.port.UpdateStore;
 import app.lightscout.nightscout.GitHubReleaseSource;
 import app.lightscout.monitor.BootCountCheck;
@@ -42,6 +44,7 @@ import app.lightscout.platform.log.PlatformLogger;
 import app.lightscout.platform.manufacturer.BuildManufacturerDetector;
 import app.lightscout.platform.readiness.AndroidReadinessProbe;
 import app.lightscout.platform.readiness.DefaultReadinessChecker;
+import app.lightscout.platform.sound.AndroidAudioSource;
 import app.lightscout.storage.StorageFactory;
 import app.lightscout.usecases.AlarmActions;
 import app.lightscout.usecases.alarm.AlarmStateMemory;
@@ -178,6 +181,16 @@ final class AndroidComponents implements ContainerComponents {
     @Override
     public UpdateStore updateStore() {
         return storage().updateStore();
+    }
+
+    @Override
+    public AlarmSoundStore alarmSoundStore() {
+        return storage().alarmSounds();
+    }
+
+    @Override
+    public AudioSourcePort audioSource() {
+        return new AndroidAudioSource(app);
     }
 
     @Override

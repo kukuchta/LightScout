@@ -22,6 +22,8 @@ import app.lightscout.domain.port.ReminderStateStore;
 import app.lightscout.domain.port.SettingsStore;
 import app.lightscout.domain.port.SupportPromptStore;
 import app.lightscout.domain.port.UpdateSource;
+import app.lightscout.domain.port.AlarmSoundStore;
+import app.lightscout.domain.port.AudioSourcePort;
 import app.lightscout.domain.port.UpdateStore;
 import app.lightscout.monitor.MonitorRuntime;
 import app.lightscout.platform.ManufacturerDetector;
@@ -209,6 +211,20 @@ public interface ContainerComponents {
      * @return the update store
      */
     UpdateStore updateStore();
+
+    /**
+     * Creates the alarm sound library store (DCR-51, IF-67, CE storage). Called off the main thread, on first use.
+     *
+     * @return the sound store
+     */
+    AlarmSoundStore alarmSoundStore();
+
+    /**
+     * Creates the source of the phone's alarm sounds and of picked files (DCR-51, IF-68). Construction does no I/O.
+     *
+     * @return the audio source
+     */
+    AudioSourcePort audioSource();
 
     /**
      * Creates the source of the newest stable version (DCR-49, the project's GitHub releases).

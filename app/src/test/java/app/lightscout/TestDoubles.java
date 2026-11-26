@@ -233,6 +233,18 @@ final class TestDoubles {
         }
 
         @Override
+        public app.lightscout.domain.port.AlarmSoundStore alarmSoundStore() {
+            count("alarmSoundStore");
+            throw new UnsupportedOperationException("the sound store is not used by these tests");
+        }
+
+        @Override
+        public app.lightscout.domain.port.AudioSourcePort audioSource() {
+            count("audioSource");
+            throw new UnsupportedOperationException("the audio source is not used by these tests");
+        }
+
+        @Override
         public app.lightscout.domain.port.UpdateStore updateStore() {
             count("updateStore");
             return new app.lightscout.domain.port.UpdateStore() {

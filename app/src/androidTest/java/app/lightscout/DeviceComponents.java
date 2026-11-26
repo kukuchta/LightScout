@@ -346,6 +346,16 @@ final class DeviceComponents implements ContainerComponents {
     }
 
     @Override
+    public app.lightscout.domain.port.AlarmSoundStore alarmSoundStore() {
+        throw new UnsupportedOperationException("the sound store is not used by these tests");
+    }
+
+    @Override
+    public app.lightscout.domain.port.AudioSourcePort audioSource() {
+        throw new UnsupportedOperationException("the audio source is not used by these tests");
+    }
+
+    @Override
     public app.lightscout.domain.port.UpdateStore updateStore() {
         return new app.lightscout.domain.port.UpdateStore() {
             private boolean enabled = true;

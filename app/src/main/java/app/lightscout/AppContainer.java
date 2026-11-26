@@ -9,6 +9,8 @@ import app.lightscout.domain.port.AlarmController;
 import app.lightscout.domain.port.AlarmStateStore;
 import app.lightscout.domain.port.AppFlagsStore;
 import app.lightscout.domain.port.SupportPromptStore;
+import app.lightscout.usecases.sound.AlarmSoundService;
+import app.lightscout.usecases.sound.DefaultAlarmSoundService;
 import app.lightscout.usecases.update.UpdateService;
 import app.lightscout.domain.port.Clock;
 import app.lightscout.domain.port.ConnectionStore;
@@ -145,6 +147,7 @@ public final class AppContainer implements Dependencies {
     private EntryRules entryRules;
     private SupportPromptStore supportPrompt;
     private UpdateService updateService;
+    private AlarmSoundService alarmSoundService;
     private DefaultHistoryLoader historyLoader;
     private GlucoseWidgetUpdater glucoseWidgetUpdater;
 
@@ -265,6 +268,7 @@ public final class AppContainer implements Dependencies {
         map.put(EntryRules.class, this::entryRules);                   // IF-06 (S-02)
         map.put(SupportPromptStore.class, this::supportPrompt);        // DCR-46 (S-01)
         map.put(UpdateService.class, this::updateService);             // DCR-49 (S-01, S-04)
+        map.put(AlarmSoundService.class, this::alarmSoundService);     // DCR-51 (IF-70, S-04 sounds)
         return Collections.unmodifiableMap(map);
     }
 
@@ -781,6 +785,23 @@ public final class AppContainer implements Dependencies {
                     components.versionName());
         }
         return updateService;
+    }
+
+    /**
+     * Returns the alarm sound service (DCR-51, IF-70). One shared instance, created on first use. Its store opens
+     * the sound preferences on the first call on {@code ioExecutor}, never on the thread that asked for the service.
+     * The first use also schedules the clean-up of unused sound files.
+     *
+     * @return the sound service
+     */
+    public synchronized AlarmSoundService alarmSoundService() {
+        if (alarmSoundService == null) {
+            requireUnlocked("AlarmSoundService");
+            alarmSoundService = new DefaultAlarmSoundService(ioExecutor(),
+                    new DeferredStores.AlarmSounds(components::alarmSoundStore), components.audioSource(), logger);
+            alarmSoundService.sweep();
+        }
+        return alarmSoundService;
     }
 
     /**
