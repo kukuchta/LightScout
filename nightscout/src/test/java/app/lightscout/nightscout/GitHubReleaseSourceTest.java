@@ -121,6 +121,15 @@ public class GitHubReleaseSourceTest {
     }
 
     @Test
+    public void constructingTheSourceDoesNotBuildTheHttpClient() throws Exception {
+        // The container creates the source on the main thread when Home opens; building an OkHttpClient there
+        // initialises TLS and is a fatal StrictMode violation in debug builds (the client is built on the first check).
+        java.lang.reflect.Field field = GitHubReleaseSource.class.getDeclaredField("client");
+        field.setAccessible(true);
+        assertNull(field.get(new GitHubReleaseSource()));
+    }
+
+    @Test
     public void productionEndpointIsTheProjectsOwnHttpsReleaseApi() {
         assertTrue(GitHubReleaseSource.LATEST_RELEASE_URL.startsWith("https://api.github.com/repos/kukuchta/LightScout/"));
         assertTrue(GitHubReleaseSource.LATEST_RELEASE_URL.endsWith("/releases/latest"));

@@ -7,7 +7,14 @@ ring: loud, repeating until you snooze them, and also through Do not disturb whe
 > **LightScout is not a medical device.** It does not replace your CGM app, your pump, their alarms or a blood
 > glucose meter. Read the [medical disclaimer](DISCLAIMER.md) before you rely on it.
 
-<!-- Screenshots: to be added from device tests with synthetic data only (never real readings). -->
+<p align="center">
+  <img src="docs/screenshots/home-light.png" alt="LightScout home screen in the light theme: current reading, trend arrow, chart, site and sensor age, last 24 hours" width="260">
+  &nbsp;
+  <img src="docs/screenshots/home.png" alt="The same home screen in the dark theme" width="260">
+  &nbsp;
+  <img src="docs/screenshots/home-chart-details.png" alt="Chart zoomed in, with the details of a site change and a bolus opened" width="260">
+</p>
+<p align="center"><sub>Home in the day and night themes, and the chart with the details of an entry.</sub></p>
 
 ## What it does
 
@@ -25,6 +32,18 @@ ring: loud, repeating until you snooze them, and also through Do not disturb whe
 
 Defaults (all can be changed): Urgent low 55 mg/dL, Low 70 mg/dL, High 250 mg/dL, No data after 20 minutes, target
 range 70–180 mg/dL, site 3 days, sensor 10 days. Values are shown in mg/dL; mmol/L is planned.
+
+## Screenshots
+
+| Add an entry | Statistics | Alarm readiness |
+|:---:|:---:|:---:|
+| <img src="docs/screenshots/new-entry.png" alt="New entry sheet with carbs, bolus and BG check, time and Save" width="250"> | <img src="docs/screenshots/statistics.png" alt="Statistics for yesterday: time in range, mean glucose, variability and estimated HbA1c" width="250"> | <img src="docs/screenshots/alarm-readiness.png" alt="Alarm readiness checklist: notifications, Do not disturb, full-screen alarms, battery optimisation" width="250"> |
+
+Without opening the app:
+
+| Lock screen | Widget and notification |
+|:---:|:---:|
+| <img src="docs/screenshots/lock-screen.jpg" alt="The glucose notification on the lock screen" width="260"> | <img src="docs/screenshots/widget.png" alt="Home screen widget with the reading and a chart" width="460"><br><br><img src="docs/screenshots/notification-shade.png" alt="The glucose notification with its mini chart" width="460"> |
 
 ## Requirements
 

@@ -36,7 +36,12 @@ public final class GitHubReleaseSource implements UpdateSource {
     private static final Duration CONNECT_TIMEOUT = Duration.ofSeconds(10);
 
     private final HttpUrl url;
-    private final OkHttpClient client;
+    private final boolean allowCleartext;
+    /**
+     * Built on the first check, not in the constructor: creating an {@code OkHttpClient} initialises TLS, which is slow
+     * and must not run on the main thread, where the container creates this object when Home opens.
+     */
+    private volatile OkHttpClient client;
 
     /** Creates the production source: https only, GitHub API. */
     public GitHubReleaseSource() {
@@ -51,18 +56,32 @@ public final class GitHubReleaseSource implements UpdateSource {
      */
     GitHubReleaseSource(HttpUrl url, boolean allowCleartext) {
         this.url = url;
-        List<ConnectionSpec> specs = allowCleartext
-                ? List.of(ConnectionSpec.MODERN_TLS, ConnectionSpec.CLEARTEXT)
-                : List.of(ConnectionSpec.MODERN_TLS);
-        this.client = new OkHttpClient.Builder()
-                .connectTimeout(CONNECT_TIMEOUT)
-                .readTimeout(CALL_TIMEOUT)
-                .callTimeout(CALL_TIMEOUT)
-                .followRedirects(false)
-                .followSslRedirects(false)
-                .retryOnConnectionFailure(false)
-                .connectionSpecs(specs)
-                .build();
+        this.allowCleartext = allowCleartext;
+    }
+
+    private OkHttpClient client() {
+        OkHttpClient built = client;
+        if (built == null) {
+            synchronized (this) {
+                built = client;
+                if (built == null) {
+                    List<ConnectionSpec> specs = allowCleartext
+                            ? List.of(ConnectionSpec.MODERN_TLS, ConnectionSpec.CLEARTEXT)
+                            : List.of(ConnectionSpec.MODERN_TLS);
+                    built = new OkHttpClient.Builder()
+                            .connectTimeout(CONNECT_TIMEOUT)
+                            .readTimeout(CALL_TIMEOUT)
+                            .callTimeout(CALL_TIMEOUT)
+                            .followRedirects(false)
+                            .followSslRedirects(false)
+                            .retryOnConnectionFailure(false)
+                            .connectionSpecs(specs)
+                            .build();
+                    client = built;
+                }
+            }
+        }
+        return built;
     }
 
     @Override
@@ -74,7 +93,7 @@ public final class GitHubReleaseSource implements UpdateSource {
                 .header("User-Agent", "LightScout")
                 .get()
                 .build();
-        try (Response response = client.newCall(request).execute()) {
+        try (Response response = client().newCall(request).execute()) {
             int code = response.code();
             if (code == 404) {
                 return null;   // no release published yet
