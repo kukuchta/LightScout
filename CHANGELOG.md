@@ -2,6 +2,12 @@
 
 All notable changes to LightScout are listed here. Versions follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+- Alarm sounds: choose a sound for each alarm type (Urgent low, Low, No data, Not running, High) in Settings under
+  Alarm sounds. Pick LightScout classic, a sound from the phone's alarm list, or add up to 5 of your own files. A
+  play button tries a sound once. Removing an own sound can be undone for a few seconds.
+
 ## [0.1.0] – 2026
 
 First public version.

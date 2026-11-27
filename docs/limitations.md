@@ -18,7 +18,10 @@ These are known and accepted. They are why LightScout must not be your only alar
   status notification help to notice this, but cannot cover a phone that is off or out of battery.
 - **Do not disturb and volume.** Alarms use the alarm sound channel. If you do not allow LightScout to override
   Do not disturb, or the alarm volume is down, an alarm can be silent. The readiness checklist warns about this.
-- **One alarm sound.** All alarm types use the same sound for now. A choice of sounds is planned.
+- **Alarm sounds are copied as they are.** You can give each alarm type its own sound: LightScout classic, a sound
+  from the phone's alarm list, or up to 5 of your own files (10 MB each; a file is accepted when Android can play
+  it). LightScout does not change the loudness, so a loud or quiet file rings loud or quiet. Check every sound with
+  the play button. A reinstall or a new phone starts with LightScout classic again, because nothing is backed up.
 
 ## Data
 

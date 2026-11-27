@@ -23,6 +23,9 @@ data from the app.
 - The Nightscout address and the access token. The token is encrypted with a key kept in the Android Keystore.
 - A local copy of up to 31 days of Nightscout data, settings, alarm and reminder state, and a short event log with
   codes and times (no glucose values, no address, no token).
+- Alarm sounds you choose. A sound from your phone's alarm list or a file you pick is copied into the app's private
+  storage. The copy stays on this phone, is never sent anywhere, and its name is not written to the event log. The
+  app needs no permission to read your audio files.
 - Nothing is included in Android cloud backup or in device-to-device transfer. Uninstalling the app deletes all of
   it. Nightscout stays the source of truth.
 
@@ -73,6 +76,9 @@ danych.
 - Adres Nightscouta i token dostępu. Token jest zaszyfrowany kluczem przechowywanym w Android Keystore.
 - Lokalna kopia do 31 dni danych z Nightscouta, ustawienia, stan alarmów i przypomnień oraz krótki dziennik zdarzeń
   z kodami i godzinami (bez wartości glukozy, adresu i tokenu).
+- Wybrane dźwięki alarmów. Dźwięk z listy alarmów telefonu albo wskazany plik jest kopiowany do prywatnej pamięci
+  aplikacji. Kopia zostaje w tym telefonie, nigdzie nie jest wysyłana, a jej nazwa nie trafia do dziennika zdarzeń.
+  Aplikacja nie potrzebuje uprawnienia do czytania Twoich plików audio.
 - Nic nie trafia do kopii zapasowej Androida w chmurze ani do przenoszenia danych między telefonami. Odinstalowanie
   aplikacji usuwa wszystko. Źródłem danych pozostaje Nightscout.
 
