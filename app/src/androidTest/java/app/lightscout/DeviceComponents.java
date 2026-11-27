@@ -356,6 +356,11 @@ final class DeviceComponents implements ContainerComponents {
     }
 
     @Override
+    public app.lightscout.domain.port.SoundPreview soundPreview(java.util.function.BooleanSupplier ringing) {
+        throw new UnsupportedOperationException("the sound preview is not used by these tests");
+    }
+
+    @Override
     public app.lightscout.domain.port.UpdateStore updateStore() {
         return new app.lightscout.domain.port.UpdateStore() {
             private boolean enabled = true;

@@ -194,6 +194,13 @@ final class AndroidComponents implements ContainerComponents {
     }
 
     @Override
+    public app.lightscout.domain.port.SoundPreview soundPreview(java.util.function.BooleanSupplier alarmRinging) {
+        return new app.lightscout.platform.sound.SoundPreviewPlayer(app,
+                new DeferredStores.SoundResolver(() -> storage().alarmSoundResolver()), alarmRinging,
+                androidx.core.content.ContextCompat.getMainExecutor(app));
+    }
+
+    @Override
     public UpdateSource updateSource() {
         return new GitHubReleaseSource();
     }

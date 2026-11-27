@@ -227,6 +227,15 @@ public interface ContainerComponents {
     AudioSourcePort audioSource();
 
     /**
+     * Creates the sound preview (DCR-51, IF-71). It plays what the alarm would play for a type and reads the sound
+     * choice through the deferred resolver, so creating it does no disk work.
+     *
+     * @param alarmRinging true while an alarm rings; read off the main thread
+     * @return the preview
+     */
+    app.lightscout.domain.port.SoundPreview soundPreview(java.util.function.BooleanSupplier alarmRinging);
+
+    /**
      * Creates the source of the newest stable version (DCR-49, the project's GitHub releases).
      *
      * @return the update source

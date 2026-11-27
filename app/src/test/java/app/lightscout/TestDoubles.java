@@ -245,6 +245,12 @@ final class TestDoubles {
         }
 
         @Override
+        public app.lightscout.domain.port.SoundPreview soundPreview(java.util.function.BooleanSupplier ringing) {
+            count("soundPreview");
+            throw new UnsupportedOperationException("the sound preview is not used by these tests");
+        }
+
+        @Override
         public app.lightscout.domain.port.UpdateStore updateStore() {
             count("updateStore");
             return new app.lightscout.domain.port.UpdateStore() {

@@ -148,6 +148,7 @@ public final class AppContainer implements Dependencies {
     private SupportPromptStore supportPrompt;
     private UpdateService updateService;
     private AlarmSoundService alarmSoundService;
+    private app.lightscout.domain.port.SoundPreview soundPreview;
     private DefaultHistoryLoader historyLoader;
     private GlucoseWidgetUpdater glucoseWidgetUpdater;
 
@@ -269,6 +270,7 @@ public final class AppContainer implements Dependencies {
         map.put(SupportPromptStore.class, this::supportPrompt);        // DCR-46 (S-01)
         map.put(UpdateService.class, this::updateService);             // DCR-49 (S-01, S-04)
         map.put(AlarmSoundService.class, this::alarmSoundService);     // DCR-51 (IF-70, S-04 sounds)
+        map.put(app.lightscout.domain.port.SoundPreview.class, this::soundPreview);   // DCR-51 (IF-71, preview)
         return Collections.unmodifiableMap(map);
     }
 
@@ -802,6 +804,29 @@ public final class AppContainer implements Dependencies {
             alarmSoundService.sweep();
         }
         return alarmSoundService;
+    }
+
+    /**
+     * Returns the sound preview (DCR-51, IF-71). One shared instance, created on first use; like the sound service
+     * it needs the unlocked storage. The "alarm rings" check runs on the preview thread and never builds the alarm
+     * runtime: a process without a runtime has no ringing alarm.
+     *
+     * @return the preview
+     */
+    public synchronized app.lightscout.domain.port.SoundPreview soundPreview() {
+        if (soundPreview == null) {
+            requireUnlocked("SoundPreview");
+            soundPreview = components.soundPreview(this::alarmRingingNow);
+        }
+        return soundPreview;
+    }
+
+    private boolean alarmRingingNow() {
+        ContainerComponents.AlarmRuntimeHandle handle;
+        synchronized (this) {
+            handle = alarmRuntime;
+        }
+        return handle != null && handle.liveScreen().get() != null;
     }
 
     /**
