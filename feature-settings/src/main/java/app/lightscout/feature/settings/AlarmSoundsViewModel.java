@@ -44,9 +44,9 @@ final class AlarmSoundsViewModel extends ViewModel {
 
     /** Reads the library again; S-13 calls it on every resume because S-14 changes it. */
     void refresh() {
-        service.load(view -> {
+        service.loadLibrary(library -> {
             if (!cleared) {
-                state.postValue(new SoundListState(view.library(), true));
+                state.postValue(new SoundListState(library, true));
             }
         });
     }

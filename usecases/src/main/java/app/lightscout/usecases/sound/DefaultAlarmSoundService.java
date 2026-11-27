@@ -81,6 +81,11 @@ public final class DefaultAlarmSoundService implements AlarmSoundService {
     }
 
     @Override
+    public void loadLibrary(Consumer<SoundLibrary> cb) {
+        ioExecutor.execute(() -> cb.accept(readOrDefault()));
+    }
+
+    @Override
     public void select(AlarmType type, SoundRef ref, Consumer<SoundAction> cb) {
         act(cb, false, before -> change(before, before.select(type, ref)));
     }

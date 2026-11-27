@@ -35,7 +35,7 @@ public class AlarmSoundsViewModelTest {
     @Test
     public void loadsTheLibraryOnCreation() {
         assertTrue(viewModel.state().getValue().loaded());
-        assertEquals(List.of("load"), service.calls);
+        assertEquals(List.of("loadLibrary"), service.calls);
     }
 
     @Test

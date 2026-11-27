@@ -133,6 +133,21 @@ public class AlarmSoundServiceTest {
     }
 
     @Test
+    public void loadLibraryGivesTheStoredLibraryWithoutListingThePhoneSounds() {
+        source.phone = List.of(new PhoneSound(PHONE_URI, "Beep"));
+        SoundLibrary library = await(cb -> service.loadLibrary(cb));
+        assertEquals(SoundLibrary.EMPTY, library);
+        assertEquals(0, source.listings);
+    }
+
+    @Test
+    public void loadLibraryWithUnreadableStorageGivesTheDefault() {
+        store.failRead = true;
+        SoundLibrary library = await(cb -> service.loadLibrary(cb));
+        assertEquals(SoundLibrary.EMPTY, library);
+    }
+
+    @Test
     public void selectingTheClassicToneOrABundledSoundNeedsNoFile() {
         SoundAction bundled = select(AlarmType.HIGH, SoundRef.bundled("chime"));
         assertEquals(ImportOutcome.OK, bundled.outcome());
@@ -461,10 +476,12 @@ public class AlarmSoundServiceTest {
         ImportOutcome outcome = ImportOutcome.OK;
         String bytes = BYTES;
         int copies;
+        int listings;
         long lastMaxBytes;
 
         @Override
         public List<PhoneSound> phoneAlarmSounds() {
+            listings++;
             return phone;
         }
 

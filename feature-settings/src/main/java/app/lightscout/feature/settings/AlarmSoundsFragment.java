@@ -23,6 +23,9 @@ import app.lightscout.domain.sound.SoundLibrary;
 import app.lightscout.ui.core.EdgeToEdgeInsets;
 import app.lightscout.usecases.sound.AlarmSoundService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * S-13 Alarm sounds (DCR-51): one row per alarm type with its current sound and a play button; a tap on the row opens
  * the picker (S-14) for that type. The screen reads the stored library on every resume, so a change made in S-14 shows
@@ -32,6 +35,7 @@ public final class AlarmSoundsFragment extends Fragment {
 
     private AlarmSoundsViewModel viewModel;
     private LinearLayout content;
+    private SoundRowList rows;
     private boolean navigating;
 
     public AlarmSoundsFragment() {
@@ -67,6 +71,7 @@ public final class AlarmSoundsFragment extends Fragment {
         NestedScrollView scroll = view.findViewById(R.id.sound_scroll);
         EdgeToEdgeInsets.applyScrollBottomInset(scroll, null);
         content = view.findViewById(R.id.sound_content);
+        rows = new SoundRowList(content);
         viewModel.state().observe(getViewLifecycleOwner(), state -> render());
         viewModel.playing().observe(getViewLifecycleOwner(), playing -> render());
         viewModel.problem().observe(getViewLifecycleOwner(), this::onProblem);
@@ -83,6 +88,13 @@ public final class AlarmSoundsFragment extends Fragment {
     public void onStop() {
         super.onStop();
         viewModel.stopPreview();
+    }
+
+    @Override
+    public void onDestroyView() {
+        content = null;
+        rows = null;
+        super.onDestroyView();
     }
 
     @SuppressLint("PrivateResource")
@@ -107,25 +119,24 @@ public final class AlarmSoundsFragment extends Fragment {
             return;
         }
         AlarmType playing = viewModel.playing().getValue();
-        SoundLibrary library = state.library();
-        content.removeAllViews();
+        List<SoundRowList.Spec> specs = new ArrayList<>();
         for (AlarmType type : SoundLabels.ORDER) {
-            addRow(library, type, type == playing, state.loaded());
+            specs.add(spec(state.library(), type, type == playing, state.loaded()));
         }
+        rows.bind(specs);
     }
 
-    private void addRow(SoundLibrary library, AlarmType type, boolean playing, boolean loaded) {
+    private SoundRowList.Spec spec(SoundLibrary library, AlarmType type, boolean playing, boolean loaded) {
         String alarm = getString(SoundText.alarmName(type));
         String sound = SoundText.soundName(requireContext(), library, library.choice().get(type));
+        String description = getString(R.string.s04_row_value_a11y, alarm, sound);
         // the alarm is named too: five buttons that all say "Play LightScout classic" cannot be told apart
-        String play = getString(playing ? R.string.sound_stop_cd : R.string.sound_play_cd,
-                getString(R.string.s04_row_value_a11y, alarm, sound));
-        View button = SoundScreenUi.iconButton(requireContext(),
+        String play = getString(playing ? R.string.sound_stop_cd : R.string.sound_play_cd, description);
+        SoundRowList.Button button = new SoundRowList.Button(
                 playing ? R.drawable.ic_sound_stop : R.drawable.ic_sound_play, play,
                 () -> viewModel.togglePreview(type));
-        button.setEnabled(loaded);
-        SoundScreenUi.row(content, null, alarm, sound, getString(R.string.s04_row_value_a11y, alarm, sound),
-                loaded, () -> openPicker(type), button);
+        return SoundRowList.Spec.row("type:" + type.name(), alarm, sound, description, loaded, null,
+                () -> openPicker(type), button);
     }
 
     private void openPicker(AlarmType type) {

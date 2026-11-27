@@ -104,6 +104,12 @@ final class SoundFakes {
         }
 
         @Override
+        public void loadLibrary(Consumer<SoundLibrary> cb) {
+            calls.add("loadLibrary");
+            run(() -> cb.accept(library));
+        }
+
+        @Override
         public void select(AlarmType type, SoundRef ref, Consumer<SoundAction> cb) {
             calls.add("select:" + type + ":" + ref.encode());
             act(cb, lib -> lib.select(type, ref));

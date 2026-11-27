@@ -133,8 +133,8 @@ public final class SettingsFragment extends Fragment {
     /** DCR-51: reads which alarm types use a chosen sound (stored state, no network), then redraws. */
     private void readSoundSummary() {
         try {
-            dependencies.get(AlarmSoundService.class).load(view -> {
-                customSounds = SoundLabels.customisedTypes(view.library());
+            dependencies.get(AlarmSoundService.class).loadLibrary(library -> {
+                customSounds = SoundLabels.customisedTypes(library);
                 FragmentActivity activity = getActivity();
                 if (activity != null) {
                     activity.runOnUiThread(() -> {

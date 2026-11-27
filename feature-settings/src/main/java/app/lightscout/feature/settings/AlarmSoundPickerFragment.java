@@ -54,6 +54,7 @@ public final class AlarmSoundPickerFragment extends Fragment {
     private AlarmSoundPickerViewModel viewModel;
     private Executor io;
     private LinearLayout content;
+    private SoundRowList rows;
     private Snackbar removalMessage;
     private Snackbar.Callback removalCallback;
     /** The removal the open message was built for; a different open removal needs a new message. */
@@ -116,6 +117,7 @@ public final class AlarmSoundPickerFragment extends Fragment {
         NestedScrollView scroll = view.findViewById(R.id.sound_scroll);
         EdgeToEdgeInsets.applyScrollBottomInset(scroll, null);
         content = view.findViewById(R.id.sound_content);
+        rows = new SoundRowList(content);
         viewModel.state().observe(getViewLifecycleOwner(), this::render);
         viewModel.message().observe(getViewLifecycleOwner(), this::onMessage);
         viewModel.problem().observe(getViewLifecycleOwner(), this::onProblem);
@@ -141,6 +143,7 @@ public final class AlarmSoundPickerFragment extends Fragment {
     public void onDestroyView() {
         hideRemovalMessage();
         content = null;
+        rows = null;
         super.onDestroyView();
     }
 
@@ -157,55 +160,54 @@ public final class AlarmSoundPickerFragment extends Fragment {
         }
         SoundLibrary library = state.library();
         SoundRef choice = library.choice().get(viewModel.type());
-        content.removeAllViews();
+        List<SoundRowList.Spec> specs = new ArrayList<>();
 
-        SoundScreenUi.header(content, getString(R.string.s14_group_lightscout));
-        addChoiceRow(getString(R.string.sound_classic), null, SoundLabels.customName(library, choice) == null,
-                () -> viewModel.select(SoundRef.CLASSIC), null);
+        specs.add(SoundRowList.Spec.header("group:lightscout", getString(R.string.s14_group_lightscout)));
+        specs.add(choiceSpec("classic", getString(R.string.sound_classic), null,
+                SoundLabels.customName(library, choice) == null, () -> viewModel.select(SoundRef.CLASSIC)));
 
         if (!state.phoneSounds().isEmpty()) {
-            SoundScreenUi.header(content, getString(R.string.s14_group_phone));
+            specs.add(SoundRowList.Spec.header("group:phone", getString(R.string.s14_group_phone)));
             for (PhoneSound sound : state.phoneSounds()) {
-                addPhoneRow(library, choice, sound, sound.uri().equals(state.busyPhoneUri()));
+                specs.add(phoneSpec(library, choice, sound, sound.uri().equals(state.busyPhoneUri())));
             }
         }
 
-        SoundScreenUi.header(content, getString(R.string.s14_group_own));
+        specs.add(SoundRowList.Spec.header("group:own", getString(R.string.s14_group_own)));
         for (OwnSound own : library.ownSounds()) {
             SoundRef ref = SoundRef.own(own.key());
-            View trash = SoundScreenUi.iconButton(requireContext(), R.drawable.ic_sound_delete,
+            SoundRowList.Button trash = new SoundRowList.Button(R.drawable.ic_sound_delete,
                     getString(R.string.sound_remove_cd, own.displayName()), () -> viewModel.remove(own.key()));
-            addChoiceRow(own.displayName(), null, ref.equals(choice), () -> viewModel.select(ref), trash);
+            specs.add(choiceSpec("own:" + own.key(), own.displayName(), null, ref.equals(choice),
+                    () -> viewModel.select(ref), trash));
         }
-        addAddRow(library, state.adding(), state.busyPhoneUri() != null);
+        specs.add(addSpec(library, state.adding(), state.busyPhoneUri() != null));
+        rows.bind(specs);
         syncRemovalMessage(library);
     }
 
-    private void addPhoneRow(SoundLibrary library, SoundRef choice, PhoneSound sound, boolean copying) {
+    private SoundRowList.Spec phoneSpec(SoundLibrary library, SoundRef choice, PhoneSound sound, boolean copying) {
         Optional<PhoneCopy> copy = library.phoneCopyFor(sound.uri());
         boolean checked = copy.isPresent() && SoundRef.phone(copy.get().key()).equals(choice);
-        addChoiceRow(sound.title(), copying ? getString(R.string.s14_copying) : null, checked,
-                () -> viewModel.selectPhone(sound), null);
+        return choiceSpec("phone:" + sound.uri(), sound.title(), copying ? getString(R.string.s14_copying) : null,
+                checked, () -> viewModel.selectPhone(sound));
     }
 
-    private void addChoiceRow(String title, @Nullable String support, boolean checked, Runnable click,
-                              @Nullable View trailing) {
-        View indicator = SoundScreenUi.radioIndicator(requireContext(), checked);
+    private SoundRowList.Spec choiceSpec(String key, String title, @Nullable String support, boolean checked,
+                                         Runnable click, SoundRowList.Button... buttons) {
         String description = support == null ? title : getString(R.string.s04_row_value_a11y, title, support);
-        LinearLayout row = trailing == null
-                ? SoundScreenUi.row(content, indicator, title, support, description, true, click)
-                : SoundScreenUi.row(content, indicator, title, support, description, true, click, trailing);
-        SoundScreenUi.announceAsRadio(row, checked);
+        return SoundRowList.Spec.row(key, title, support, description, true, checked, click, buttons);
     }
 
-    private void addAddRow(SoundLibrary library, boolean adding, boolean copyingPhoneSound) {
+    private SoundRowList.Spec addSpec(SoundLibrary library, boolean adding, boolean copyingPhoneSound) {
         boolean full = !library.canAddOwn();
         String support = adding ? getString(R.string.s14_adding)
                 : full ? getString(R.string.s14_limit_reached) : null;
         String title = getString(R.string.s14_add_from_file);
-        SoundScreenUi.row(content, null, title, support,
+        return SoundRowList.Spec.row("add", title, support,
                 support == null ? title : getString(R.string.s04_row_value_a11y, title, support),
-                !full && !adding && !copyingPhoneSound, () -> filePicker.launch(new String[] {AUDIO_MIME}));
+                !full && !adding && !copyingPhoneSound, null,
+                () -> filePicker.launch(new String[] {AUDIO_MIME}));
     }
 
     // ------------------------------------------------------------------ picked file

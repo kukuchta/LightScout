@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 
 import app.lightscout.domain.alarm.AlarmType;
 import app.lightscout.domain.sound.PhoneSound;
+import app.lightscout.domain.sound.SoundLibrary;
 import app.lightscout.domain.sound.SoundRef;
 
 /**
@@ -19,6 +20,14 @@ public interface AlarmSoundService {
      * @param cb receives the view; a library that cannot be read shows as the default, every type on classic
      */
     void load(Consumer<AlarmSoundsView> cb);
+
+    /**
+     * Reads only the stored library, without listing the phone's alarm sounds. For screens that need the choices
+     * and nothing else.
+     *
+     * @param cb receives the library; one that cannot be read shows as the default
+     */
+    void loadLibrary(Consumer<SoundLibrary> cb);
 
     /**
      * Gives an alarm type a sound that is already in the library (classic, bundled, own or a phone copy).
