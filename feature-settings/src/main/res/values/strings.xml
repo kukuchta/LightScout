@@ -66,4 +66,34 @@
     <string name="a11y_state_on">on</string>
     <string name="a11y_state_off">off</string>
     <string name="s07_status_needs_attention">Needs attention</string>
+
+    <!-- DCR-51 alarm sounds: S-04 row, S-13 list, S-14 picker. -->
+    <string name="s04_alarm_sounds">Alarm sounds</string>
+    <string name="s04_alarm_sounds_custom">Custom: %1$s</string>
+    <string name="s04_alarm_sounds_custom_more">Custom: %1$s +%2$d</string>
+    <string name="s13_title">Alarm sounds</string>
+    <string name="sound_classic">LightScout classic</string>
+    <string name="alarm_name_urgent_low">Urgent low</string>
+    <string name="alarm_name_low">Low</string>
+    <string name="alarm_name_no_data">No data</string>
+    <string name="alarm_name_not_running">Not running</string>
+    <string name="alarm_name_high">High</string>
+    <string name="sound_play_cd">Play %1$s</string>
+    <string name="sound_stop_cd">Stop %1$s</string>
+    <string name="sound_remove_cd">Remove %1$s</string>
+    <string name="s14_group_lightscout">LightScout</string>
+    <string name="s14_group_phone">Phone alarm sounds</string>
+    <string name="s14_group_own">Your sounds</string>
+    <string name="s14_add_from_file">+ Add from file</string>
+    <string name="s14_adding">Adding…</string>
+    <string name="s14_copying">Copying…</string>
+    <string name="s14_limit_reached">Limit reached. Remove a sound to add another</string>
+    <string name="s14_removed">Removed %1$s.</string>
+    <string name="s14_removed_reassigned_one">Removed %1$s. %2$s alarm now uses LightScout classic</string>
+    <string name="s14_removed_reassigned_many">Removed %1$s. %2$s alarms now use LightScout classic</string>
+    <string name="s14_undo">Undo</string>
+    <string name="s14_message_too_large">That file is larger than 10 MB</string>
+    <string name="s14_message_cannot_read">Could not read that sound. Try another one</string>
+    <string name="s14_message_not_playable">That file cannot be played as an alarm sound</string>
+    <string name="sound_preview_failed">Sound cannot be played</string>
 </resources>

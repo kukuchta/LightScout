@@ -32,6 +32,7 @@ import app.lightscout.domain.settings.Settings;
 import app.lightscout.domain.settings.ThemeMode;
 import app.lightscout.ui.core.AppInfo;
 import app.lightscout.ui.core.ConnectionMode;
+import app.lightscout.ui.core.Dependencies;
 import app.lightscout.ui.core.EdgeToEdgeInsets;
 import app.lightscout.ui.core.NavResults;
 import app.lightscout.ui.core.ReadinessMode;
@@ -40,6 +41,7 @@ import app.lightscout.usecases.AlarmActions;
 import app.lightscout.usecases.ConnectionService;
 import app.lightscout.domain.update.UpdateOffer;
 import app.lightscout.usecases.SettingsService;
+import app.lightscout.usecases.sound.AlarmSoundService;
 import app.lightscout.usecases.update.UpdateService;
 import app.lightscout.platform.ReadinessChecker;
 
@@ -49,6 +51,7 @@ import com.google.android.material.radiobutton.MaterialRadioButton;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.color.MaterialColors;
 
+import java.util.List;
 import java.util.concurrent.Executor;
 
 /** S-04 Settings surface. Rows only call use cases and IF-29; persistence is owned by the use cases. */
@@ -63,6 +66,9 @@ public final class SettingsFragment extends Fragment {
     private volatile boolean updateLoaded;
     private volatile boolean updateEnabled = true;
     private volatile UpdateOffer updateOffer;
+    /** DCR-51: the alarm types that do not use the classic tone, for the "Alarm sounds" row; read off the main thread. */
+    private Dependencies dependencies;
+    private volatile List<AlarmType> customSounds = List.of();
 
     public SettingsFragment() {
         super(R.layout.fragment_settings);
@@ -71,7 +77,7 @@ public final class SettingsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        var dependencies = SettingsHost.dependencies(this);
+        dependencies = SettingsHost.dependencies(this);
         SettingsService settings = dependencies.get(SettingsService.class);
         AlarmActions alarmActions = dependencies.get(AlarmActions.class);
         ConnectionService connection = dependencies.get(ConnectionService.class);
@@ -121,6 +127,26 @@ public final class SettingsFragment extends Fragment {
         navigating = false;
         viewModel.refreshReadiness();
         io.execute(this::readUpdateState);
+        io.execute(this::readSoundSummary);
+    }
+
+    /** DCR-51: reads which alarm types use a chosen sound (stored state, no network), then redraws. */
+    private void readSoundSummary() {
+        try {
+            dependencies.get(AlarmSoundService.class).load(view -> {
+                customSounds = SoundLabels.customisedTypes(view.library());
+                FragmentActivity activity = getActivity();
+                if (activity != null) {
+                    activity.runOnUiThread(() -> {
+                        if (getView() != null) {
+                            render(viewModel.snapshot());
+                        }
+                    });
+                }
+            });
+        } catch (RuntimeException e) {
+            // the row keeps "LightScout classic"; the next resume reads again
+        }
     }
 
     /** DCR-49: reads the check choice and the newer version found earlier (stored state, no network), then redraws. */
@@ -216,6 +242,8 @@ public final class SettingsFragment extends Fragment {
         addValueRow(R.string.s04_no_data_snooze,
                 getString(R.string.s04_value_min, settings.noDataSnoozeMin()), SettingKey.NO_DATA_SNOOZE,
                 state.loaded());
+        addLinkRow(R.string.s04_alarm_sounds, SoundText.summary(requireContext(), customSounds), false, true,
+                this::navigateToAlarmSounds);
 
         addHeader(R.string.s04_header_consumables);
         addValueRow(R.string.s04_site_lifetime,
@@ -480,6 +508,14 @@ public final class SettingsFragment extends Fragment {
         }
         navigating = true;
         SettingsHost.navigator(this).openConnection(ConnectionMode.EDIT);
+    }
+
+    private void navigateToAlarmSounds() {
+        if (navigating) {
+            return;
+        }
+        navigating = true;
+        NavHostFragment.findNavController(this).navigate(R.id.action_settings_to_alarmSounds);
     }
 
     private void navigateToReadiness() {

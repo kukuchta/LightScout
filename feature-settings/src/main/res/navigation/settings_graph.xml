@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- S-04 nested feature graph; no arguments or cross-feature actions (CP-00A R-38). -->
+<!-- S-04 nested feature graph; no cross-feature actions (CP-00A R-38, amended by DCR-51: S-13 and S-14 are
+     destinations of this graph, S-14 takes the alarm type as one string argument). -->
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,5 +11,29 @@
         android:id="@+id/settingsFragment"
         android:name="app.lightscout.feature.settings.SettingsFragment"
         android:label="@string/s04_title"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_settings_to_alarmSounds"
+            app:destination="@id/alarmSoundsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/alarmSoundsFragment"
+        android:name="app.lightscout.feature.settings.AlarmSoundsFragment"
+        android:label="@string/s13_title"
+        tools:layout="@layout/fragment_sound_screen">
+        <action
+            android:id="@+id/action_alarmSounds_to_picker"
+            app:destination="@id/alarmSoundPickerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/alarmSoundPickerFragment"
+        android:name="app.lightscout.feature.settings.AlarmSoundPickerFragment"
+        android:label="@string/s13_title"
+        tools:layout="@layout/fragment_sound_screen">
+        <argument
+            android:name="alarmType"
+            app:argType="string" />
+    </fragment>
 </navigation>
