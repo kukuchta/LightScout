@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    S-08 bundled manufacturer guides (CP-14 §7.5 / §7.6, ST-08, CP-00A R-85; content task AQ-02).
+    STATUS: Xiaomi steps PO-approved (AQ-02 / D-053, with step 2 amended by D-106 / DCR-13 / DS:CR-18);
+    other manufacturer guides remain drafts pending PO sign-off. Mirror: docs/implementation/content/S-08-guides.md (keep both equal;
+    ResourcesTest checks the Xiaomi structure).
+
+    Format (R-85): per manufacturer option a string-array s08_steps_<option> and a parallel, non-translatable array
+    s08_steps_<option>_open of OemSettingId names (IF-56) or an empty item (text-only step). A step's „Open …” button is
+    shown only when SystemSettingsIntents.oem(id) resolves on the phone (VR-05 fallback: hidden).
+    Xiaomi: exactly the seven required steps of §7.6 (06 §9 AQ-02 + §11 F19), in that order.
+    Samsung, Huawei / Honor, OnePlus / OPPO / realme: drafts paraphrased from dontkillmyapp.com (R-85; G-14-10).
+    Google Pixel and Other have no arrays: they show s08_no_extra_steps.
+-->
+<resources>
+
+    <!-- „{setting name}” values of the C-S08-05 button „Open {setting name}” (G-14-10). -->
+    <string name="s08_setting_autostart">Autostart</string>
+    <string name="s08_setting_battery_saver">Oszczędzanie baterii</string>
+    <string name="s08_setting_app_details">ustawienia aplikacji</string>
+
+    <!-- Xiaomi / Redmi / POCO (HyperOS, RD-1) — 1 Autostart · 2 Battery saver → No restrictions · 3 lock in recents ·
+         4 Show on lock screen · 5 Display pop-up windows while running in background · 6 Floating notifications ·
+         7 Lock screen notifications. -->
+    <string-array name="s08_steps_xiaomi">
+        <item>Otwórz Ustawienia → Aplikacje → Zarządzaj aplikacjami → LightScout i włącz Autostart.</item>
+        <item>W ustawieniach aplikacji LightScout otwórz Zasilanie, a następnie w sekcji Battery saver wybierz No restrictions (Bez ograniczeń).</item>
+        <item>Otwórz ostatnie aplikacje, przytrzymaj kartę LightScout i dotknij ikony kłódki.</item>
+        <item>W ustawieniach aplikacji LightScout dotknij Other permissions (Inne uprawnienia) i zezwól na Show on lock screen (Pokazuj na ekranie blokady).</item>
+        <item>W Other permissions zezwól także na Display pop-up windows while running in background (Wyświetlaj wyskakujące okna podczas działania w tle).</item>
+        <item>W ustawieniach aplikacji LightScout dotknij Powiadomienia i włącz Floating notifications (Powiadomienia pływające).</item>
+        <item>W Powiadomieniach włącz także Lock screen notifications (Powiadomienia na ekranie blokady).</item>
+    </string-array>
+
+    <!-- Samsung (One UI) — DRAFT from dontkillmyapp.com/samsung (paraphrased). -->
+    <string-array name="s08_steps_samsung">
+        <item>Otwórz Ustawienia → Aplikacje → LightScout → Bateria i wybierz Bez ograniczeń (Unrestricted).</item>
+        <item>Otwórz Ustawienia → Bateria → Background usage limits (Limity użycia w tle) i upewnij się, że LightScout nie znajduje się w Sleeping apps ani Deep sleeping apps (Uśpione aplikacje, Głęboko uśpione aplikacje).</item>
+        <item>W Background usage limits wyłącz Put unused apps to sleep (Usypiaj nieużywane aplikacje).</item>
+    </string-array>
+
+    <!-- Huawei / Honor (EMUI, MagicOS) — DRAFT from dontkillmyapp.com/huawei (paraphrased). -->
+    <string-array name="s08_steps_huawei">
+        <item>Otwórz Ustawienia → Bateria → App launch (Uruchamianie aplikacji), znajdź LightScout i wyłącz Manage automatically (Zarządzaj automatycznie).</item>
+        <item>W oknie, które się otworzy, pozostaw włączone Auto-launch, Secondary launch i Run in background (Autostart, Uruchamianie wtórne, Działanie w tle).</item>
+        <item>Otwórz ostatnie aplikacje i zablokuj LightScout, przeciągając jego kartę w dół.</item>
+    </string-array>
+
+    <!-- OnePlus / OPPO / realme (OxygenOS, ColorOS, realme UI) — DRAFT from dontkillmyapp.com/oneplus (paraphrased). -->
+    <string-array name="s08_steps_oneplus">
+        <item>Otwórz Ustawienia → Aplikacje → LightScout → Battery usage (Użycie baterii) i włącz Allow background activity (Zezwalaj na aktywność w tle).</item>
+        <item>W Battery usage włącz także Allow auto launch (Zezwalaj na autostart).</item>
+        <item>Otwórz ostatnie aplikacje, dotknij menu na karcie LightScout i wybierz Lock (Zablokuj).</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    :feature-home copy (CP-12 §7.9 / CP-11 §7.5 = design §17, verbatim; CP-00A §5.3 derived keys). CP-12a (SS-13):
+    header, status block, banner, states. CP-11 adds chart and tooltip copy; CP-12b adds the counter, doughnut, FAB
+    and S-02 Snackbar keys.
+    Shared keys used here but owned by :ui-core: s01_reading_empty, s01_age_*, trend_*, a11y_* (CP-06) and
+    s06_snackbar_saved („Connection saved”, CP-12 §7.8 — next to UiMessage, Moderator ruling SS-13).
+    Placeholders: {n} → %1$d; {x.x} → %1$s (formatted in code, one decimal).
+-->
+<resources>
+
+    <!-- C-S01-01 / -03 / -04 Top App Bar -->
+    <string name="s01_title">LightScout</string>
+    <string name="s01_action_statistics">Statystyki</string>
+    <string name="s01_action_statistics_cd">Otwórz statystyki</string>
+    <string name="s01_action_settings">Ustawienia</string>
+    <string name="s01_action_settings_cd">Otwórz ustawienia</string>
+    <string name="s01_action_support">Wsparcie</string>
+    <string name="s01_action_support_cd">Wesprzyj LightScout</string>
+
+    <!-- DCR-43: optional support dialog, shown only after a tap on the star -->
+    <string name="s01_support_title">Wesprzyj LightScout</string>
+    <string name="s01_support_message">LightScout to darmowa aplikacja, stworzona przez jedną osobę, która też na co dzień żyje z cukrzycą. Jeśli ułatwia Ci dni, możesz podziękować, stawiając mi kawę. To całkowicie dobrowolne, a aplikacja działa tak samo w obu przypadkach.</string>
+    <string name="s01_support_open">Wpłać</string>
+    <string name="s01_support_dismiss">Nie teraz</string>
+    <string name="s01_support_open_failed">Nie można otworzyć strony. Spróbuj ponownie później.</string>
+
+    <!-- DCR-49: update dialog, shown once per new stable version in a calm moment -->
+    <string name="s01_update_title">Dostępna aktualizacja</string>
+    <string name="s01_update_message">Dostępny jest LightScout %1$s. Pobierz go z GitHub i zainstaluj na obecnej aplikacji. Ustawienia i historia zostaną zachowane. Podczas instalacji aktualizacji alarmy są wyłączone, więc wybierz spokojny moment.</string>
+    <string name="s01_update_download">Pobierz</string>
+    <string name="s01_update_later">Później</string>
+
+    <!-- C-S01-08 range label -->
+    <string name="s01_range_urgent_low">Pilny niski</string>
+    <string name="s01_range_low">Niski</string>
+    <string name="s01_range_high">Wysoki</string>
+    <string name="s01_range_in_range">W zakresie</string>
+    <string name="s01_unit_mgdl">mg/dL</string>
+    <string name="s01_delta">Delta %1$s mg/dL</string>
+    <string name="s01_delta_unknown">Delta — mg/dL</string>
+
+    <!-- C-S01-11 IOB, C-S01-12 next-reading indicator -->
+    <string name="s01_iob">IOB %1$s U</string>
+    <string name="s01_next_reading_overdue">Oczekiwanie na odczyt…</string>
+
+    <!-- C-S01-06 banner actions -->
+    <string name="s01_banner_action_turn_on">Włącz</string>
+    <string name="s01_banner_action_fix">Napraw</string>
+    <string name="s01_banner_action_retry">Spróbuj ponownie</string>
+    <string name="s01_banner_action_fix_connection">Napraw połączenie</string>
+
+    <!-- §7.6 empty states -->
+    <string name="s01_state_first_use">Oczekiwanie na pierwszy odczyt z Nightscout…</string>
+    <string name="s01_state_no_readings_24h">Brak odczytów z ostatnich 24 godzin</string>
+
+    <!-- C-S01-06 banner texts (§7.5) -->
+    <string name="s01_error_ns_not_responding">Nightscout nie odpowiada</string>
+    <string name="s01_error_token_rejected">Nightscout odrzucił token dostępu</string>
+    <string name="s01_error_version_too_old">Wersja Nightscout jest za stara (wymagana 15.0.9 lub nowsza)</string>
+    <string name="s01_error_token_permission_read">Ten token nie może odczytać danych z Nightscout. Nadaj mu rolę z dostępem do odczytu.</string>
+    <string name="s01_error_token_permission_write">Ten token nie może zapisywać, edytować ani usuwać wpisów. Nadaj mu rolę z uprawnieniami do tworzenia, aktualizowania i usuwania wpisów.</string>
+    <string name="s01_error_not_nightscout">Ten adres nie wygląda na Nightscout.</string>
+    <string name="s01_error_data_loss">Brak nowych odczytów od %1$d min — Nightscout działa, ale uploader nie przesłał nic nowego</string>
+    <string name="s01_offline">Brak połączenia z internetem — dane sprzed %1$d min</string>
+    <string name="s01_permission_missing">Alarmy mogą nie zadzwonić — brakuje niektórych ustawień telefonu</string>
+    <string name="s01_alarms_off">Alarmy są wyłączone</string>
+    <string name="s01_low_alarm_off">Alarm niskiego poziomu jest wyłączony</string>
+    <string name="s01_high_alarm_off">Alarm wysokiego poziomu jest wyłączony</string>
+    <string name="s01_low_high_alarms_off">Alarmy niskiego i wysokiego poziomu są wyłączone</string>
+
+    <!-- CP-11 chart, marker tooltip, and the host-owned Now chip. -->
+    <string name="s01_chart_empty">Brak odczytów w tym okresie</string>
+    <string name="s01_chart_older_offline">Starsze dane wymagają połączenia z internetem</string>
+    <string name="s01_chart_older_error">Nie udało się wczytać starszych danych wykresu</string>
+    <string name="s01_chart_a11y">Wykres glukozy, obecnie %1$s, %2$s</string>
+    <string name="s01_tooltip_edit">Edytuj</string>
+    <string name="s01_now_chip">Teraz</string>
+    <string name="s01_now_chip_cd">Wróć do teraz</string>
+    <string name="s01_chart_type_bg_check">Pomiar glikemii</string>
+    <string name="s01_chart_type_carbs">Węglowodany</string>
+    <string name="s01_chart_type_bolus">Bolus</string>
+    <string name="s01_chart_type_site_change">Zmiana wkłucia</string>
+    <string name="s01_chart_type_sensor_change">Zmiana sensora</string>
+    <string name="s01_chart_type_pump_alert">Alarm pompy</string>
+    <string name="s01_tooltip_marker_row">%1$s%2$s, %3$s</string>
+
+    <!--
+        Reading group for TalkBack (§7.11; CP-00A §5.3 „Glucose {sgv} milligrams per decilitre, {trend}, {age}[, IOB
+        {iob} units]”; Q-86: the range word follows the value when a label is shown). The optional fragments are
+        appended in a fixed order: %2$s = range part (s01_status_a11y_range with an s01_range_* word, or empty),
+        %5$s = IOB part (s01_status_a11y_iob, or empty). {sgv} → %1$d, {trend} → %3$s, {age} → %4$s.
+    -->
+    <string name="s01_status_a11y">Glukoza %1$d miligramów na decylitr%2$s, %3$s, %4$s%5$s%6$s</string>
+    <string name="s01_status_a11y_range">, %1$s</string>
+    <string name="s01_status_a11y_iob">, IOB %1$s jednostek</string>
+
+    <!-- C-S01-16 / -17 consumable counters -->
+    <string name="s01_counter_site_title">Wiek wkłucia</string>
+    <string name="s01_counter_sensor_title">Wiek sensora</string>
+    <string name="s01_counter_value">%1$d d %2$d h</string>
+    <string name="s01_counter_change_soon">Wkrótce zmiana</string>
+    <string name="s01_counter_expired">Wygasło</string>
+    <string name="s01_counter_no_site_change">Brak wpisów</string>
+    <string name="s01_counter_no_sensor_change">Brak wpisów</string>
+    <string name="s01_counter_loading">Wczytywanie…</string>
+
+    <!-- C-S01-18 24-hour TIR doughnut -->
+    <string name="s01_doughnut_title">Ostatnie 24 h</string>
+    <string name="s01_doughnut_centre">%1$d %%</string>
+    <string name="s01_doughnut_legend">%1$d %% · %2$d %% · %3$d %% · %4$d %% · %5$d %%</string>
+    <string name="s01_doughnut_not_enough_data">Za mało danych</string>
+    <string name="s01_doughnut_a11y">Ostatnie 24 godziny: bardzo niski %1$d procent, niski %2$d, w zakresie %3$d, wysoki %4$d, bardzo wysoki %5$d. Otwórz statystyki</string>
+    <string name="s01_doughnut_empty_a11y">Ostatnie 24 godziny: za mało danych. Otwórz statystyki</string>
+    <string name="s01_chip_alarms_off">Alarmy wył.</string>
+    <string name="s01_chip_low_off">Niski wył.</string>
+    <string name="s01_chip_high_off">Wysoki wył.</string>
+    <string name="s01_chip_low_high_off">Niski/Wysoki wył.</string>
+    <string name="s01_chip_readiness">Sprawdź ustawienia</string>
+    <string name="s01_chip_version">Stara wersja</string>
+    <string name="s01_chip_token">Token odrzucony</string>
+    <string name="s01_chip_server">Błąd serwera</string>
+    <string name="s01_chip_token_permissions">Uprawn. tokenu</string>
+    <string name="s01_chip_not_nightscout">Zły serwer</string>
+    <string name="s01_chip_uploader">Uploader</string>
+    <string name="s01_chip_offline">Offline</string>
+    <string name="s01_chip_snoozed">Drzemka</string>
+    <string name="s01_snooze_title">Alarmy w drzemce</string>
+    <string name="s01_snooze_row">%1$s: do %2$s, zostało %3$d min</string>
+    <string name="s01_snooze_type_urgent_low">Pilny niski</string>
+    <string name="s01_snooze_type_low">Niski</string>
+    <string name="s01_snooze_type_high">Wysoki</string>
+    <string name="s01_snooze_type_no_data">Brak danych</string>
+    <string name="s01_snooze_type_not_running">Monitorowanie zatrzymane</string>
+    <string name="s01_counter_ok">OK</string>
+    <string name="s01_dock_bg">BG</string>
+    <string name="s01_counter_replace_soon">Wkrótce wymiana</string>
+
+    <!-- C-S01-19 -->
+    <string name="s01_fab_add_entry">Dodaj wpis</string>
+    <string name="s01_snackbar_entry_saved">Wpis zapisany</string>
+    <string name="s01_snackbar_entry_updated">Wpis zaktualizowany</string>
+    <string name="s01_snackbar_entry_deleted">Wpis usunięty</string>
+</resources>

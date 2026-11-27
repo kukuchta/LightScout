@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    :feature-entry copy (CP-13 §7.12 = design §17, verbatim; CP-00A DCR-04 Part A and §5.3 derived keys).
+    Not redefined here (SS-15 brief, Q-54): s02_suffix_mgdl / s02_suffix_g / s02_suffix_u and s04_value_mgdl live in
+    :ui-core (used through Formatters). s02_time_formats is an example only: the time label is Formatters.timeLabel
+    (fmt_time_* in :ui-core, R-82). s02_similar_entry is replaced by its derived keys (R-83, DCR-04.5).
+    s01_snackbar_entry_* belong to S-01 (CP-12; the result goes back as UiMessage, R-38).
+    Placeholders: {value} → %1$s; {n} → %1$d, {value} → %2$s, {source} → %3$s; {type} → %1$s, {unit} → %2$s.
+-->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="s02_type_bg">Glikemia</string>
+    <string name="s02_pick_time">Wybierz czas</string>
+    <string name="s02_cancel">Anuluj</string>
+    <!-- Helper under the value field: the allowed range (R-91; same limits as the validation messages). -->
+    <string name="s02_range_bg">20–600 mg/dL</string>
+    <string name="s02_range_carbs">1–250 g</string>
+    <string name="s02_range_bolus">0.025–25 U</string>
+
+    <!-- C-S02-01 / C-S02-02 / C-S02-03 -->
+    <string name="s02_title_new">Nowy wpis</string>
+    <string name="s02_title_edit">Edytuj wpis</string>
+    <!-- Catalogue key kept verbatim; the icon is the vector drawable ic_s02_close (TalkBack reads s02_close_a11y). -->
+    <string name="s02_close" tools:ignore="UnusedResources">×</string>
+    <!-- Derived key (R-83 style): the approved component name of C-S02-02 (CP-13 §7.2). -->
+    <string name="s02_close_a11y">Zamknij</string>
+    <string name="s02_save">Zapisz</string>
+
+    <!-- C-S02-05 -->
+    <string name="s02_type_prompt">Co chcesz zapisać?</string>
+    <string name="s02_type_bg_check">Pomiar glikemii</string>
+    <string name="s02_type_carbs">Węglowodany</string>
+    <string name="s02_type_bolus">Bolus</string>
+    <string name="s02_type_site_change">Zmiana wkłucia</string>
+    <string name="s02_type_sensor_change">Zmiana sensora</string>
+    <!-- M3-17: the single-choice semantics are exposed by ChipGroup (collection info) and Chip (collection item,
+         selected); TalkBack composes and localises „1 of 5, selected” from them. Catalogue key kept verbatim but
+         not set in code: setting it would double-announce. -->
+    <string name="s02_type_a11y" tools:ignore="UnusedResources">1 z 5, wybrano</string>
+
+    <!-- C-S02-06 / C-S02-07 (§5.3: s02_value_a11y + a11y_unit_*) -->
+    <string name="s02_value_a11y">%1$s, %2$s</string>
+    <string name="a11y_unit_mgdl">miligramów na decylitr</string>
+    <string name="a11y_unit_g">gramów</string>
+    <string name="a11y_unit_u">jednostek</string>
+    <string name="s02_bolus_helper">Zapisuje bolus podany poza pompą. LightScout nigdy nie podaje insuliny.</string>
+
+    <!-- C-S02-08 -->
+    <string name="s02_time_label">Czas</string>
+    <string name="s02_picker_date_title">Wybierz datę</string>
+    <string name="s02_picker_time_title">Wybierz czas</string>
+    <string name="s02_time_now">Teraz</string>
+    <string name="s02_time_now_cd">Ustaw czas na teraz</string>
+    <string name="s02_time_a11y">Czas, %1$s, przycisk, dotknij dwukrotnie, aby zmienić</string>
+
+    <!-- C-S02-10 (§5.3 derived keys; DCR-04.5) and the M-6 source labels (DCR-04.4) -->
+    <string name="s02_similar_entry_earlier">Podobny wpis %1$d min wcześniej: %2$s (%3$s)</string>
+    <string name="s02_similar_entry_later">Podobny wpis %1$d min później: %2$s (%3$s)</string>
+    <string name="s02_similar_entry_same_time">Podobny wpis w tym samym czasie: %1$s (%2$s)</string>
+    <string name="s01_tooltip_source_lightscout">LightScout</string>
+    <string name="s01_tooltip_source_nightscout">Nightscout</string>
+
+    <!-- C-S02-12 / C-S02-13 -->
+    <string name="s02_delete_entry">Usuń wpis</string>
+    <string name="s02_delete_dialog_title">Usunąć ten wpis?</string>
+    <string name="s02_delete_dialog_body">Zostanie usunięty z Nightscout.</string>
+    <string name="s02_delete_dialog_cancel">Anuluj</string>
+    <string name="s02_delete_dialog_confirm">Usuń</string>
+
+    <!-- C-S02-14 (M3-18) -->
+    <string name="s02_discard_title_create">Odrzucić ten wpis?</string>
+    <string name="s02_discard_title_edit">Odrzucić zmiany?</string>
+    <string name="s02_discard_keep_editing">Edytuj dalej</string>
+    <string name="s02_discard_confirm">Odrzuć</string>
+
+    <!-- Validations (DS:A-18, DS:A-19) -->
+    <string name="s02_helper_choose_type">Wybierz, co zapisać</string>
+    <string name="s02_error_bg_range">Wpisz wartość od 20 do 600</string>
+    <string name="s02_error_carbs_range">Wpisz od 1 do 250 g</string>
+    <string name="s02_error_bolus_range">Wpisz od 0.025 do 25 U</string>
+    <string name="s02_error_time_future">Czas nie może być w przyszłości</string>
+    <string name="s02_error_time_too_old">Czas nie może być sprzed ponad 7 dni</string>
+
+    <!-- C-S02-11 (R-51; DCR-04.1) -->
+    <string name="s02_offline_create">Brak połączenia z internetem — nie można teraz zapisać tego wpisu. Zapisz go później z właściwym czasem.</string>
+    <string name="s02_offline_edit">Brak połączenia z internetem — nie można teraz zapisać zmian.</string>
+    <string name="s02_error_ns_not_responding">Nie udało się zapisać — Nightscout nie odpowiada. Spróbuj ponownie.</string>
+    <string name="s02_error_token_rejected">Nie udało się zapisać — Nightscout odrzucił token dostępu.</string>
+    <string name="s02_error_rejected">Nie udało się zapisać — Nightscout nie przyjął tego wpisu.</string>
+    <string name="s02_error_conflict">Ten wpis został zmieniony lub usunięty w innym miejscu.</string>
+    <string name="s02_error_unsure_saved">Nie wiadomo, czy wpis został zapisany — sprawdź wykres przed ponownym zapisem.</string>
+
+</resources>

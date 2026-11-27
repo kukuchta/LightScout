@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- :monitor strings (CP-08 §7; CP-00A R-81, R-83 §5.3). Copy verbatim from the slice / CP-00A. -->
+<resources>
+    <!-- S-11 „Restart — waiting for unlock” (D-081), CH-02 — verbatim CP-08 §7. -->
+    <string name="s11_paused_title">LightScout jest wstrzymany</string>
+    <string name="s11_paused_text">Odblokuj telefon, aby wznowić LightScout</string>
+    <!-- S-10 title (DCR-37): „{sgv} {delta} mg/dL {arrow}”, composed by StatusNotificationContent. -->
+    <string name="s10_reading">%1$d mg/dL</string>
+    <string name="s10_reading_delta">%1$d %2$s mg/dL</string>
+    <!-- Placeholder S-10 (pre-unlock) keeps the original template. -->
+    <string name="s10_title">%1$d mg/dL %2$s</string>
+    <!-- S-10 title without any reading (DESIGN §17 S-10 C-S10-02; Q-57). -->
+    <string name="s10_title_empty">Brak odczytów</string>
+    <string name="s10_text">%1$s</string>
+    <string name="s10_text_data_loss">Brak nowych odczytów od %1$d min</string>
+    <string name="s10_text_alarms_off_suffix">" · Alarmy wyłączone"</string>
+    <string name="s10_text_first_use">Oczekiwanie na pierwszy odczyt</string>
+    <string name="s10_error_ns_not_responding">Nightscout nie odpowiada</string>
+    <string name="s10_error_token_rejected">Nightscout odrzucił token dostępu</string>
+    <string name="s10_offline">Brak połączenia z internetem · ostatni odczyt %1$d min temu</string>
+    <string name="s10_channel_monitoring">Monitorowanie</string>
+    <string name="s11_channel_reminders">Przypomnienia</string>
+    <string name="s11_channel_pump_alerts">Alarmy pompy</string>
+    <string name="s11_site_due_tomorrow">Zmiana wkłucia jutro</string>
+    <string name="s11_sensor_due_tomorrow">Zmiana sensora jutro</string>
+    <string name="s11_due_tomorrow_text">Wiek wkłucia %1$s · okres użytkowania (dni): %2$d</string>
+    <string name="s11_sensor_due_tomorrow_text">Wiek sensora %1$s · okres użytkowania (dni): %2$d</string>
+    <string name="s11_site_due_now">Zmiana wkłucia teraz</string>
+    <string name="s11_sensor_due_now">Zmiana sensora teraz</string>
+    <string name="s11_due_now_text">Wiek wkłucia %1$s</string>
+    <string name="s11_sensor_due_now_text">Wiek sensora %1$s</string>
+    <string name="s11_pump_alert_title">Alarm pompy</string>
+</resources>

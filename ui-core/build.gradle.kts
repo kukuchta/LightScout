@@ -12,11 +12,6 @@ android {
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-    // values-pl/picker_strings_en.xml only pins English wording for Material pickers on a Polish phone; the app has no
-    // Polish copy (English-only UI), so lint would report every other string as untranslated and the picker strings as extra.
-    lint {
-        disable += listOf("MissingTranslation", "ExtraTranslation")
-    }
 }
 
 dependencies {

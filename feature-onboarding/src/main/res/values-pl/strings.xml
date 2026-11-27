@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    :feature-onboarding copy (CP-14 §7.7 = design §17, verbatim; CP-00A §5.3 derived keys). CP-14a: S-05 and S-06;
+    CP-14b (SS-12): S-07 and S-08 (S-08 guide content in strings_s08_guides.xml). s06_snackbar_saved is shown by the receiving screen (S-01 / S-04)
+    from UiMessage.CONNECTION_SAVED (CP-00A R-38), so it lives in those modules.
+    Placeholders: {x.y.z} → %1$s; {row} → %1$s, {message} → %2$s.
+-->
+<resources>
+
+    <!-- S-05 Disclaimer -->
+    <string name="s05_title">Zanim zaczniesz</string>
+    <string name="s05_bullet_1">LightScout nie jest wyrobem medycznym. Pokazuje dane z Twojego Nightscout i nie zastępuje zaleceń zespołu diabetologicznego.</string>
+    <string name="s05_bullet_2">Alarmy LightScout to dodatkowa warstwa ochrony. Pozostaw włączone alarmy w pompie i sensorze.</string>
+    <string name="s05_bullet_3">LightScout nigdy nie podaje insuliny. Zapisany bolus to tylko notatka w Nightscout.</string>
+    <string name="s05_bullet_4">Odczyty mogą się opóźniać lub nie docierać, gdy wystąpi problem z telefonem, internetem, Nightscout lub uploaderem.</string>
+    <string name="s05_bullet_5">Korzystasz z LightScout na własne ryzyko.</string>
+    <string name="s05_acknowledge">Przeczytałem(-am) i rozumiem</string>
+    <string name="s05_continue">Kontynuuj</string>
+    <string name="s05_helper_tick">Zaznacz pole, aby kontynuować</string>
+    <string name="s05_continue_disabled_a11y">Kontynuuj, wyłączone. Zaznacz pole, aby kontynuować</string>
+
+    <!-- S-06 Nightscout connection -->
+    <string name="s06_title_onboarding">Połącz z Nightscout</string>
+    <string name="s06_title_edit">Połączenie z Nightscout</string>
+    <string name="s06_url_label">Adres Nightscout</string>
+    <string name="s06_token_label">Token dostępu</string>
+    <string name="s06_token_helper">Utwórz token w Nightscout (Admin tools → Subjects) z rolą readable oraz rolą pozwalającą tworzyć, aktualizować i usuwać zabiegi (treatments).</string>
+    <string name="s06_token_show_cd">Pokaż token</string>
+    <string name="s06_token_hide_cd">Ukryj token</string>
+    <string name="s06_token_reenter">Ze względów bezpieczeństwa wpisz token ponownie</string>
+    <string name="s06_check_reachable">Nightscout dostępny</string>
+    <string name="s06_check_version">Wersja %1$s</string>
+    <string name="s06_check_read">Można odczytywać dane</string>
+    <string name="s06_check_write">Można zapisywać wpisy</string>
+    <string name="s06_check_done_a11y">%1$s, gotowe</string>
+    <string name="s06_check_failed_a11y">%1$s, niepowodzenie: %2$s</string>
+    <string name="s06_connect">Połącz</string>
+    <string name="s06_continue">Kontynuuj</string>
+    <string name="s06_save">Zapisz</string>
+    <string name="s06_checking">Sprawdzanie…</string>
+    <string name="s06_discard_title">Odrzucić zmiany?</string>
+    <string name="s06_discard_keep_editing">Edytuj dalej</string>
+    <string name="s06_discard_confirm">Odrzuć</string>
+    <string name="s06_helper_empty">Wpisz adres i token, aby się połączyć</string>
+    <string name="s06_offline">Brak połączenia z internetem — połącz się, gdy będziesz online.</string>
+    <string name="s06_error_url_required">Wpisz adres Nightscout</string>
+    <string name="s06_error_url_https">Użyj adresu https://</string>
+    <string name="s06_error_url_invalid">To nie wygląda na adres internetowy</string>
+    <string name="s06_error_token_required">Wpisz token dostępu</string>
+    <string name="s06_error_unreachable">Nie można połączyć się z tym adresem. Sprawdź go oraz połączenie z internetem.</string>
+    <string name="s06_error_not_nightscout">Ten adres nie wygląda na Nightscout.</string>
+    <string name="s06_error_version">Nightscout %1$s jest za stary. Wymagana jest wersja 15.0.9 lub nowsza.</string>
+    <string name="s06_error_token_rejected">Nightscout odrzucił ten token.</string>
+    <string name="s06_error_no_read">Ten token nie może odczytywać danych. Nadaj mu rolę readable w Nightscout.</string>
+    <string name="s06_error_no_write">Ten token nie może zapisywać, edytować ani usuwać wpisów. Nadaj mu rolę pozwalającą tworzyć, aktualizować i usuwać zabiegi (treatments).</string>
+
+    <!-- S-07 Alarm readiness -->
+    <string name="s07_title">Gotowość alarmów</string>
+    <string name="s07_item_notifications">Powiadomienia</string>
+    <string name="s07_item_notifications_rationale">Wymagane do wyświetlania alarmów i bieżącego odczytu.</string>
+    <string name="s07_item_dnd">Alarmy w trybie Nie przeszkadzać</string>
+    <string name="s07_item_dnd_rationale">Pozwala pilnym alarmom dzwonić nawet przy włączonym trybie Nie przeszkadzać.</string>
+    <string name="s07_item_full_screen">Alarmy pełnoekranowe</string>
+    <string name="s07_item_full_screen_rationale">Pokazuje alarm na ekranie blokady, aby można było włączyć drzemkę bez odblokowywania.</string>
+    <string name="s07_item_battery">Optymalizacja baterii</string>
+    <string name="s07_item_battery_rationale">Zapobiega wstrzymywaniu LightScout w tle przez Androida.</string>
+    <string name="s07_item_exact_alarm">Alarmy i przypomnienia</string>
+    <string name="s07_item_exact_alarm_rationale">Pozwala LightScout sprawdzać swoje działanie punktualnie, także w nocy.</string>
+    <string name="s07_item_manufacturer">Ustawienia producenta</string>
+    <string name="s07_item_manufacturer_rationale">Niektóre telefony i tak zatrzymują aplikacje w tle. Wykonaj kroki dla swojego telefonu.</string>
+    <string name="s07_item_alarm_channel">Powiadomienia alarmów</string>
+    <string name="s07_item_alarm_channel_rationale">Pozwala alarmom wydawać dźwięk i pojawiać się na ekranie blokady.</string>
+    <string name="s07_action_allow">Zezwól</string>
+    <string name="s07_action_open_settings">Otwórz ustawienia</string>
+    <string name="s07_action_open_guide">Otwórz poradnik</string>
+    <string name="s07_status_done">Gotowe</string>
+    <string name="s07_status_needs_attention">Wymaga uwagi</string>
+    <string name="s07_permanently_denied">Wyłączone w ustawieniach systemu</string>
+    <string name="s07_error_open_setting">Nie udało się otworzyć tego ustawienia. Otwórz Ustawienia → Aplikacje → LightScout.</string>
+    <string name="s07_all_set">Wszystko gotowe — alarmy mogą dzwonić.</string>
+    <string name="s07_done">Gotowe</string>
+    <string name="s07_missing_dialog_title">Brakuje niektórych ustawień</string>
+    <string name="s07_missing_dialog_body">Alarmy mogą nie zadzwonić. Kontynuować mimo to?</string>
+    <string name="s07_missing_dialog_back">Wróć</string>
+    <string name="s07_missing_dialog_continue">Kontynuuj</string>
+    <!-- Q-80: derived TalkBack template (design S-07 Accessibility): {headline}, {status}, {supporting}. -->
+    <string name="s07_item_a11y">%1$s, %2$s, %3$s</string>
+
+    <!-- S-08 Manufacturer guide ({setting name} → %1$s; {n} → %1$d, {m} → %2$d, {text} → %3$s). Step texts and
+         setting names: strings_s08_guides.xml (AQ-02 content). -->
+    <string name="s08_title">Ustawienia producenta</string>
+    <string name="s08_selector_label">Producent telefonu</string>
+    <string name="s08_mfr_xiaomi">Xiaomi / Redmi / POCO</string>
+    <string name="s08_mfr_samsung">Samsung</string>
+    <string name="s08_mfr_huawei">Huawei / Honor</string>
+    <string name="s08_mfr_oneplus">OnePlus / OPPO / realme</string>
+    <string name="s08_mfr_pixel">Google Pixel</string>
+    <string name="s08_mfr_other">Inny</string>
+    <string name="s08_step_open">Otwórz: %1$s</string>
+    <string name="s08_more_details">Więcej szczegółów na dontkillmyapp.com</string>
+    <string name="s08_no_extra_steps">Telefon nie wymaga dodatkowych kroków poza optymalizacją baterii.</string>
+    <string name="s08_error_open_setting">Nie udało się otworzyć tego ustawienia. Znajdź je ręcznie, jak opisano powyżej.</string>
+    <string name="s08_step_a11y">Krok %1$d z %2$d, %3$s</string>
+
+</resources>
