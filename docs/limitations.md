@@ -22,6 +22,8 @@ These are known and accepted. They are why LightScout must not be your only alar
   from the phone's alarm list, or up to 5 of your own files (10 MB each; a file is accepted when Android can play
   it). LightScout does not change the loudness, so a loud or quiet file rings loud or quiet. Check every sound with
   the play button. A reinstall or a new phone starts with LightScout classic again, because nothing is backed up.
+- **A higher alarm keeps the sound already ringing.** When a more urgent alarm replaces one that is ringing, the
+  sound does not change until the next alarm starts.
 
 ## Data
 
