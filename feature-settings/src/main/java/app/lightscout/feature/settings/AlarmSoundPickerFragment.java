@@ -189,7 +189,7 @@ public final class AlarmSoundPickerFragment extends Fragment {
     private SoundRowList.Spec phoneSpec(SoundLibrary library, SoundRef choice, PhoneSound sound, boolean copying) {
         Optional<PhoneCopy> copy = library.phoneCopyFor(sound.uri());
         boolean checked = copy.isPresent() && SoundRef.phone(copy.get().key()).equals(choice);
-        return choiceSpec("phone:" + sound.uri(), sound.title(), copying ? getString(R.string.s14_copying) : null,
+        return choiceSpec("phone:" + sound.uri(), sound.title(), copying ? getString(R.string.s14_opening) : null,
                 checked, () -> viewModel.selectPhone(sound));
     }
 

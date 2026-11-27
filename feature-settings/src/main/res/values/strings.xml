@@ -69,8 +69,6 @@
 
     <!-- DCR-51 alarm sounds: S-04 row, S-13 list, S-14 picker. -->
     <string name="s04_alarm_sounds">Alarm sounds</string>
-    <string name="s04_alarm_sounds_custom">Custom: %1$s</string>
-    <string name="s04_alarm_sounds_custom_more">Custom: %1$s +%2$d</string>
     <string name="s13_title">Alarm sounds</string>
     <string name="sound_classic">LightScout classic</string>
     <string name="alarm_name_urgent_low">Urgent low</string>
@@ -86,7 +84,7 @@
     <string name="s14_group_own">Your sounds</string>
     <string name="s14_add_from_file">+ Add from file</string>
     <string name="s14_adding">Adding…</string>
-    <string name="s14_copying">Copying…</string>
+    <string name="s14_opening">Opening…</string>
     <string name="s14_limit_reached">Limit reached. Remove a sound to add another</string>
     <string name="s14_removed">Removed %1$s.</string>
     <string name="s14_removed_reassigned_one">Removed %1$s. %2$s alarm now uses LightScout classic</string>
@@ -96,4 +94,8 @@
     <string name="s14_message_cannot_read">Could not read that sound. Try another one</string>
     <string name="s14_message_not_playable">That file cannot be played as an alarm sound</string>
     <string name="sound_preview_failed">Sound cannot be played</string>
+
+    <!-- S-15 Snooze times: the snooze values moved here from S-04. -->
+    <string name="s04_snooze_times">Snooze times</string>
+    <string name="s15_title">Snooze times</string>
 </resources>

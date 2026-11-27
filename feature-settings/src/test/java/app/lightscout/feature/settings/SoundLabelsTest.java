@@ -40,17 +40,4 @@ public class SoundLabelsTest {
         assertNull(SoundLabels.customName(withSounds, SoundRef.phone(SoundFakes.KEY_A)));
         assertNull(SoundLabels.customName(withSounds, SoundRef.bundled("chime")));
     }
-
-    @Test
-    public void customisedTypesFollowTheDesignOrder() {
-        // a phone copy is kept only once a type uses it, so it is selected first
-        SoundLibrary lib = withSounds.select(AlarmType.LOW, SoundRef.phone(SoundFakes.KEY_B))
-                .select(AlarmType.HIGH, SoundRef.own(SoundFakes.KEY_A));
-        assertEquals(List.of(AlarmType.LOW, AlarmType.HIGH), SoundLabels.customisedTypes(lib));
-    }
-
-    @Test
-    public void noCustomisedTypesWhenEverythingIsClassic() {
-        assertEquals(List.of(), SoundLabels.customisedTypes(withSounds));
-    }
 }

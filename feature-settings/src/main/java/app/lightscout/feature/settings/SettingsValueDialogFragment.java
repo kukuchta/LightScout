@@ -177,7 +177,7 @@ public final class SettingsValueDialogFragment extends DialogFragment {
     }
 
     private SettingsViewModel parentViewModel() {
-        return ((SettingsFragment) requireParentFragment()).viewModel();
+        return ((SettingsViewModelOwner) requireParentFragment()).viewModel();
     }
 
     private TextInputEditText input(int id, int value) {

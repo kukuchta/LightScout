@@ -15,7 +15,16 @@
         <action
             android:id="@+id/action_settings_to_alarmSounds"
             app:destination="@id/alarmSoundsFragment" />
+        <action
+            android:id="@+id/action_settings_to_snoozeTimes"
+            app:destination="@id/snoozeTimesFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/snoozeTimesFragment"
+        android:name="app.lightscout.feature.settings.SnoozeTimesFragment"
+        android:label="@string/s15_title"
+        tools:layout="@layout/fragment_sound_screen" />
 
     <fragment
         android:id="@+id/alarmSoundsFragment"

@@ -30,8 +30,6 @@ public class SoundScreensAuditTest {
 
     private static final Map<String, String> EXPECTED = new TreeMap<>(Map.ofEntries(
             Map.entry("s04_alarm_sounds", "Alarm sounds"),
-            Map.entry("s04_alarm_sounds_custom", "Custom: %1$s"),
-            Map.entry("s04_alarm_sounds_custom_more", "Custom: %1$s +%2$d"),
             Map.entry("s13_title", "Alarm sounds"),
             Map.entry("sound_classic", "LightScout classic"),
             Map.entry("alarm_name_urgent_low", "Urgent low"),
@@ -47,7 +45,7 @@ public class SoundScreensAuditTest {
             Map.entry("s14_group_own", "Your sounds"),
             Map.entry("s14_add_from_file", "+ Add from file"),
             Map.entry("s14_adding", "Adding…"),
-            Map.entry("s14_copying", "Copying…"),
+            Map.entry("s14_opening", "Opening…"),
             Map.entry("s14_limit_reached", "Limit reached. Remove a sound to add another"),
             Map.entry("s14_removed", "Removed %1$s."),
             Map.entry("s14_removed_reassigned_one", "Removed %1$s. %2$s alarm now uses LightScout classic"),

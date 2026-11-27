@@ -41,7 +41,6 @@ import app.lightscout.usecases.AlarmActions;
 import app.lightscout.usecases.ConnectionService;
 import app.lightscout.domain.update.UpdateOffer;
 import app.lightscout.usecases.SettingsService;
-import app.lightscout.usecases.sound.AlarmSoundService;
 import app.lightscout.usecases.update.UpdateService;
 import app.lightscout.platform.ReadinessChecker;
 
@@ -51,11 +50,10 @@ import com.google.android.material.radiobutton.MaterialRadioButton;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.color.MaterialColors;
 
-import java.util.List;
 import java.util.concurrent.Executor;
 
 /** S-04 Settings surface. Rows only call use cases and IF-29; persistence is owned by the use cases. */
-public final class SettingsFragment extends Fragment {
+public final class SettingsFragment extends Fragment implements SettingsViewModelOwner {
 
     private SettingsViewModel viewModel;
     private LinearLayout content;
@@ -66,9 +64,6 @@ public final class SettingsFragment extends Fragment {
     private volatile boolean updateLoaded;
     private volatile boolean updateEnabled = true;
     private volatile UpdateOffer updateOffer;
-    /** DCR-51: the alarm types that do not use the classic tone, for the "Alarm sounds" row; read off the main thread. */
-    private Dependencies dependencies;
-    private volatile List<AlarmType> customSounds = List.of();
 
     public SettingsFragment() {
         super(R.layout.fragment_settings);
@@ -77,16 +72,21 @@ public final class SettingsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dependencies = SettingsHost.dependencies(this);
+        Dependencies dependencies = SettingsHost.dependencies(this);
+        io = dependencies.ioExecutor();
+        updates = dependencies.get(UpdateService.class);
+        viewModel = createViewModel(this, dependencies);
+    }
+
+    /** The settings view model of a screen of this graph; S-04 and S-15 each hold one and both follow the store. */
+    static SettingsViewModel createViewModel(Fragment owner, Dependencies dependencies) {
         SettingsService settings = dependencies.get(SettingsService.class);
         AlarmActions alarmActions = dependencies.get(AlarmActions.class);
         ConnectionService connection = dependencies.get(ConnectionService.class);
         ReadinessChecker readiness = dependencies.get(ReadinessChecker.class);
         Executor ioExecutor = dependencies.ioExecutor();
-        io = ioExecutor;
-        updates = dependencies.get(UpdateService.class);
         AppInfo appInfo = dependencies.appInfo();
-        viewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
+        return new ViewModelProvider(owner, new ViewModelProvider.Factory() {
             @NonNull
             @Override
             public <T extends ViewModel> T create(@NonNull Class<T> modelClass,
@@ -127,26 +127,6 @@ public final class SettingsFragment extends Fragment {
         navigating = false;
         viewModel.refreshReadiness();
         io.execute(this::readUpdateState);
-        io.execute(this::readSoundSummary);
-    }
-
-    /** DCR-51: reads which alarm types use a chosen sound (stored state, no network), then redraws. */
-    private void readSoundSummary() {
-        try {
-            dependencies.get(AlarmSoundService.class).loadLibrary(library -> {
-                customSounds = SoundLabels.customisedTypes(library);
-                FragmentActivity activity = getActivity();
-                if (activity != null) {
-                    activity.runOnUiThread(() -> {
-                        if (getView() != null) {
-                            render(viewModel.snapshot());
-                        }
-                    });
-                }
-            });
-        } catch (RuntimeException e) {
-            // the row keeps "LightScout classic"; the next resume reads again
-        }
     }
 
     /** DCR-49: reads the check choice and the newer version found earlier (stored state, no network), then redraws. */
@@ -193,7 +173,8 @@ public final class SettingsFragment extends Fragment {
         }
     }
 
-    SettingsViewModel viewModel() {
+    @Override
+    public SettingsViewModel viewModel() {
         return viewModel;
     }
 
@@ -231,19 +212,8 @@ public final class SettingsFragment extends Fragment {
         addValueRow(R.string.s04_no_data_after,
                 getString(R.string.s04_value_min, settings.noDataMinutes()), SettingKey.NO_DATA_MINUTES,
                 state.loaded());
-        addValueRow(R.string.s04_low_snooze,
-                getString(R.string.s04_value_min, settings.lowSnoozeMin()), SettingKey.LOW_SNOOZE, state.loaded());
-        addValueRow(R.string.s04_urgent_low_snooze,
-                getString(R.string.s04_value_min, settings.urgentLowSnoozeMin()),
-                SettingKey.URGENT_LOW_SNOOZE, state.loaded());
-        addValueRow(R.string.s04_high_snooze,
-                getString(R.string.s04_value_min, settings.highSnoozeMin()), SettingKey.HIGH_SNOOZE,
-                state.loaded());
-        addValueRow(R.string.s04_no_data_snooze,
-                getString(R.string.s04_value_min, settings.noDataSnoozeMin()), SettingKey.NO_DATA_SNOOZE,
-                state.loaded());
-        addLinkRow(R.string.s04_alarm_sounds, SoundText.summary(requireContext(), customSounds), false, true,
-                this::navigateToAlarmSounds);
+        addLinkRow(R.string.s04_snooze_times, "", false, true, this::navigateToSnoozeTimes);
+        addLinkRow(R.string.s04_alarm_sounds, "", false, true, this::navigateToAlarmSounds);
 
         addHeader(R.string.s04_header_consumables);
         addValueRow(R.string.s04_site_lifetime,
@@ -516,6 +486,14 @@ public final class SettingsFragment extends Fragment {
         }
         navigating = true;
         NavHostFragment.findNavController(this).navigate(R.id.action_settings_to_alarmSounds);
+    }
+
+    private void navigateToSnoozeTimes() {
+        if (navigating) {
+            return;
+        }
+        navigating = true;
+        NavHostFragment.findNavController(this).navigate(R.id.action_settings_to_snoozeTimes);
     }
 
     private void navigateToReadiness() {
